@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="no_data_response">There is nothing as a response!</string>
+    <string name="something_bad_happened">Something Bad happened..</string>
+    <string name="search">Search a meal..</string>
+</resources>
