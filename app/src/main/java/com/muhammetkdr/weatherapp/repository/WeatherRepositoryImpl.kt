@@ -19,13 +19,17 @@ class WeatherRepositoryImpl @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
-                } ?: Resource.Error("No Data!")
+                } ?: Resource.Error(NO_DATA)
             } else {
-                Resource.Error("No Data!")
+                Resource.Error(NO_DATA)
             }
         } catch (e: Exception) {
-            Resource.Error(e.localizedMessage ?:"Something bad happened..")
+            Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED)
         }
     }
 
+    companion object{
+        const val NO_DATA = "No Data!"
+        const val SOMETHING_BAD_HAPPENED = "Something bad happened.."
+    }
 }
