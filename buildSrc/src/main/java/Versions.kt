@@ -1,6 +1,7 @@
 object Versions {
     const val gradleVersion = "7.1.1"
     const val googleServicesVersion = "4.3.14"
+    const val googleLocationServiceVersion = "21.0.1"
     const val navSafeArgPlugVersion = "2.6.0-alpha04"
 
     const val coreKtxVersion = "1.9.0"
@@ -30,5 +31,7 @@ object Versions {
     const val hiltCompilerVersion ="2.44"
 
     const val encryptedSharedPref = "1.1.0-alpha04"
+
+    const val easyPermissionsVersion = "1.0.0"
 
 }
