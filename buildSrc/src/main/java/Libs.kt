@@ -20,6 +20,8 @@
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:" + Versions.lifecycleVersion
             const val lifeCycleExtension = "androidx.lifecycle:lifecycle-extensions:" + Versions.lifecycleExtensionsVersion
 
+            const val legacySupportLib = "androidx.legacy:legacy-support-v4:" + Versions.legacySupportLibVersion
+
             const val navigation = "androidx.navigation:navigation-fragment-ktx:" + Versions.navigationVersion
             const val navigationUI = "androidx.navigation:navigation-ui-ktx:" + Versions.navigationVersion
             const val navSafeArgPlug = "androidx.navigation:navigation-safe-args-gradle-plugin:" + Versions.navSafeArgPlugVersion
@@ -63,5 +65,9 @@
 
         object Permissions{
             const val easyPermissions = "com.vmadalin:easypermissions-ktx:" + Versions.easyPermissionsVersion
+        }
+
+        object LottieAnimations{
+            const val lottieLib = "com.airbnb.android:lottie:"+Versions.lottieVersion
         }
     }
