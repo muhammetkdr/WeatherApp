@@ -2,7 +2,8 @@ package com.muhammetkdr.weatherapp.repository
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.WeatherAPIService
-import com.muhammetkdr.weatherapp.model.WeatherResponse
+import com.muhammetkdr.weatherapp.model.current.WeatherResponse
+import com.muhammetkdr.weatherapp.model.forecast.ForecastResponse
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -16,6 +17,22 @@ class WeatherRepositoryImpl @Inject constructor(
         return@withContext try {
             Resource.Loading
             val response = api.getCurrentWeather(latitude = lat, longitude = long)
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return@let Resource.Success(it)
+                } ?: Resource.Error(NO_DATA)
+            } else {
+                Resource.Error(NO_DATA)
+            }
+        } catch (e: Exception) {
+            Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED)
+        }
+    }
+
+    override suspend fun getForecastWeather(lat: String, long: String): Resource<ForecastResponse> = withContext(ioDispatcher){
+        return@withContext try {
+            Resource.Loading
+            val response = api.getForecastWeather(latitude = lat, longitude = long)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
