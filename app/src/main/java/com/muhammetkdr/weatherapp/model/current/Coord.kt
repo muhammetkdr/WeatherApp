@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.model
+package com.muhammetkdr.weatherapp.model.current
 
 
 import com.google.gson.annotations.SerializedName
