@@ -20,6 +20,8 @@ object Versions {
     const val lifecycleVersion = "2.5.1"
     const val lifecycleExtensionsVersion = "2.2.0"
 
+    const val legacySupportLibVersion = "1.0.0"
+
     const val retrofitVersion = "2.9.0"
     const val okHttpVersion = "5.0.0-alpha.2"
 
@@ -33,5 +35,7 @@ object Versions {
     const val encryptedSharedPref = "1.1.0-alpha04"
 
     const val easyPermissionsVersion = "1.0.0"
+
+    const val lottieVersion = "5.2.0"
 
 }
