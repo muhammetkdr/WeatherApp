@@ -64,9 +64,9 @@ dependencies {
     implementation (Libs.AndroidX.appCompat)
     implementation (Libs.Google.material)
     implementation (Libs.AndroidX.constraintLayout)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation(Libs.AndroidX.legacySupportLib)
+    implementation (Libs.AndroidX.liveData)
+    implementation (Libs.AndroidX.vmLifeCycle)
 
     //test
     testImplementation (Libs.TestLibs.junit)
@@ -83,15 +83,13 @@ dependencies {
     implementation (Libs.Coroutines.coroutineAndroid)
 
     // Lifecycle Scopes
-    implementation (Libs.AndroidX.vmLifeCycle)
     implementation (Libs.AndroidX.liveCycleRuntime)
-    implementation (Libs.AndroidX.liveData)
     implementation (Libs.AndroidX.lifeCycleExtension)
 
     // Retrofit
     implementation (Libs.NetworkLib.retrofit)
     implementation (Libs.NetworkLib.gsonConv)
-
+    //okhttp
     implementation (Libs.NetworkLib.okhttp)
 
     // Navigation Components
@@ -109,4 +107,13 @@ dependencies {
 
     //Encrypted SharedPref
     implementation (Libs.AndroidX.encryptedSharedPref)
+
+    // Google location service
+    implementation (Libs.Google.googleLocationService)
+
+    // Easy Permissions
+    implementation (Libs.Permissions.easyPermissions)
+
+    // Lottie anim.
+    implementation (Libs.LottieAnimations.lottieLib)
 }
