@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="weatherResponse"
+            type="com.muhammetkdr.weatherapp.model.current.WeatherResponse" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/custom_CardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_margin="6dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp">
+
+        <RelativeLayout
+            android:id="@+id/customRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="280dp">
+
+            <ImageView
+                android:id="@+id/imgView_custom_home"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                setWeatherImage="@{weatherResponse.weather.get(0).icon}"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvWeatherCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="41dp"
+                android:layout_marginEnd="30dp"
+                android:layout_toEndOf="@+id/imgView_custom_home"
+                android:gravity="center"
+                android:text="@string/Test_hint"
+                android:textSize="30sp">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvWeatherDegree"
+                android:layout_width="122dp"
+                android:layout_height="45dp"
+
+
+                android:layout_below="@+id/tvWeatherCondition"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="49dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="57dp"
+                android:layout_toEndOf="@+id/imgView_custom_home"
+                android:gravity="center"
+                android:text="@string/Test_hint"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
