@@ -11,10 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
-import com.muhammetkdr.weatherapp.common.extensions.checkLocationPermission
-import com.muhammetkdr.weatherapp.common.extensions.gone
-import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
-import com.muhammetkdr.weatherapp.common.extensions.visible
+import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.REQUEST_CODE_LOCATION_PERMISSION
 import com.muhammetkdr.weatherapp.common.utils.Resource
@@ -69,7 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                         binding.containerForecast.weatherResponse = it
 //                        binding.containerForecast.imgViewCustomHome.setImageResource(R.drawable.background)
                         binding.textView.text =
-                            it.name.toString() + "\n" + it.main?.temp?.toString() + "\n" + it.weather?.get(0)?.main + "\n" + it.weather?.get(0)?.description
+                            it.name.toString() + "\n" + it.main?.temp?.toString() + "\n" + it.weather?.get(0)?.main + "\n" + it.weather?.get(0)?.description?.capitalizeWords()
                     }
                 }
                 is Resource.Error -> {

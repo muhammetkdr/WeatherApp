@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="weather"
+            type="com.muhammetkdr.weatherapp.model.current.WeatherResponse" />
+
         <variable
             name="viewModel"
             type="com.muhammetkdr.weatherapp.ui.home.HomeViewModel" />
@@ -13,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
+
 
         <ProgressBar
             android:id="@+id/homeProgressbar"
