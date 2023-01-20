@@ -9,15 +9,15 @@ data class City(
     @SerializedName("country")
     val country: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Double?,
     @SerializedName("name")
     val name: String?,
     @SerializedName("population")
-    val population: Int?,
+    val population: Double?,
     @SerializedName("sunrise")
-    val sunrise: Int?,
+    val sunrise: Double?,
     @SerializedName("sunset")
-    val sunset: Int?,
+    val sunset: Double?,
     @SerializedName("timezone")
-    val timezone: Int?
+    val timezone: Double?
 )

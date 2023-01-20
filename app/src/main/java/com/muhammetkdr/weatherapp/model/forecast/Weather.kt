@@ -9,7 +9,7 @@ data class Weather(
     @SerializedName("icon")
     val icon: String?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Double?,
     @SerializedName("main")
     val main: String?
 )

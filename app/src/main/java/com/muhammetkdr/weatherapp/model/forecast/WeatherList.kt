@@ -7,17 +7,17 @@ data class WeatherList (
     @SerializedName("clouds")
     val clouds: Clouds?,
     @SerializedName("dt")
-    val dt: Int?,
+    val dt: Double?,
     @SerializedName("dt_txt")
     val dtTxt: String?,
     @SerializedName("main")
     val main: Main?,
     @SerializedName("pop")
-    val pop: Int?,
+    val pop: Double?,
     @SerializedName("sys")
     val sys: Sys?,
     @SerializedName("visibility")
-    val visibility: Int?,
+    val visibility: Double?,
     @SerializedName("weather")
     val weather: List<Weather?>?,
     @SerializedName("wind")
