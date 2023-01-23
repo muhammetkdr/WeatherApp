@@ -4,6 +4,7 @@ import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.WeatherAPIService
 import com.muhammetkdr.weatherapp.model.current.WeatherResponse
 import com.muhammetkdr.weatherapp.model.forecast.ForecastResponse
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -17,6 +18,7 @@ class WeatherRepositoryImpl @Inject constructor(
         return@withContext try {
             Resource.Loading
             val response = api.getCurrentWeather(latitude = lat, longitude = long)
+            delay(200)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
@@ -33,6 +35,7 @@ class WeatherRepositoryImpl @Inject constructor(
         return@withContext try {
             Resource.Loading
             val response = api.getForecastWeather(latitude = lat, longitude = long)
+            delay(200)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.Success(it)
