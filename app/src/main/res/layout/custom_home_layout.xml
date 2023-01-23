@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="weatherResponse"
             type="com.muhammetkdr.weatherapp.model.current.WeatherResponse" />
@@ -25,56 +26,56 @@
             <ImageView
                 android:id="@+id/imgView_custom_home"
                 setWeatherImage="@{weatherResponse.weather.get(0).icon}"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_below="@+id/tvCityandCountry"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_below="@+id/linearLayoutCityandCountry"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvCityandCountry"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutCityandCountry"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="1dp"
-                android:layout_toStartOf="@+id/tvCityandCountry22"
-                android:gravity="center"
-                android:hint="@string/Test_hint"
-                android:text="@{weatherResponse.name}"
-                android:textSize="20sp">
+                android:layout_marginEnd="20dp">
 
-            </com.google.android.material.textview.MaterialTextView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{weatherResponse.name+@string/coma}"
+                    android:layout_margin="2dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="0.5"
+                    android:gravity="end"
+                    android:textSize="20sp" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvCityandCountry22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/tvCurrentTemp"
-                android:layout_alignEnd="@+id/tvCurrentTemp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="start"
-                android:hint="@string/Test_hint"
-                android:text="@{weatherResponse.sys.country}"
-                android:textSize="20sp">
-
-            </com.google.android.material.textview.MaterialTextView>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{weatherResponse.sys.country}"
+                    android:layout_margin="2dp"
+                    android:layout_weight="0.5"
+                    android:gravity="start"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCurrentTemp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvCityandCountry"
+                android:layout_below="@+id/linearLayoutCityandCountry"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
                 android:hint="@string/Test_hint"
@@ -102,8 +103,8 @@
                 android:layout_below="@+id/tvCurrentWeatherString"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
                 android:hint="@string/Test_hint"
@@ -126,15 +127,15 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvWeatherDescrip"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvFeelsLikeString"
+                android:layout_below="@+id/imgView_custom_home"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
                 android:hint="@string/Test_hint"
                 android:text="@{weatherResponse.weather.get(0).description}"
