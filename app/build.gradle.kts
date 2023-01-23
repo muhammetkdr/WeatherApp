@@ -111,9 +111,9 @@ dependencies {
     // Google location service
     implementation (Libs.Google.googleLocationService)
 
-    // Easy Permissions
-    implementation (Libs.Permissions.easyPermissions)
-
     // Lottie anim.
     implementation (Libs.LottieAnimations.lottieLib)
+
+    debugImplementation ("com.github.chuckerteam.chucker:library:3.5.2")
+    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.5.2")
 }

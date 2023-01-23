@@ -63,10 +63,6 @@
             const val glideCompailer = "com.github.bumptech.glide:compiler:" + Versions.glideVersion
         }
 
-        object Permissions{
-            const val easyPermissions = "com.vmadalin:easypermissions-ktx:" + Versions.easyPermissionsVersion
-        }
-
         object LottieAnimations{
             const val lottieLib = "com.airbnb.android:lottie:"+Versions.lottieVersion
         }
