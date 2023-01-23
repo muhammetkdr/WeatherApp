@@ -2,6 +2,7 @@ package com.muhammetkdr.weatherapp.model.forecast
 
 
 import com.google.gson.annotations.SerializedName
+import com.muhammetkdr.weatherapp.model.current.Coord
 
 data class City(
     @SerializedName("coord")
