@@ -3,4 +3,18 @@
     <string name="no_data_response">There is nothing as a response!</string>
     <string name="something_bad_happened">Something Bad happened..</string>
     <string name="search">Search a meal..</string>
+    <string name="Test_hint">Test text</string>
+    <string name="gps_disabled">GPS is disabled</string>
+    <string name="permission_denied_rationale">You need to accept location permissions to be able to use this app!</string>
+    <string name="permission_missing">Missing location permission!</string>
+    <string name="permission_granted">Permission granted!</string>
+    <string name="gps_or_network_disabled">GPS or Network connection disabled, please open and rerun the app!</string>
+    <string name="celcius_string">°C</string>
+    <string name="custom_toolbar_backimage">Custom toolbar back image</string>
+    <string name="custom_toolbar_searchimage">Custom toolbar search image</string>
+    <string name="current_weather">(Anlık)</string>
+    <string name="coma">,</string>
+    <string name="current_weather_condition">Mevcut durum:\u00A0</string>
+    <string name="current_feels_like">(Hissedilen)</string>
+
 </resources>
