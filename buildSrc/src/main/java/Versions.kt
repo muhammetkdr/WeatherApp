@@ -1,5 +1,5 @@
 object Versions {
-    const val gradleVersion = "7.1.1"
+    const val gradleVersion = "7.4.0"
     const val googleServicesVersion = "4.3.14"
     const val googleLocationServiceVersion = "21.0.1"
     const val navSafeArgPlugVersion = "2.6.0-alpha04"
@@ -13,7 +13,7 @@ object Versions {
     const val junitExtTestVersion = "1.1.4"
     const val espressoVersion = "3.5.0"
 
-    const val roomVersion ="2.4.3"
+    const val roomVersion ="2.5.0"
 
     const val coroutinesVersion = "1.6.4"
 
@@ -34,8 +34,5 @@ object Versions {
 
     const val encryptedSharedPref = "1.1.0-alpha04"
 
-    const val easyPermissionsVersion = "1.0.0"
-
     const val lottieVersion = "5.2.0"
-
 }
