@@ -7,24 +7,24 @@ import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.scopes.FragmentScoped
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(FragmentComponent::class)
 object LocationClientModule {
 
     @Provides
-    @Singleton
+    @FragmentScoped
     fun provideDefaultClient(
         @ApplicationContext context: Context,
         client: FusedLocationProviderClient,
     ) = DefaultLocationClient(context, client)
 
     @Provides
-    @Singleton
+    @FragmentScoped
     fun provideFusedLocation(
         @ApplicationContext context: Context
     ) = LocationServices.getFusedLocationProviderClient(context)
