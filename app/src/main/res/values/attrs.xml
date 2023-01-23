@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomToolbarView">
+        <attr name="ctv_textStyle" format="enum">
+            <enum name="Normal" value="0" />
+            <enum name="Bold" value="1" />
+        </attr>
+        <attr name="ctv_title" format="string" />
+        <attr name="ctv_showEndIcon" format="boolean" />
+    </declare-styleable>
+
+
+
+</resources>
