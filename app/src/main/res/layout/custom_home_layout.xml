@@ -13,9 +13,7 @@
         android:id="@+id/custom_CardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:cardBackgroundColor="@color/light_gray"
-        android:layout_margin="6dp"
+        app:cardBackgroundColor="@color/blue"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp">
 
@@ -26,41 +24,116 @@
 
             <ImageView
                 android:id="@+id/imgView_custom_home"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
                 setWeatherImage="@{weatherResponse.weather.get(0).icon}"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_below="@+id/tvCityandCountry"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
+
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvWeatherCondition"
+                android:id="@+id/tvCityandCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:text="@{weatherResponse.main.temp+@string/celcius_string}"
-                android:layout_marginStart="23dp"
-                android:layout_marginTop="41dp"
-                android:layout_marginEnd="30dp"
-                android:layout_toEndOf="@+id/imgView_custom_home"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="1dp"
+                android:layout_toStartOf="@+id/tvCityandCountry22"
                 android:gravity="center"
+                android:hint="@string/Test_hint"
+                android:text="@{weatherResponse.name}"
                 android:textSize="20sp">
 
             </com.google.android.material.textview.MaterialTextView>
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvWeatherDegree"
+                android:id="@+id/tvCityandCountry22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWeatherCondition"
+                android:layout_alignStart="@+id/tvCurrentTemp"
+                android:layout_alignEnd="@+id/tvCurrentTemp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="start"
+                android:hint="@string/Test_hint"
+                android:text="@{weatherResponse.sys.country}"
+                android:textSize="20sp">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCurrentTemp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCityandCountry"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginEnd="27dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imgView_custom_home"
+                android:gravity="center"
+                android:hint="@string/Test_hint"
+                android:text="@{weatherResponse.main.temp+@string/celcius_string}"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCurrentWeatherString"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCurrentTemp"
+                android:layout_alignStart="@+id/tvFeelsLikeTemp"
+                android:layout_alignEnd="@+id/tvFeelsLikeTemp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="0dp"
+                android:gravity="center"
+                android:text="@string/current_weather"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvFeelsLikeTemp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCurrentWeatherString"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imgView_custom_home"
+                android:gravity="center"
+                android:hint="@string/Test_hint"
+                android:text="@{weatherResponse.main.feelsLike+@string/celcius_string}"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvFeelsLikeString"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvFeelsLikeTemp"
+                android:layout_alignStart="@+id/tvFeelsLikeTemp"
+                android:layout_alignEnd="@+id/tvFeelsLikeTemp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="0dp"
+                android:gravity="center"
+                android:text="@string/current_feels_like"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvWeatherDescrip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvFeelsLikeString"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
                 android:hint="@string/Test_hint"
