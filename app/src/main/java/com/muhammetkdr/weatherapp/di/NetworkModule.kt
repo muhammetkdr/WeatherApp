@@ -1,10 +1,13 @@
 package com.muhammetkdr.weatherapp.di
 
+import android.content.Context
 import androidx.viewbinding.BuildConfig
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.muhammetkdr.weatherapp.data.WeatherAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,8 +32,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClint(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideHttpClint(@ApplicationContext context: Context, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
             .build()
     }
