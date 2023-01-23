@@ -1,8 +1,8 @@
-package com.muhammetkdr.weatherapp.model.current
+package com.muhammetkdr.weatherapp.dto.current
 
 
 import com.google.gson.annotations.SerializedName
-import com.muhammetkdr.weatherapp.model.current.*
+import com.muhammetkdr.weatherapp.dto.current.*
 
 data class WeatherResponse(
     @SerializedName("base")

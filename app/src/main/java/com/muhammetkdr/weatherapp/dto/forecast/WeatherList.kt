@@ -1,7 +1,8 @@
-package com.muhammetkdr.weatherapp.model.forecast
+package com.muhammetkdr.weatherapp.dto.forecast
 
 
 import com.google.gson.annotations.SerializedName
+import com.muhammetkdr.weatherapp.dto.current.*
 
 data class WeatherList (
     @SerializedName("clouds")

@@ -1,8 +1,8 @@
-package com.muhammetkdr.weatherapp.model.forecast
+package com.muhammetkdr.weatherapp.dto.forecast
 
 
 import com.google.gson.annotations.SerializedName
-import com.muhammetkdr.weatherapp.model.current.Coord
+import com.muhammetkdr.weatherapp.dto.current.Coord
 
 data class City(
     @SerializedName("coord")

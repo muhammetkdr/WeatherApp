@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.model.forecast
+package com.muhammetkdr.weatherapp.dto.forecast
 
 
 import com.google.gson.annotations.SerializedName
@@ -7,11 +7,11 @@ data class ForecastResponse(
     @SerializedName("city")
     val city: City?,
     @SerializedName("cnt")
-    val cnt: Int?,
+    val cnt: Double?,
     @SerializedName("cod")
     val cod: String?,
     @SerializedName("list")
     val list: List<WeatherList?>?,
     @SerializedName("message")
-    val message: Int?
+    val message: Double?
 )
