@@ -7,7 +7,7 @@
 
         <variable
             name="weather"
-            type="com.muhammetkdr.weatherapp.model.current.WeatherResponse" />
+            type="com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse" />
 
         <variable
             name="viewModel"
@@ -40,7 +40,7 @@
         </ProgressBar>
 
         <include
-            android:id="@+id/container_forecast"
+            android:id="@+id/containerCurrentWeather"
             layout="@layout/custom_home_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             tools:itemCount="2"
-            app:layout_constraintTop_toBottomOf="@+id/container_forecast" />
+            app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

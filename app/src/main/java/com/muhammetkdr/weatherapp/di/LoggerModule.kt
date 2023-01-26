@@ -22,5 +22,4 @@ object LoggerModule {
     @FragmentScoped
     fun provideCallender():Calendar = Calendar.getInstance()
 
-
 }

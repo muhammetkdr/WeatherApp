@@ -6,7 +6,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
 import com.google.android.gms.location.*
-import com.muhammetkdr.weatherapp.common.extensions.checkLocationPermission
+import com.muhammetkdr.weatherapp.common.extensions.hasLocationPermission
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_MAX_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_MIN_DURATION
@@ -24,14 +24,12 @@ class DefaultLocationClient @Inject constructor(
     private val client: FusedLocationProviderClient,
     //private val gson: Gson
 ) : LocationClient {
-
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(interval: Long): Flow<Location> {
         return callbackFlow {
-            if (!context.checkLocationPermission()) {
+            if (!context.hasLocationPermission()) {
                 throw LocationClient.LocationException(context.applicationContext.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
             }
-
     //            gson.getAdapter()
 
             val locationManager =

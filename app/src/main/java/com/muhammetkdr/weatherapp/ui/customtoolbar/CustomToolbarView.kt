@@ -24,12 +24,14 @@ class CustomToolbarView @JvmOverloads constructor(
         binding.root.id= View.generateViewId()
         context.obtainStyledAttributes(attributeSet, R.styleable.CustomToolbarView).apply {
             val title: String? = getString(R.styleable.CustomToolbarView_ctv_title)
-            val showEndIcon = getBoolean(R.styleable.CustomToolbarView_ctv_showEndIcon, true)
+            val showFindIcon = getBoolean(R.styleable.CustomToolbarView_ctv_showEndIcon, true)
+            val showBackPressIcon = getBoolean(R.styleable.CustomToolbarView_ctv_showBackPressIcon, true)
             val textStyle = getInt(R.styleable.CustomToolbarView_ctv_textStyle, CustomToolbarViewTextStyle.Normal.type)
 
             recycle()
             updateTitle(title)
-            showEndIcon(showEndIcon)
+            showFindIcon(showFindIcon)
+            showBackPressIcon(showBackPressIcon)
             updateTitleStyle(textStyle)
         }
     }
@@ -54,7 +56,11 @@ class CustomToolbarView @JvmOverloads constructor(
         binding.tvTitle.text = title
     }
 
-    fun showEndIcon(isVisible: Boolean) {
+    fun showBackPressIcon(isVisible: Boolean) {
+        binding.imgBackPress.isVisible = isVisible
+    }
+
+    fun showFindIcon(isVisible: Boolean) {
         binding.imgSearchPress.isVisible = isVisible
     }
 

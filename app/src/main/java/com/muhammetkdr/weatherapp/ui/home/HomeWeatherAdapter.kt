@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
 import com.muhammetkdr.weatherapp.databinding.ItemWeatherDaysBinding
-import com.muhammetkdr.weatherapp.model.forecast.WeatherList
+import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import javax.inject.Inject
 
 class HomeWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((WeatherList) -> Unit)?) :

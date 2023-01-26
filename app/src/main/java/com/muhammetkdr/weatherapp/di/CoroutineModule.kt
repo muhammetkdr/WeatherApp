@@ -15,4 +15,8 @@ object CoroutineModule {
     @Provides
     @Singleton
     fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
+
+//    @Provides
+//    @Singleton
+//    fun provideAdapter(onCategoryItemClickListener: ((WeatherList) -> Unit)?) = HomeWeatherAdapter(onCategoryItemClickListener)
 }

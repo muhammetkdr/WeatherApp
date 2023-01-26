@@ -16,7 +16,7 @@ import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
-import com.muhammetkdr.weatherapp.model.forecast.WeatherList
+import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
@@ -83,10 +83,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                         binding.homeProgressbar.gone()
 
                         val (date, month, year) = calendar
+                        val dateFormatted = date.toString().formatCallendar()
+                        val monthFormatted = month.toString().formatCallendar()
+                        binding.customToolBar.updateTitle("$dateFormatted, $monthFormatted, $year")
+                        binding.containerCurrentWeather.weatherResponse = it
 
-                        binding.customToolBar.updateTitle("$date, $month, $year")
-                        binding.containerForecast.weatherResponse = it
-//                        binding.containerForecast.imgViewCustomHome.setImageResource(R.drawable.background)
+
+
+                        //binding.containerCurrentWeather.imgViewCustomHome.setImageResource(R.drawable.background)
                         binding.textView.text =
                             it.name.toString() + "\n" + it.main?.temp?.toString() + "\n" + it.weather?.get(
                                 0
@@ -111,9 +115,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     Resource.data.let { forecastWeatherResponse ->
                         binding.homeProgressbar.gone()
                         adapter.submitList(forecastWeatherResponse.list)
-                        adapter.currentList.forEach {
-
-                        }
+                        val xd = forecastWeatherResponse.list?.get(0)?.dtTxt
+                        println(xd)
                     }
                 }
                 is Resource.Error -> {
@@ -133,7 +136,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         lifecycleOwner = viewLifecycleOwner
-        containerForecast.lifecycleOwner = viewLifecycleOwner
+        containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
     }
 
     private fun navigateWeatherPage(data: WeatherList) {

@@ -8,8 +8,7 @@
         </attr>
         <attr name="ctv_title" format="string" />
         <attr name="ctv_showEndIcon" format="boolean" />
+        <attr name="ctv_showBackPressIcon" format="boolean" />
     </declare-styleable>
-
-
 
 </resources>

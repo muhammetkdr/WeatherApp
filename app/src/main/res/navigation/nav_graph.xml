@@ -9,5 +9,27 @@
         android:id="@+id/homeFragment"
         android:name="com.muhammetkdr.weatherapp.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_placeholder"
+            app:destination="@id/placeholder" />
+    </fragment>
+    <fragment android:id="@+id/placeholder" >
+        <action
+            android:id="@+id/action_placeholder_to_placeholder2"
+            app:destination="@id/placeholder2" />
+    </fragment>
+    <fragment android:id="@+id/placeholder2" >
+        <action
+            android:id="@+id/action_placeholder2_to_placeholder3"
+            app:destination="@id/placeholder3"
+            app:popUpTo="@id/placeholder"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment android:id="@+id/placeholder3" />
+    <fragment android:id="@+id/placeholder4" >
+        <action
+            android:id="@+id/action_placeholder4_to_placeholder"
+            app:destination="@id/placeholder" />
+    </fragment>
 </navigation>

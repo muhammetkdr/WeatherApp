@@ -7,7 +7,7 @@
 
         <variable
             name="weatherResponse"
-            type="com.muhammetkdr.weatherapp.model.current.WeatherResponse" />
+            type="com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

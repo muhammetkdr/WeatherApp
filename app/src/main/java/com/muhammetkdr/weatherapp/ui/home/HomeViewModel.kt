@@ -3,21 +3,19 @@ package com.muhammetkdr.weatherapp.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.model.current.WeatherResponse
-import com.muhammetkdr.weatherapp.model.forecast.ForecastResponse
-import com.muhammetkdr.weatherapp.repository.WeatherRepositoryImpl
+import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
+import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
+import com.muhammetkdr.weatherapp.data.remote.RemoteDataSourceImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val weatherRepository: WeatherRepositoryImpl): ViewModel() {
+class HomeViewModel @Inject constructor(private val weatherRepository: RemoteDataSourceImpl): ViewModel() {
 
     private val _currentWeather: MutableStateFlow<Resource<WeatherResponse>> = MutableStateFlow(Resource.Loading)
     val currentWeather: StateFlow<Resource<WeatherResponse>> get() = _currentWeather.asStateFlow()
