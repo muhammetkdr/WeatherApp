@@ -3,7 +3,9 @@ package com.muhammetkdr.weatherapp.di
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.mapper.CurrentWeatherMapperImpl
-import com.muhammetkdr.weatherapp.nothing.map.WeatherMapper
+import com.muhammetkdr.weatherapp.domain.mapper.WeatherMapper
+import com.muhammetkdr.weatherapp.ui.home.uidata.CurrentWeatherUiModel
+import com.muhammetkdr.weatherapp.ui.home.uidata.CurrentWeatherUiModelMapper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,8 +18,10 @@ abstract class MapperModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindGameMapper(currentWeatherMapperImpl: CurrentWeatherMapperImpl): WeatherMapper<WeatherResponse,CurrentWeatherEntity>
+    abstract fun bindGameMapper(currentWeatherMapperImpl: CurrentWeatherMapperImpl): WeatherMapper<WeatherResponse, CurrentWeatherEntity>
 
-
+    @Binds
+    @ViewModelScoped
+    abstract fun bindCurrentWeatherMapper(currentWeatherUiModelMapper:CurrentWeatherUiModelMapper): WeatherMapper<CurrentWeatherEntity, CurrentWeatherUiModel>
 
 }

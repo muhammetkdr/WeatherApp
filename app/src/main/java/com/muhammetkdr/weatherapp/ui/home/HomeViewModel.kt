@@ -6,6 +6,8 @@ import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.data.remote.RemoteDataSourceImpl
+import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCase
+import com.muhammetkdr.weatherapp.ui.home.uidata.CurrentWeatherUiModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val weatherRepository: RemoteDataSourceImpl): ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val weatherRepository: RemoteDataSourceImpl,
+    private val useCase: CurrentWeatherUseCase,
+    private val currentWeatherUiModelMapper: CurrentWeatherUiModelMapper
+): ViewModel() {
+
+
+
 
     private val _currentWeather: MutableStateFlow<Resource<WeatherResponse>> = MutableStateFlow(Resource.Loading)
     val currentWeather: StateFlow<Resource<WeatherResponse>> get() = _currentWeather.asStateFlow()
@@ -33,6 +42,7 @@ class HomeViewModel @Inject constructor(private val weatherRepository: RemoteDat
     fun getCurrentWeather(lat:Double,long:Double) = viewModelScope.launch(Dispatchers.IO) {
         val latitude = lat.toString()
         val longitude = long.toString()
+
         _currentWeather.emit(weatherRepository.getCurrentWeather(latitude,longitude))
     }
 

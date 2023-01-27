@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.nothing.map.general
+package com.muhammetkdr.weatherapp.nothing.map.general.done
 
 // Data
 interface UserDataSource {

@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.nothing.map.general
+package com.muhammetkdr.weatherapp.nothing.map.general.done
 
 class DataUserToDomainUserMapper : Mapper<DataUser, DomainUser> {
     override fun map(input: DataUser): DomainUser = with(input) {

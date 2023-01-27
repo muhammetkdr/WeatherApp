@@ -27,7 +27,7 @@ data class WeatherResponse(
     @SerializedName("visibility")
     val visibility: Int?,
     @SerializedName("weather")
-    val weather: List<Weather?>?,
+    val weather: List<Weather>?,
     @SerializedName("wind")
     val wind: Wind?
 )
