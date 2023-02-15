@@ -8,10 +8,8 @@ import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.mapper.WeatherMapper
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
-@Singleton
 class WeatherRepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val weatherMapper: WeatherMapper<WeatherResponse, CurrentWeatherEntity>,

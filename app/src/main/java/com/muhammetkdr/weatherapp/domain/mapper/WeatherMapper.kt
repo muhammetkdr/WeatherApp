@@ -1,5 +1,5 @@
 package com.muhammetkdr.weatherapp.domain.mapper
 
-interface WeatherMapper<in I, out O> {
+interface WeatherMapper<I, O> {
     fun map(input: I): O
 }
