@@ -1,7 +1,7 @@
 package com.muhammetkdr.weatherapp.data.remote
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.WeatherAPIService
+import com.muhammetkdr.weatherapp.data.api.WeatherAPIService
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import kotlinx.coroutines.delay
@@ -49,7 +49,7 @@ class RemoteDataSourceImpl @Inject constructor(
     }
 
     companion object{
-        const val NO_DATA = "No Data!"
-        const val SOMETHING_BAD_HAPPENED = "Something bad happened.."
+        private const val NO_DATA = "No Data!"
+        private const val SOMETHING_BAD_HAPPENED = "Something bad happened.."
     }
 }
