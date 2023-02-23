@@ -2,6 +2,8 @@ package com.muhammetkdr.weatherapp.di
 
 import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCaseImpl
+import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCase
+import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -16,4 +18,7 @@ abstract class UseCaseModule {
     @ViewModelScoped
     abstract fun bindCurrentWeatherUseCase(currentWeatherUseCaseImpl: CurrentWeatherUseCaseImpl): CurrentWeatherUseCase
 
+    @Binds
+    @ViewModelScoped
+    abstract fun bindForecastWeatherListUseCase(forecastWeatherListUseCaseImpl: ForecastWeatherUseCaseImpl): ForecastWeatherUseCase
 }
