@@ -3,11 +3,10 @@ package com.muhammetkdr.weatherapp.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
-import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
-import com.muhammetkdr.weatherapp.data.remote.RemoteDataSourceImpl
+import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCase
-import com.muhammetkdr.weatherapp.ui.home.uidata.CurrentWeatherUiModelMapper
+import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,37 +17,31 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val weatherRepository: RemoteDataSourceImpl,
-    private val useCase: CurrentWeatherUseCase,
-    private val currentWeatherUiModelMapper: CurrentWeatherUiModelMapper
-): ViewModel() {
+    private val currentWeatherUseCase: CurrentWeatherUseCase,
+    private val forecastWeatherUseCase: ForecastWeatherUseCase
+) : ViewModel() {
 
+    private val _currentWeatherMapped: MutableStateFlow<Resource<CurrentWeatherEntity>> = MutableStateFlow(Resource.Loading)
+    val currentWeatherMapped: StateFlow<Resource<CurrentWeatherEntity>> get() = _currentWeatherMapped.asStateFlow()
 
+    private val _forecastWeatherMapped: MutableStateFlow<Resource<ForecastWeatherEntity>> = MutableStateFlow(Resource.Loading)
+    val forecastWeatherMapped: StateFlow<Resource<ForecastWeatherEntity>> get() = _forecastWeatherMapped.asStateFlow()
 
-
-    private val _currentWeather: MutableStateFlow<Resource<WeatherResponse>> = MutableStateFlow(Resource.Loading)
-    val currentWeather: StateFlow<Resource<WeatherResponse>> get() = _currentWeather.asStateFlow()
-
-    private val _forecastWeatherList: MutableStateFlow<Resource<ForecastResponse>> = MutableStateFlow(Resource.Loading)
-    val forecastWeatherList: StateFlow<Resource<ForecastResponse>> get() = _forecastWeatherList.asStateFlow()
-
-//    private val _locationPermitData: MutableLiveData<Boolean> = MutableLiveData(false)
-//    val locationPermitData: LiveData<Boolean> get() = _locationPermitData
-//
-//    fun setLocationData(data:Boolean)= viewModelScope.launch{
-//        _locationPermitData.value=data
-//    }
-
-    fun getCurrentWeather(lat:Double,long:Double) = viewModelScope.launch(Dispatchers.IO) {
+    fun getMappedWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {
         val latitude = lat.toString()
         val longitude = long.toString()
 
-        _currentWeather.emit(weatherRepository.getCurrentWeather(latitude,longitude))
+        currentWeatherUseCase.invoke(latitude, longitude).collect {
+            _currentWeatherMapped.emit(it)
+        }
     }
 
-    fun getForecastWeather(lat:Double,long:Double) = viewModelScope.launch(Dispatchers.IO) {
+    fun getMappedForecastWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {
         val latitude = lat.toString()
         val longitude = long.toString()
-        _forecastWeatherList.emit(weatherRepository.getForecastWeather(latitude,longitude))
+
+        forecastWeatherUseCase.invoke(latitude, longitude).collect {
+            _forecastWeatherMapped.emit(it)
+        }
     }
 }
