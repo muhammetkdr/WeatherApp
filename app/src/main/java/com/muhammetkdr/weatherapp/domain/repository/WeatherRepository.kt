@@ -1,11 +1,11 @@
 package com.muhammetkdr.weatherapp.domain.repository
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
-import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.ForecastWeatherEntity
+import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
-    suspend fun getCurrentWeather(lat: String, long:String): Resource<CurrentWeatherEntity>
-    suspend fun getForecastWeather(lat: String, long:String): Resource<ForecastResponse>
+    fun getCurrentWeather(lat: String, long:String): Flow<Resource<CurrentWeatherEntity>>
+    fun getForecastWeather(lat: String, long:String) : Flow<Resource<ForecastWeatherEntity>>
 }
