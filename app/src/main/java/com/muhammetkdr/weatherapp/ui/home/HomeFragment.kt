@@ -28,18 +28,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     override val viewModel by viewModels<HomeViewModel>()
 
     // todo @Inject adapter.. i couldn't find how to do it yet..
-    private val adapter: HomeWeatherAdapter by lazy { HomeWeatherAdapter(::navigateWeatherPage) }
+    private val adapter: HomeWeatherAdapter by lazy { HomeWeatherAdapter(::forecastItemClick) }
 
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
 
     @Inject
     lateinit var calendar: Calendar
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        requestPermission()
-    }
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
@@ -53,19 +48,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeCurrentWeatherData()
         observeForecastWeatherData()
+        observeCurrentWeatherData()
 
-        initDataBinding()
+        requestPermission()
+
         getLocation()
+        initDataBinding()
+        initRvAdapter()
+
     }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() = lifecycleScope.launchWhenStarted {
         try {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
-                viewModel.getCurrentWeather(it.latitude, it.longitude)
-                viewModel.getForecastWeather(it.latitude, it.longitude)
+                viewModel.getMappedForecastWeather(it.latitude, it.longitude)
+                viewModel.getMappedWeather(it.latitude,it.longitude)
             }
         } catch (e: Exception) {
             requireView().showSnackbar(
@@ -76,47 +75,45 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCurrentWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.currentWeather.collect { Resource ->
-            when (Resource) {
-                is Resource.Success -> {
+        viewModel.currentWeatherMapped.collect{ Resource->
+            when(Resource) {
+                is Resource.Success-> {
                     Resource.data.let {
+//                        binding.textView.text = "${it.name}\n ${it.main.temp} \n ${it.weather.get(0).description}\n ${it.name}\n ${it.sys.country} \n"
+//                        binding.containerCurrentWeather.imgViewCustomHome.setImageResource(it.getBackgroud())
+//                        binding.textView.text = it.backgroundDecider
                         binding.homeProgressbar.gone()
 
                         val (date, month, year) = calendar
                         val dateFormatted = date.toString().formatCallendar()
                         val monthFormatted = month.toString().formatCallendar()
+
                         binding.customToolBar.updateTitle("$dateFormatted, $monthFormatted, $year")
-                        binding.containerCurrentWeather.weatherResponse = it
 
+                        binding.containerCurrentWeather.weatherEntity = it
 
-
-                        //binding.containerCurrentWeather.imgViewCustomHome.setImageResource(R.drawable.background)
-                        binding.textView.text =
-                            it.name.toString() + "\n" + it.main?.temp?.toString() + "\n" + it.weather?.get(
-                                0
-                            )?.main + "\n" + it.weather?.get(0)?.description?.capitalizeWords()
+                        binding.root.setBackgroundResource(it.getBackground())
                     }
                 }
-                is Resource.Error -> {
+                is Resource.Loading-> {
+                    binding.homeProgressbar.visible()
+                }
+                is Resource.Error->{
                     binding.homeProgressbar.visible()
                     requireView().showSnackbar(Resource.error)
                 }
-                is Resource.Loading -> {
-                    binding.homeProgressbar.visible()
-                }
             }
+
         }
     }
 
     private fun observeForecastWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.forecastWeatherList.collect { Resource ->
+        viewModel.forecastWeatherMapped.collect { Resource ->
             when (Resource) {
                 is Resource.Success -> {
-                    Resource.data.let { forecastWeatherResponse ->
+                    Resource.data.let {
                         binding.homeProgressbar.gone()
-                        adapter.submitList(forecastWeatherResponse.list)
-                        val xd = forecastWeatherResponse.list?.get(0)?.dtTxt
-                        println(xd)
+                        adapter.submitList(it.list)
                     }
                 }
                 is Resource.Error -> {
@@ -131,15 +128,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun initDataBinding() = with(binding) {
-        rvWeatherHome.adapter = adapter
-        rvWeatherHome.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         lifecycleOwner = viewLifecycleOwner
         containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
     }
 
-    private fun navigateWeatherPage(data: WeatherList) {
+    private fun initRvAdapter() = with(binding){
+        rvWeatherHome.adapter = adapter
+        rvWeatherHome.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun forecastItemClick(data: WeatherList) {
 
         //  findNavController().popBackStack()
     }
