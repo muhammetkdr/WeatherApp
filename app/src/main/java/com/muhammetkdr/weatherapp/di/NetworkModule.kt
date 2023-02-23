@@ -3,7 +3,7 @@ package com.muhammetkdr.weatherapp.di
 import android.content.Context
 import androidx.viewbinding.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.muhammetkdr.weatherapp.data.WeatherAPIService
+import com.muhammetkdr.weatherapp.data.api.WeatherAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
