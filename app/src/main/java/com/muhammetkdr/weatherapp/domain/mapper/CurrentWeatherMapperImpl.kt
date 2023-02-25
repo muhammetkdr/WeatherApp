@@ -2,9 +2,8 @@ package com.muhammetkdr.weatherapp.domain.mapper
 
 import com.muhammetkdr.weatherapp.data.dto.current.Main
 import com.muhammetkdr.weatherapp.data.dto.current.Sys
-import com.muhammetkdr.weatherapp.data.dto.current.Weather
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
-import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import javax.inject.Inject
 
 class CurrentWeatherMapperImpl @Inject constructor():

@@ -1,7 +1,7 @@
 package com.muhammetkdr.weatherapp.domain.usecase
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import kotlinx.coroutines.flow.Flow
 
 interface CurrentWeatherUseCase {
