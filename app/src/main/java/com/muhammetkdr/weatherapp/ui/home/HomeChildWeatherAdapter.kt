@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
-import com.muhammetkdr.weatherapp.databinding.ItemWeatherDaysBinding
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.databinding.ItemChildWeatherDaysBinding
 import javax.inject.Inject
 
-class HomeWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((WeatherList) -> Unit)?) :
-    BaseListAdapter<WeatherList>(
+class HomeChildWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((String) -> Unit)?) :
+    BaseListAdapter<String>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }) {
     override fun onCreateViewHolder(
@@ -18,12 +17,12 @@ class HomeWeatherAdapter @Inject constructor (private val onCategoryItemClickLis
         viewType: Int
     ): RecyclerView.ViewHolder {
         val binding =
-            ItemWeatherDaysBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeWeatherViewHolder(binding, onCategoryItemClickListener)
+            ItemChildWeatherDaysBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HomeChildWeatherViewHolder(binding, onCategoryItemClickListener)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HomeWeatherViewHolder -> {
+            is HomeChildWeatherViewHolder -> {
                 getItem(position)?.let { item ->
                     holder.onBind(item)
                 }
