@@ -2,8 +2,12 @@ package com.muhammetkdr.weatherapp.di
 
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
-import com.muhammetkdr.weatherapp.domain.entity.CurrentWeatherEntity
-import com.muhammetkdr.weatherapp.domain.entity.ForecastWeatherEntity
+import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
+import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
+import com.muhammetkdr.weatherapp.domain.listmapper.WeatherListMapper
+import com.muhammetkdr.weatherapp.domain.listmapper.WeatherListMapperImpl
 import com.muhammetkdr.weatherapp.domain.mapper.CurrentWeatherMapperImpl
 import com.muhammetkdr.weatherapp.domain.mapper.ForecastWeatherMapperImpl
 import com.muhammetkdr.weatherapp.domain.mapper.WeatherMapper
@@ -23,6 +27,10 @@ abstract class MapperModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindResponseToForecastEntityMapper(forecastWeatherMapperImpl: ForecastWeatherMapperImpl) : WeatherMapper<ForecastResponse,ForecastWeatherEntity>
+    abstract fun bindResponseToForecastEntityMapper(forecastWeatherMapperImpl: ForecastWeatherMapperImpl) : WeatherMapper<ForecastResponse, ForecastWeatherEntity>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindResponseToWeatherListEntityMapper(weatherListMapperImpl: WeatherListMapperImpl) : WeatherListMapper<WeatherList, WeatherListEntity>
 
 }

@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.ui.home
+package com.muhammetkdr.weatherapp.ui.home.nestedrv
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import javax.inject.Inject
 
-class HomeParentWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((String) -> Unit)?) :
+class HomeParentForecastWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((String) -> Unit)?) :
     BaseListAdapter<DatesAndTimes>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }){
@@ -18,16 +18,15 @@ class HomeParentWeatherAdapter @Inject constructor (private val onCategoryItemCl
         viewType: Int
     ): RecyclerView.ViewHolder {
         val binding = ItemParentForecastRvBinding.inflate(inflater,parent,false)
-        return HomeParentWeatherViewHolder(binding,onCategoryItemClickListener)
+        return HomeParentForecastWeatherViewHolder(binding,onCategoryItemClickListener)
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HomeParentWeatherViewHolder -> {
+            is HomeParentForecastWeatherViewHolder -> {
                 getItem(position)?.let { item ->
                     holder.onBind(item)
                 }
             }
         }
     }
-
 }

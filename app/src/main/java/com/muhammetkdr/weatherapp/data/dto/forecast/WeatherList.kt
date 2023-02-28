@@ -1,9 +1,12 @@
 package com.muhammetkdr.weatherapp.data.dto.forecast
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.muhammetkdr.weatherapp.data.dto.current.*
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class WeatherList (
     @SerializedName("clouds")
     val clouds: Clouds?,
@@ -23,4 +26,4 @@ data class WeatherList (
     val weather: List<Weather?>?,
     @SerializedName("wind")
     val wind: Wind?
-)
+) : Parcelable

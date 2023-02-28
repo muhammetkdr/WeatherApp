@@ -1,5 +1,7 @@
 package com.muhammetkdr.weatherapp.domain.entity.forecastweather
 
+import com.muhammetkdr.weatherapp.common.extensions.getDateInAnotherFormat
+import com.muhammetkdr.weatherapp.common.extensions.zellerCongruence
 import com.muhammetkdr.weatherapp.data.dto.current.Main
 import com.muhammetkdr.weatherapp.data.dto.forecast.City
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
@@ -15,8 +17,9 @@ data class ForecastWeatherEntity(
         val responseListMapper = mutableListOf<DatesAndTimes?>()
         val dates = mutableSetOf<String>()
 
-        list.forEach {
-            dates.add(it.dtTxt!!.substringBefore(" "))
+        list.forEach { weatherList->
+            val date = weatherList.dtTxt!!.substringBefore(" ")
+            dates.add(date)
         }
 
         dates.forEach { date ->
@@ -27,11 +30,17 @@ data class ForecastWeatherEntity(
 
                 response.dtTxt?.let {
                     if (it.contains(date)) {
-                        hours.add(response.dtTxt.substringAfter(" "))
+                        val hourValue = response.dtTxt.substringAfter(" ")
+                        val hour = hourValue.dropLast(3)
+                        hours.add(hour)
                     }
                 }
+
             }
-            dateAndTimes = DatesAndTimes(date, hours)
+            val formattedDate = date.getDateInAnotherFormat("yyyy-MM-dd","dd-MM-YYYY")
+            val dayOfTheWeek = date.zellerCongruence()
+
+            dateAndTimes = DatesAndTimes(formattedDate,dayOfTheWeek, hours, list)
             responseListMapper.add(dateAndTimes)
         }
         return responseListMapper

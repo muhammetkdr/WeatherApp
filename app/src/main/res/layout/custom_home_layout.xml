@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="weatherResponse"
-            type="com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse" />
+            name="weatherEntity"
+            type="com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -25,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/imgView_custom_home"
-                setWeatherImage="@{weatherResponse.weather.get(0).icon}"
+                setWeatherImage="@{weatherEntity.weather.get(0).icon}"
                 android:layout_width="200dp"
                 android:layout_height="160dp"
                 android:layout_below="@+id/linearLayoutCityandCountry"
@@ -48,21 +48,23 @@
                     android:id="@+id/tvCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weatherResponse.name+@string/coma}"
+                    android:text="@{weatherEntity.name+@string/coma}"
                     android:layout_margin="2dp"
                     android:layout_marginEnd="4dp"
                     android:layout_weight="0.5"
                     android:gravity="end"
-                    android:textSize="20sp" />
+                    tools:text="Denizli,"
+                    android:textSize="20sp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvCountry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{weatherResponse.sys.country}"
+                    android:text="@{weatherEntity.sys.country}"
                     android:layout_margin="2dp"
                     android:layout_weight="0.5"
                     android:gravity="start"
+                    tools:text="TR"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -77,8 +79,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
-                android:hint="@string/Test_hint"
-                android:text="@{weatherResponse.main.temp+@string/celcius_string}"
+                tools:text="28.4"
+                android:text="@{weatherEntity.main.temp+@string/celcius_string}"
                 android:textSize="24sp" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -106,8 +108,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_toEndOf="@+id/imgView_custom_home"
                 android:gravity="center"
-                android:hint="@string/Test_hint"
-                android:text="@{weatherResponse.main.feelsLike+@string/celcius_string}"
+                tools:text="26.64"
+                android:text="@{weatherEntity.main.feelsLike+@string/celcius_string}"
                 android:textSize="24sp" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -136,8 +138,8 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:hint="@string/Test_hint"
-                android:text="@{@string/current_weather_condition+weatherResponse.weather.get(0).description}"
+                tools:text="Mevcut durum: Yağışlı"
+                android:text="@{@string/current_weather_condition+weatherEntity.weather.get(0).description}"
                 android:textSize="20sp" />
 
         </RelativeLayout>

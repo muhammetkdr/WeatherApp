@@ -6,6 +6,10 @@
         <variable
             name="weatherList"
             type="com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList" />
+
+        <variable
+            name="datesAndTimes"
+            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -27,8 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{weatherList.main.temp.toString()+@string/celcius_string}"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="8dp"
                 android:layout_gravity="center"
+                tools:text="12.5"
                 android:textSize="16sp"/>
 
             <ImageView
@@ -41,12 +46,12 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvItemWeatherContidion"
+                android:id="@+id/tvItemWeatherTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:text="@{weatherList.dtTxt}"
+                tools:text="21.12.2014 15:00:00"
+                android:layout_margin="6dp"
                 android:textSize="16sp" />
 
         </LinearLayout>

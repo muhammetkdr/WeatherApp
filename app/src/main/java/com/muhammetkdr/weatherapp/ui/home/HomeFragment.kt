@@ -4,19 +4,23 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_PERMISSION_REQUEST_CODE_ZERO
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
+import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeChildForecastWeatherAdapter
+import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeChildForecastWeatherAdapter2
+import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import javax.inject.Inject
@@ -24,11 +28,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate
-){
+) {
     override val viewModel by viewModels<HomeViewModel>()
 
-    // todo @Inject adapter.. i couldn't find how to do it yet..
-    private val adapter: HomeWeatherAdapter by lazy { HomeWeatherAdapter(::forecastItemClick) }
+    private val adapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::rvItemClick) }
+    private val childAdapter: HomeChildForecastWeatherAdapter by lazy { HomeChildForecastWeatherAdapter(::rvChildItemClick) }
 
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
@@ -50,6 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         observeForecastWeatherData()
         observeCurrentWeatherData()
+        observeWeatherListData()
 
         requestPermission()
 
@@ -64,7 +69,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         try {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
                 viewModel.getMappedForecastWeather(it.latitude, it.longitude)
-                viewModel.getMappedWeather(it.latitude,it.longitude)
+                viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
+                viewModel.getWeatherList(it.latitude, it.longitude)
             }
         } catch (e: Exception) {
             requireView().showSnackbar(
@@ -75,9 +81,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCurrentWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.currentWeatherMapped.collect{ Resource->
-            when(Resource) {
-                is Resource.Success-> {
+        viewModel.currentWeather.collect { Resource ->
+            when (Resource) {
+                is Resource.Success -> {
                     Resource.data.let {
 //                        binding.textView.text = "${it.name}\n ${it.main.temp} \n ${it.weather.get(0).description}\n ${it.name}\n ${it.sys.country} \n"
 //                        binding.containerCurrentWeather.imgViewCustomHome.setImageResource(it.getBackgroud())
@@ -92,13 +98,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
                         binding.containerCurrentWeather.weatherEntity = it
 
-                        binding.root.setBackgroundResource(it.getBackground())
+//                        binding.root.setBackgroundResource(it.getBackground())
                     }
                 }
-                is Resource.Loading-> {
+                is Resource.Loading -> {
                     binding.homeProgressbar.visible()
                 }
-                is Resource.Error->{
+                is Resource.Error -> {
                     binding.homeProgressbar.visible()
                     requireView().showSnackbar(Resource.error)
                 }
@@ -108,12 +114,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeForecastWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.forecastWeatherMapped.collect { Resource ->
+        viewModel.forecastWeather.collect { Resource ->
             when (Resource) {
                 is Resource.Success -> {
                     Resource.data.let {
                         binding.homeProgressbar.gone()
-                        adapter.submitList(it.list)
+                        val list = it.getMappedWeatherList()
+                        adapter.submitList(list)
+                    }
+                }
+                is Resource.Error -> {
+                    binding.homeProgressbar.visible()
+                    requireView().showSnackbar(Resource.error)
+                }
+                is Resource.Loading -> {
+                    binding.homeProgressbar.visible()
+                }
+            }
+        }
+    }
+
+    private fun observeWeatherListData() = lifecycleScope.launchWhenStarted {
+        viewModel.weatherList.collect { Resource ->
+            when (Resource) {
+                is Resource.Success -> {
+                    Resource.data.let {
+                        binding.homeProgressbar.gone()
+
                     }
                 }
                 is Resource.Error -> {
@@ -132,15 +159,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
     }
 
-    private fun initRvAdapter() = with(binding){
+    private fun initRvAdapter() = with(binding) {
         rvWeatherHome.adapter = adapter
-        rvWeatherHome.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    private fun forecastItemClick(data: WeatherList) {
+    private fun rvChildItemClick(data: String) {
+//            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
+//            findNavController().navigate(action)
+//        childRvAdapter.setOnChildItemClickListener {
+//            Toast.makeText(requireContext(), "You clicked ${it.main?.temp}!", Toast.LENGTH_LONG).show()
+//            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
+//            findNavController().navigate(action)
+//        }
+    }
 
-        //  findNavController().popBackStack()
+    private fun rvItemClick(data: String) {
+        Toast.makeText(requireContext(), "You clicked $data!", Toast.LENGTH_SHORT).show()
     }
 
 }
