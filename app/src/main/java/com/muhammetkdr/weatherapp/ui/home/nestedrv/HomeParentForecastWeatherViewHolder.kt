@@ -14,20 +14,19 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
 
     override fun onBind(data: DatesAndTimes) {
 
-        binding.datesAndTimes = data
-        itemView.setOnClickListener {
-            onItemClickListener?.invoke(data)
-        }
-
-        binding.parentItemRvCardView.isClickable = true
-        binding.parentItemRvCardView.isActivated = true
-        binding.root.isClickable = true
-
-
         val adapter = HomeChildForecastWeatherAdapter()
         binding.childRv.adapter = adapter
         adapter.differForHours.submitList(data.hours)
         adapter.differForWeatherList.submitList(data.list)
+
+        adapter.setOnChildItemClickListener {
+            binding.root.callOnClick()
+        }
+
+        binding.datesAndTimes = data
+        itemView.setOnClickListener {
+            onItemClickListener?.invoke(data)
+        }
 
     }
 }

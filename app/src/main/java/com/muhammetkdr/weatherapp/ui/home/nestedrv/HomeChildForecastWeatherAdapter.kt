@@ -20,13 +20,7 @@ class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapt
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeChildForecastWeatherViewHolder {
-        val binding =
-            ItemChildWeatherDaysBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
-//        binding.childRvItemCardView.isClickable = false
-//        binding.childRvItemCardView.isActivated = false
-//        binding.root.isClickable = false
-
+        val binding = ItemChildWeatherDaysBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeChildForecastWeatherViewHolder(binding)
     }
 
@@ -40,7 +34,6 @@ class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapt
                 it(weather)
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -56,7 +49,7 @@ class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapt
         }
     }
 
-    var differForHours = AsyncListDiffer(this, diffUtilForHours)
+    val differForHours = AsyncListDiffer(this, diffUtilForHours)
 
     private val diffUtilForWeatherList = object : DiffUtil.ItemCallback<WeatherList>() {
         override fun areItemsTheSame(oldItem: WeatherList, newItem: WeatherList): Boolean {
@@ -67,7 +60,7 @@ class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapt
         }
     }
 
-    var differForWeatherList = AsyncListDiffer(this, diffUtilForWeatherList)
+    val differForWeatherList = AsyncListDiffer(this, diffUtilForWeatherList)
 
     private var hours: List<String>
         get() = differForHours.currentList
