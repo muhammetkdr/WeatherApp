@@ -1,7 +1,13 @@
 package com.muhammetkdr.weatherapp.domain.entity.forecastweather
 
+import android.os.Parcelable
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import kotlinx.parcelize.Parcelize
 
-data class DatesAndTimes(val date: String,val dayOfTheWeek: String, val hours: List<String>, val list: List<WeatherList>){
-
-}
+@Parcelize
+data class DatesAndTimes(
+    val date: String,
+    val dayOfTheWeek: String,
+    val hours: List<String>,
+    val list: List<WeatherList>
+):Parcelable

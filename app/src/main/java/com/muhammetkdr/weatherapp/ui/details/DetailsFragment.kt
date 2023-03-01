@@ -12,12 +12,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailsFragment :BaseFragment<FragmentDetailsBinding,DetailsViewModel>(FragmentDetailsBinding::inflate) {
 
     override val viewModel by viewModels<DetailsViewModel>()
-    private val args: DetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvDetails.text = "${args.weatherDetails.weather?.first()?.description}"
+        binding.tvDetails.text = viewModel.mealInCategory?.date
 
     }
 

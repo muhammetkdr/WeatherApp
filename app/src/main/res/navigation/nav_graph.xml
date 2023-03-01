@@ -20,7 +20,7 @@
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="weatherDetails"
-            app:argType="com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList" />
+            android:name="datesAndTimes"
+            app:argType="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
     </fragment>
 </navigation>

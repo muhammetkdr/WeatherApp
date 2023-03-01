@@ -15,11 +15,9 @@ import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_PERMISSION_REQUEST_CODE_ZERO
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
-import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeChildForecastWeatherAdapter
-import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeChildForecastWeatherAdapter2
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -32,7 +30,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     override val viewModel by viewModels<HomeViewModel>()
 
     private val adapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::rvItemClick) }
-    private val childAdapter: HomeChildForecastWeatherAdapter by lazy { HomeChildForecastWeatherAdapter(::rvChildItemClick) }
 
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
@@ -163,18 +160,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         rvWeatherHome.adapter = adapter
     }
 
-    private fun rvChildItemClick(data: String) {
-//            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
-//            findNavController().navigate(action)
-//        childRvAdapter.setOnChildItemClickListener {
-//            Toast.makeText(requireContext(), "You clicked ${it.main?.temp}!", Toast.LENGTH_LONG).show()
-//            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
-//            findNavController().navigate(action)
-//        }
-    }
-
-    private fun rvItemClick(data: String) {
+    private fun rvItemClick(data: DatesAndTimes) {
         Toast.makeText(requireContext(), "You clicked $data!", Toast.LENGTH_SHORT).show()
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
+        findNavController().navigate(action)
     }
 
 }

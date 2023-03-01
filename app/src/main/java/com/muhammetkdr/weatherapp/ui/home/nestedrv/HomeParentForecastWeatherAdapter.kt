@@ -8,7 +8,7 @@ import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import javax.inject.Inject
 
-class HomeParentForecastWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((String) -> Unit)?) :
+class HomeParentForecastWeatherAdapter @Inject constructor (private val onCategoryItemClickListener: ((DatesAndTimes) -> Unit)?) :
     BaseListAdapter<DatesAndTimes>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }){

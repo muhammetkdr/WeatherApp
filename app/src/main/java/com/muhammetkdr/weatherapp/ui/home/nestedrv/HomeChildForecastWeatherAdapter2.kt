@@ -71,7 +71,6 @@ class HomeChildForecastWeatherAdapter2 @Inject constructor() : RecyclerView.Adap
         get() = differForWeatherList.currentList
         set(value) = differForWeatherList.submitList(value)
 
-
     private var onItemClickListener: ((WeatherList) -> Unit)? = null
 
     fun setOnChildItemClickListener(listener: (WeatherList) -> Unit) {
