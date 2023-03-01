@@ -1,5 +1,6 @@
 package com.muhammetkdr.weatherapp.ui.home.nestedrv
 
+import android.widget.Toast
 import com.muhammetkdr.weatherapp.base.BaseViewHolder
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
@@ -18,9 +19,15 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
             onItemClickListener?.invoke(data)
         }
 
-        val adapter = HomeChildForecastWeatherAdapter2()
+        binding.parentItemRvCardView.isClickable = true
+        binding.parentItemRvCardView.isActivated = true
+        binding.root.isClickable = true
+
+
+        val adapter = HomeChildForecastWeatherAdapter()
         binding.childRv.adapter = adapter
         adapter.differForHours.submitList(data.hours)
         adapter.differForWeatherList.submitList(data.list)
+
     }
 }

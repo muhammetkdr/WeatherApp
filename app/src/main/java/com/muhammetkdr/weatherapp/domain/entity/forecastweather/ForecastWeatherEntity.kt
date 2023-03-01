@@ -37,7 +37,7 @@ data class ForecastWeatherEntity(
                 }
 
             }
-            val formattedDate = date.getDateInAnotherFormat("yyyy-MM-dd","dd-MM-YYYY")
+            val formattedDate = date.getDateInAnotherFormat("yyyy-MM-dd","dd.MM.YYYY")
             val dayOfTheWeek = date.zellerCongruence()
 
             dateAndTimes = DatesAndTimes(formattedDate,dayOfTheWeek, hours, list)

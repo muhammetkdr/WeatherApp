@@ -9,7 +9,7 @@ import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemChildWeatherDaysBinding
 import javax.inject.Inject
 
-class HomeChildForecastWeatherAdapter2 @Inject constructor() : RecyclerView.Adapter<HomeChildForecastWeatherAdapter2.HomeChildForecastWeatherViewHolder>() {
+class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<HomeChildForecastWeatherAdapter.HomeChildForecastWeatherViewHolder>() {
 
     inner class HomeChildForecastWeatherViewHolder (val binding: ItemChildWeatherDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -22,6 +22,11 @@ class HomeChildForecastWeatherAdapter2 @Inject constructor() : RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeChildForecastWeatherViewHolder {
         val binding =
             ItemChildWeatherDaysBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+//        binding.childRvItemCardView.isClickable = false
+//        binding.childRvItemCardView.isActivated = false
+//        binding.root.isClickable = false
+
         return HomeChildForecastWeatherViewHolder(binding)
     }
 
@@ -35,6 +40,7 @@ class HomeChildForecastWeatherAdapter2 @Inject constructor() : RecyclerView.Adap
                 it(weather)
             }
         }
+
     }
 
     override fun getItemCount(): Int {
