@@ -14,69 +14,58 @@
             type="com.muhammetkdr.weatherapp.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/homeConstraint"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
+        android:layout_height="wrap_content">
 
-        <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
-            android:id="@+id/customToolBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/homeConstraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
-        </com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView>
+            tools:context=".ui.home.HomeFragment">
 
+            <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
+                android:id="@+id/customToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+            </com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView>
 
-        <ProgressBar
-            android:id="@+id/homeProgressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            <ProgressBar
+                android:id="@+id/homeProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </ProgressBar>
+            </ProgressBar>
 
-        <include
-            android:id="@+id/containerCurrentWeather"
-            layout="@layout/custom_home_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/customToolBar" />
+            <include
+                android:id="@+id/containerCurrentWeather"
+                layout="@layout/custom_home_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customToolBar" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            tools:text="@string/Test_hint"
-            android:textColor="@color/teal_200"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rvWeatherHome" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWeatherHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_child_weather_days" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvWeatherHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/item_child_weather_days"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            tools:itemCount="2"
-            app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
