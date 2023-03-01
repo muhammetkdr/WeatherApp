@@ -161,7 +161,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun rvItemClick(data: DatesAndTimes) {
-        Toast.makeText(requireContext(), "You clicked $data!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "You clicked ${data.date}!", Toast.LENGTH_SHORT).show()
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)
     }

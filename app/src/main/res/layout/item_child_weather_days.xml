@@ -8,13 +8,14 @@
             type="com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList" />
 
         <variable
-            name="datesAndTimes"
-            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
+            name="hour"
+            type="String" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/rvItemCardView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardCornerRadius="15dp"
@@ -22,27 +23,30 @@
 
         <LinearLayout
             android:id="@+id/rvItemRelativeLayout"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvItemWeatherDegree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{weatherList.main.temp.toString()+@string/celcius_string}"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
                 tools:text="12.5"
                 android:textSize="16sp"/>
 
             <ImageView
                 android:id="@+id/imgWeatherCondition"
-                android:layout_width="90dp"
-                android:layout_height="120dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 setWeatherImage="@{weatherList.weather.get(0).icon}"
-                android:layout_gravity="center|top"
+                android:layout_gravity="center"
                 android:layout_margin="4dp"
+                android:layout_weight="1"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -50,8 +54,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                tools:text="21.12.2014 15:00:00"
-                android:layout_margin="6dp"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="@{hour}"
+                android:gravity="center"
+                tools:text="15:00"
                 android:textSize="16sp" />
 
         </LinearLayout>

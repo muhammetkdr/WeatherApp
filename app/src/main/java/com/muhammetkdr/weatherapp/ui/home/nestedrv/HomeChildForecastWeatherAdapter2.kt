@@ -14,7 +14,7 @@ class HomeChildForecastWeatherAdapter2 @Inject constructor() : RecyclerView.Adap
     inner class HomeChildForecastWeatherViewHolder (val binding: ItemChildWeatherDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(hours: String, weatherList: WeatherList) = with(binding) {
-            binding.tvItemWeatherTime.text = hours
+            binding.hour = hours
             binding.weatherList = weatherList
         }
     }
