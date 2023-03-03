@@ -116,7 +116,11 @@ dependencies {
 
     // Lottie anim.
     implementation (Libs.LottieAnimations.lottieLib)
+    // MP chart
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     debugImplementation ("com.github.chuckerteam.chucker:library:3.5.2")
     releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+
+
 }

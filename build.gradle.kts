@@ -10,6 +10,14 @@ buildscript {
         classpath (Libs.AndroidX.navSafeArgPlug)
     }
 }
+allprojects{
+    repositories{
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+
 plugins {
     id ("com.android.application") version "7.4.0" apply false
     id ("com.android.library") version "7.4.0" apply false
