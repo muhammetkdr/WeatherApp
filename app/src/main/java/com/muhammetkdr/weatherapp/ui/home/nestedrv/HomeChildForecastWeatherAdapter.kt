@@ -9,7 +9,8 @@ import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemChildWeatherDaysBinding
 import javax.inject.Inject
 
-class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<HomeChildForecastWeatherAdapter.HomeChildForecastWeatherViewHolder>() {
+class
+HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<HomeChildForecastWeatherAdapter.HomeChildForecastWeatherViewHolder>() {
 
     inner class HomeChildForecastWeatherViewHolder (val binding: ItemChildWeatherDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -34,6 +35,7 @@ class HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapt
                 it(weather)
             }
         }
+
     }
 
     override fun getItemCount(): Int {

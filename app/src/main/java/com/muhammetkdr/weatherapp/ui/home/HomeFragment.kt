@@ -15,12 +15,9 @@ import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_PERMISSION_REQUEST_CODE_ZERO
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
-import com.muhammetkdr.weatherapp.databinding.ItemChildWeatherDaysBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
-import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeChildForecastWeatherAdapter
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -32,7 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 ) {
     override val viewModel by viewModels<HomeViewModel>()
 
-    private val parentAdapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::rvItemClick) }
+    private val parentAdapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::parentRvItemClick) }
 
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
@@ -85,15 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             when (Resource) {
                 is Resource.Success -> {
                     Resource.data.let {
-//                        binding.textView.text = "${it.name}\n ${it.main.temp} \n ${it.weather.get(0).description}\n ${it.name}\n ${it.sys.country} \n"
-//                        binding.containerCurrentWeather.imgViewCustomHome.setImageResource(it.getBackgroud())
-//                        binding.textView.text = it.backgroundDecider
                         binding.homeProgressbar.gone()
 
                         val (date, month, year) = calendar
                         val dateFormatted = date.toString().formatCallendar()
                         val monthFormatted = month.toString().formatCallendar()
-
                         binding.customToolBar.updateTitle("$dateFormatted, $monthFormatted, $year")
 
                         binding.containerCurrentWeather.weatherEntity = it
@@ -163,7 +156,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         rvWeatherHome.adapter = parentAdapter
     }
 
-    private fun rvItemClick(data: DatesAndTimes) {
+    private fun parentRvItemClick(data: DatesAndTimes) {
         Toast.makeText(requireContext(), "You clicked ${data.dayOfTheWeek}!", Toast.LENGTH_SHORT).show()
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)

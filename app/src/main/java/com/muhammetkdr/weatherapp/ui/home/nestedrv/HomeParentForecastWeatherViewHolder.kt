@@ -1,8 +1,6 @@
 package com.muhammetkdr.weatherapp.ui.home.nestedrv
 
-import android.widget.Toast
 import com.muhammetkdr.weatherapp.base.BaseViewHolder
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import javax.inject.Inject

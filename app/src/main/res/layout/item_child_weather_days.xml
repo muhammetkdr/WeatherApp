@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardCornerRadius="15dp"
-        android:elevation="10dp">
+        android:elevation="10dp"
+        >
 
         <LinearLayout
             android:id="@+id/rvItemRelativeLayout"
