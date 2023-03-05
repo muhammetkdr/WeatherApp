@@ -25,6 +25,8 @@ data class ForecastWeatherEntity(
         dates.forEach { date ->
             val dateAndTimes: DatesAndTimes
             val hours = mutableListOf<String>()
+            val temperature = mutableListOf<Double>()
+            val icons = mutableListOf<String>()
 
             list.forEach { response ->
 
@@ -32,7 +34,12 @@ data class ForecastWeatherEntity(
                     if (it.contains(date)) {
                         val hourValue = response.dtTxt.substringAfter(" ")
                         val hour = hourValue.dropLast(3)
+                        val temp = response.main?.temp ?: 0.0
+                        val icon = response.weather?.first()?.icon.orEmpty()
                         hours.add(hour)
+                        temperature.add(temp)
+                        icons.add(icon)
+
                     }
                 }
 
@@ -40,7 +47,13 @@ data class ForecastWeatherEntity(
             val formattedDate = date.getDateInAnotherFormat("yyyy-MM-dd","dd.MM.YYYY")
             val dayOfTheWeek = date.zellerCongruence()
 
-            dateAndTimes = DatesAndTimes(formattedDate,dayOfTheWeek, hours, list)
+            dateAndTimes = DatesAndTimes(
+                date = formattedDate,
+                dayOfTheWeek = dayOfTheWeek,
+                hours = hours,
+                temperature = temperature,
+                icons=icons,
+                )
             responseListMapper.add(dateAndTimes)
         }
         return responseListMapper

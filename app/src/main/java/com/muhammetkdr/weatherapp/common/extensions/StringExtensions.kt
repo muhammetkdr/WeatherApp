@@ -109,3 +109,5 @@ fun String?.hideNameAndSurname(): String? {
     }
     return newName
 }
+
+val String.Companion.EMPTY: String get() = ""

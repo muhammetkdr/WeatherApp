@@ -9,5 +9,6 @@ data class DatesAndTimes(
     val date: String,
     val dayOfTheWeek: String,
     val hours: List<String>,
-    val list: List<WeatherList>
+    val temperature: List<Double>,
+    val icons: List<String>,
 ):Parcelable

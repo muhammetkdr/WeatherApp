@@ -15,7 +15,7 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
         val adapter = HomeChildForecastWeatherAdapter()
         binding.childRv.adapter = adapter
         adapter.differForHours.submitList(data.hours)
-        adapter.differForWeatherList.submitList(data.list)
+        adapter.differForWeatherList.submitList(data.temperature)
 
         adapter.setOnChildItemClickListener {
             binding.root.callOnClick()

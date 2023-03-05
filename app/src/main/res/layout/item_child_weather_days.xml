@@ -11,6 +11,10 @@
             name="hour"
             type="String" />
 
+        <variable
+            name="temp"
+            type="Double" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -57,7 +61,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text="@{weatherList.main.temp.toString()+@string/celcius_string}"
+                android:text="@{temp.toString()+@string/celcius_string}"
                 android:gravity="center"
                 tools:text="12.5"
                 android:textSize="16sp" />

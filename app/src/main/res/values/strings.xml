@@ -17,5 +17,7 @@
     <string name="current_weather_condition">Mevcut durum:\u00A0</string>
     <string name="current_feels_like">(Hissedilen)</string>
     <string name="space_string">\u00A0</string>
+    <string name="line_chart_avarage">Line Chart avarage</string>
+    <string name="line_chart">Line Chart</string>
 
 </resources>

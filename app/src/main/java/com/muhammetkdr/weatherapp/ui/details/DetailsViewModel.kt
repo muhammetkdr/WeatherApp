@@ -9,5 +9,17 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor( savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val mealInCategory: DatesAndTimes? = savedStateHandle.get<DatesAndTimes>("datesAndTimes")
+    val datesAndTimes: DatesAndTimes? = savedStateHandle.get<DatesAndTimes>("datesAndTimes")
+
+//    init {
+//        getValues()
+//    }
+
+//    fun getValues(){
+//        val XAxis
+//        datesAndTimes.
+//
+//
+//
+//    }
 }

@@ -14,9 +14,9 @@ HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<Hom
 
     inner class HomeChildForecastWeatherViewHolder (val binding: ItemChildWeatherDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(hours: String, weatherList: WeatherList) = with(binding) {
+        fun bind(hours: String, weatherList: Double) = with(binding) {
             binding.hour = hours
-            binding.weatherList = weatherList
+            binding.temp = weatherList
         }
     }
 
@@ -53,11 +53,11 @@ HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<Hom
 
     val differForHours = AsyncListDiffer(this, diffUtilForHours)
 
-    private val diffUtilForWeatherList = object : DiffUtil.ItemCallback<WeatherList>() {
-        override fun areItemsTheSame(oldItem: WeatherList, newItem: WeatherList): Boolean {
+    private val diffUtilForWeatherList = object : DiffUtil.ItemCallback<Double>() {
+        override fun areItemsTheSame(oldItem: Double, newItem: Double): Boolean {
             return oldItem == newItem
         }
-        override fun areContentsTheSame(oldItem: WeatherList, newItem: WeatherList): Boolean {
+        override fun areContentsTheSame(oldItem: Double, newItem: Double): Boolean {
             return oldItem == newItem
         }
     }
@@ -68,13 +68,13 @@ HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<Hom
         get() = differForHours.currentList
         set(value) = differForHours.submitList(value)
 
-    private var weatherList: List<WeatherList>
+    private var weatherList: List<Double>
         get() = differForWeatherList.currentList
         set(value) = differForWeatherList.submitList(value)
 
-    private var onItemClickListener: ((WeatherList) -> Unit)? = null
+    private var onItemClickListener: ((Double) -> Unit)? = null
 
-    fun setOnChildItemClickListener(listener: (WeatherList) -> Unit) {
+    fun setOnChildItemClickListener(listener: (Double) -> Unit) {
         onItemClickListener = listener
     }
 
