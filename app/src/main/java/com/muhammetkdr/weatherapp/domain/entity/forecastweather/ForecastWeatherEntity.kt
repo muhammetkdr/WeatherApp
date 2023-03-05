@@ -27,6 +27,7 @@ data class ForecastWeatherEntity(
             val hours = mutableListOf<String>()
             val temperature = mutableListOf<Double>()
             val icons = mutableListOf<String>()
+            val childRvUiData = mutableListOf<ChildRvUiData>()
 
             list.forEach { response ->
 
@@ -39,7 +40,7 @@ data class ForecastWeatherEntity(
                         hours.add(hour)
                         temperature.add(temp)
                         icons.add(icon)
-
+                        childRvUiData.add(ChildRvUiData(hour,temp,icon))
                     }
                 }
 
@@ -51,9 +52,7 @@ data class ForecastWeatherEntity(
                 date = formattedDate,
                 dayOfTheWeek = dayOfTheWeek,
                 hours = hours,
-                temperature = temperature,
-                icons=icons,
-                )
+                childRvUiData = childRvUiData)
             responseListMapper.add(dateAndTimes)
         }
         return responseListMapper

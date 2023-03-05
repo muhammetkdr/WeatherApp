@@ -4,17 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="weatherList"
-            type="com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList" />
-
-        <variable
-            name="hour"
-            type="String" />
-
-        <variable
-            name="temp"
-            type="Double" />
-
+            name="childUiData"
+            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -36,7 +27,7 @@
                 android:id="@+id/tvItemWeatherDegree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{hour}"
+                android:text="@{childUiData.hours}"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_margin="4dp"
@@ -48,7 +39,7 @@
                 android:id="@+id/imgWeatherCondition"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                setWeatherImage="@{weatherList.weather.get(0).icon}"
+                setWeatherImage="@{childUiData.icons}"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
@@ -61,7 +52,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text="@{temp.toString()+@string/celcius_string}"
+                android:text="@{childUiData.hours}"
                 android:gravity="center"
                 tools:text="12.5"
                 android:textSize="16sp" />

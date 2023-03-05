@@ -44,12 +44,11 @@ class DetailsFragment :
         val barEntry = arrayListOf<Entry>()
         // val hourString = ArrayList<String>()  -->    viewmodel.hours already exist
 
-        viewModel.datesAndTimes?.hours?.forEachIndexed { hourIndex, hourStrValue ->
-            hoursIndexList.add(hourIndex.toFloat())
+        viewModel.datesAndTimes?.childRvUiData?.forEachIndexed{ index , uiData ->
+            hoursIndexList.add(index.toFloat())
+            tempList.add(uiData.temperature.toFloat().orZero())
         }
-            viewModel.datesAndTimes?.temperature?.forEach{ temp ->
-                tempList.add(temp.toFloat().orZero())
-            }
+
         for(item in hoursIndexList){
             barEntry.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
         }
@@ -64,7 +63,7 @@ class DetailsFragment :
 //        binding.lineChartDetailsPage.data = lineData
 
         binding.lineChartDetailsPage.description.text = String.EMPTY
-        binding.lineChartDetailsPage.xAxis.valueFormatter = IndexAxisValueFormatter(viewModel.datesAndTimes!!.hours)
+        binding.lineChartDetailsPage.xAxis.valueFormatter = IndexAxisValueFormatter(viewModel.datesAndTimes?.hours)
         binding.lineChartDetailsPage.xAxis.position = XAxis.XAxisPosition.BOTTOM
         binding.lineChartDetailsPage.invalidate()
 

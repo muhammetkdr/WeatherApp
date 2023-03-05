@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemChildWeatherDaysBinding
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
 import javax.inject.Inject
 
 class
@@ -14,9 +14,8 @@ HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<Hom
 
     inner class HomeChildForecastWeatherViewHolder (val binding: ItemChildWeatherDaysBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(hours: String, weatherList: Double) = with(binding) {
-            binding.hour = hours
-            binding.temp = weatherList
+        fun bind(childRvUiData: ChildRvUiData) = with(binding) {
+            childUiData = childRvUiData
         }
     }
 
@@ -26,55 +25,41 @@ HomeChildForecastWeatherAdapter @Inject constructor() : RecyclerView.Adapter<Hom
     }
 
     override fun onBindViewHolder(holder: HomeChildForecastWeatherViewHolder, position: Int) {
-        val hour = hours[position]
-        val weather = weatherList[position]
-        holder.bind(hour, weather)
+        val data = childRvUiData[position]
+
+        holder.bind(data)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(weather)
+                it(data)
             }
         }
 
     }
 
     override fun getItemCount(): Int {
-        return hours.size
+        return childRvUiData.size
     }
 
-    private val diffUtilForHours = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    private val diffUtilForHours = object : DiffUtil.ItemCallback<ChildRvUiData>() {
+        override fun areItemsTheSame(oldItem: ChildRvUiData, newItem: ChildRvUiData): Boolean {
             return oldItem == newItem
         }
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    val differForHours = AsyncListDiffer(this, diffUtilForHours)
-
-    private val diffUtilForWeatherList = object : DiffUtil.ItemCallback<Double>() {
-        override fun areItemsTheSame(oldItem: Double, newItem: Double): Boolean {
-            return oldItem == newItem
-        }
-        override fun areContentsTheSame(oldItem: Double, newItem: Double): Boolean {
+        override fun areContentsTheSame(oldItem: ChildRvUiData, newItem: ChildRvUiData): Boolean {
             return oldItem == newItem
         }
     }
 
-    val differForWeatherList = AsyncListDiffer(this, diffUtilForWeatherList)
+    val differUidata = AsyncListDiffer(this, diffUtilForHours)
 
-    private var hours: List<String>
-        get() = differForHours.currentList
-        set(value) = differForHours.submitList(value)
 
-    private var weatherList: List<Double>
-        get() = differForWeatherList.currentList
-        set(value) = differForWeatherList.submitList(value)
+    private var childRvUiData: List<ChildRvUiData>
+        get() = differUidata.currentList
+        set(value) = differUidata.submitList(value)
 
-    private var onItemClickListener: ((Double) -> Unit)? = null
+    private var onItemClickListener: ((ChildRvUiData) -> Unit)? = null
 
-    fun setOnChildItemClickListener(listener: (Double) -> Unit) {
+    fun setOnChildItemClickListener(listener: (ChildRvUiData) -> Unit) {
         onItemClickListener = listener
     }
 
