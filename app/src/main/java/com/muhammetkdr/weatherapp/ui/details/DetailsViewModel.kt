@@ -11,15 +11,4 @@ class DetailsViewModel @Inject constructor( savedStateHandle: SavedStateHandle) 
 
     val datesAndTimes: DatesAndTimes? = savedStateHandle.get<DatesAndTimes>("datesAndTimes")
 
-//    init {
-//        getValues()
-//    }
-
-//    fun getValues(){
-//        val XAxis
-//        datesAndTimes.
-//
-//
-//
-//    }
 }

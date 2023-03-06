@@ -52,7 +52,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text="@{childUiData.hours}"
+                android:text="@{Double.toString(childUiData.temperature)}"
                 android:gravity="center"
                 tools:text="12.5"
                 android:textSize="16sp" />
