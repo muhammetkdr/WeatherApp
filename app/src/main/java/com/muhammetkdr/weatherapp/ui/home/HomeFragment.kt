@@ -20,8 +20,9 @@ import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
@@ -32,10 +33,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private val parentAdapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::parentRvItemClick) }
 
     @Inject
-    lateinit var defaultLocationClient: DefaultLocationClient
+    lateinit var calendar: Calendar
 
     @Inject
-    lateinit var calendar: Calendar
+    lateinit var defaultLocationClient: DefaultLocationClient
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
@@ -51,23 +52,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         observeForecastWeatherData()
         observeCurrentWeatherData()
-        observeWeatherListData()
+        observeCalendar()
 
         requestPermission()
+
+        viewModel.getTodaysCallendar(calendar)
 
         getLocation()
         initDataBinding()
         initRvAdapter()
-
     }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() = lifecycleScope.launchWhenStarted {
         try {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
-                viewModel.getMappedForecastWeather(it.latitude, it.longitude)
-                viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
-                viewModel.getWeatherList(it.latitude, it.longitude)
+                viewModel.apply {
+                    getMappedCurrentWeather(it.latitude, it.longitude)
+                    getMappedForecastWeather(it.latitude, it.longitude)
+                }
             }
         } catch (e: Exception) {
             requireView().showSnackbar(
@@ -82,16 +85,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             when (Resource) {
                 is Resource.Success -> {
                     Resource.data.let {
-                        binding.homeProgressbar.gone()
-
-                        val (date, month, year) = calendar
-                        val dateFormatted = date.toString().formatCallendar()
-                        val monthFormatted = month.toString().formatCallendar()
-                        binding.customToolBar.updateTitle("$dateFormatted, $monthFormatted, $year")
-
-                        binding.containerCurrentWeather.weatherEntity = it
-
-//                        binding.root.setBackgroundResource(it.getBackground())
+                        with(binding){
+                            homeProgressbar.gone()
+                            containerCurrentWeather.weatherEntity = it
+//                          root.setBackgroundResource(it.getBackground())
+                        }
                     }
                 }
                 is Resource.Loading -> {
@@ -102,7 +100,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     requireView().showSnackbar(Resource.error)
                 }
             }
-
         }
     }
 
@@ -127,23 +124,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    private fun observeWeatherListData() = lifecycleScope.launchWhenStarted {
-        viewModel.weatherList.collect { Resource ->
-            when (Resource) {
-                is Resource.Success -> {
-                    Resource.data.let {
-                        binding.homeProgressbar.gone()
-
-                    }
-                }
-                is Resource.Error -> {
-                    binding.homeProgressbar.visible()
-                    requireView().showSnackbar(Resource.error)
-                }
-                is Resource.Loading -> {
-                    binding.homeProgressbar.visible()
-                }
-            }
+    private fun observeCalendar(){
+        viewModel.date.observe(viewLifecycleOwner){
+            binding.customToolBar.updateTitle(it)
         }
     }
 
@@ -161,6 +144,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)
     }
-
 }
-

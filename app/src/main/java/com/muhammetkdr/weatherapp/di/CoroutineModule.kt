@@ -3,8 +3,10 @@ package com.muhammetkdr.weatherapp.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import java.util.*
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
@@ -16,7 +18,4 @@ object CoroutineModule {
     @Singleton
     fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
 
-//    @Provides
-//    @Singleton
-//    fun provideAdapter(onCategoryItemClickListener: ((WeatherList) -> Unit)?) = HomeWeatherAdapter(onCategoryItemClickListener)
 }

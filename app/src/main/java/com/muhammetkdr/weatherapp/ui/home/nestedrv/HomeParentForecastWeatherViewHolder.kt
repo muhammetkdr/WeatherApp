@@ -20,7 +20,9 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
         val adapter = HomeChildForecastWeatherAdapter(::onChildItemClick)
         binding.childRv.adapter = adapter
         adapter.submitList(data.childRvUiData)
+
     }
+
     fun onChildItemClick(data:ChildRvUiData){
         binding.root.callOnClick()
     }

@@ -1,27 +1,31 @@
 package com.muhammetkdr.weatherapp.ui.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muhammetkdr.weatherapp.common.extensions.component1
+import com.muhammetkdr.weatherapp.common.extensions.component2
+import com.muhammetkdr.weatherapp.common.extensions.component3
+import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
-import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCase
-import com.muhammetkdr.weatherapp.domain.usecase.WeatherListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val currentWeatherUseCase: CurrentWeatherUseCase,
     private val forecastWeatherUseCase: ForecastWeatherUseCase,
-    private val weatherListUseCase: WeatherListUseCase
 ) : ViewModel() {
 
     private val _currentWeather: MutableStateFlow<Resource<CurrentWeatherEntity>> = MutableStateFlow(Resource.Loading)
@@ -30,8 +34,15 @@ class HomeViewModel @Inject constructor(
     private val _forecastWeather: MutableStateFlow<Resource<ForecastWeatherEntity>> = MutableStateFlow(Resource.Loading)
     val forecastWeather: StateFlow<Resource<ForecastWeatherEntity>> get() = _forecastWeather.asStateFlow()
 
-    private val _weatherList: MutableStateFlow<Resource<List<WeatherListEntity>>> = MutableStateFlow(Resource.Loading)
-    val weatherList: StateFlow<Resource<List<WeatherListEntity>>> get() = _weatherList.asStateFlow()
+    private val _date : MutableLiveData<String> = MutableLiveData("")
+    val date : LiveData<String> get() = _date
+
+    fun getTodaysCallendar(calendar: Calendar){
+            val (day, month, year) = calendar
+            val dayFormatted = day.toString().formatCalendar()
+            val monthFormatted = month.toString().formatCalendar()
+            _date.postValue("$dayFormatted, $monthFormatted, $year")
+    }
 
     fun getMappedCurrentWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {
         val latitude = lat.toString()
@@ -48,15 +59,6 @@ class HomeViewModel @Inject constructor(
 
         forecastWeatherUseCase.invoke(latitude, longitude).collect {
             _forecastWeather.emit(it)
-        }
-    }
-
-    fun getWeatherList(lat:Double, long: Double) = viewModelScope.launch(Dispatchers.IO){
-        val latitude = lat.toString()
-        val longitude = long.toString()
-
-        weatherListUseCase.invoke(latitude,longitude).collect{
-            _weatherList.emit(it)
         }
     }
 

@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import java.util.Calendar
 
 
@@ -20,7 +21,6 @@ object AppModule {
 
     @Provides
     @FragmentScoped
-    fun provideCallender():Calendar = Calendar.getInstance()
-
+    fun provideCallender(): Calendar = Calendar.getInstance()
 
 }

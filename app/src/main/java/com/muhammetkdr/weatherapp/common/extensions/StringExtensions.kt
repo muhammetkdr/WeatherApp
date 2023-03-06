@@ -19,7 +19,7 @@ fun String.capitalizeWords(): String = split(" ").map { word ->
     }
 }.joinToString(" ")
 
-fun String.formatCallendar(): String {
+fun String.formatCalendar(): String {
     return if (this.length == 1) {
         this.padStart(2, '0')
     } else {

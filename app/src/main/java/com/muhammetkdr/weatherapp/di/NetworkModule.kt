@@ -34,7 +34,7 @@ object NetworkModule {
     @Provides
     fun provideHttpClint(@ApplicationContext context: Context, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(ChuckerInterceptor.Builder(context).build())
+//            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
             .build()
     }

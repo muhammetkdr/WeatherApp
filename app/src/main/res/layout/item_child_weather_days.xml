@@ -52,7 +52,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:text="@{Double.toString(childUiData.temperature)}"
+                android:text="@{Double.toString(childUiData.temperature)+@string/celcius_string}"
                 android:gravity="center"
                 tools:text="12.5"
                 android:textSize="16sp" />

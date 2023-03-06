@@ -6,12 +6,13 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.muhammetkdr.weatherapp.R
 
 
-fun LineChart.setLineChart(dataSet: LineDataSet) {
+fun LineChart.setLineChart(dataSet: LineDataSet , value : List<String>) {
     isDragEnabled = true
     setScaleEnabled(false)
 
@@ -32,6 +33,7 @@ fun LineChart.setLineChart(dataSet: LineDataSet) {
         setDrawGridLines(false)
         granularity = 1f
         position = XAxis.XAxisPosition.BOTTOM
+        valueFormatter = IndexAxisValueFormatter(value)
     }
 
     legend.isEnabled = false

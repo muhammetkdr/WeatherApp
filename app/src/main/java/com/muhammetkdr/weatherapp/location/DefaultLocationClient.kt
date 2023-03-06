@@ -22,7 +22,6 @@ import javax.inject.Singleton
 class DefaultLocationClient @Inject constructor(
     @ApplicationContext private val context: Context,
     private val client: FusedLocationProviderClient,
-    //private val gson: Gson
 ) : LocationClient {
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(interval: Long): Flow<Location> {
@@ -30,7 +29,6 @@ class DefaultLocationClient @Inject constructor(
             if (!context.hasLocationPermission()) {
                 throw LocationClient.LocationException(context.applicationContext.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
             }
-    //            gson.getAdapter()
 
             val locationManager =
                 context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
