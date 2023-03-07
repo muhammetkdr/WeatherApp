@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.domain.mapper
+package com.muhammetkdr.weatherapp.data.mapper
 
 import com.muhammetkdr.weatherapp.data.dto.current.Main
 import com.muhammetkdr.weatherapp.data.dto.current.Sys

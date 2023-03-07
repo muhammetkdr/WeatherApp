@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     FragmentHomeBinding::inflate
@@ -55,8 +54,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         observeCalendar()
 
         requestPermission()
-
-        viewModel.getTodaysCallendar(calendar)
 
         getLocation()
         initDataBinding()
@@ -125,6 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCalendar(){
+        viewModel.getTodaysCallendar(calendar)
         viewModel.date.observe(viewLifecycleOwner){
             binding.customToolBar.updateTitle(it)
         }

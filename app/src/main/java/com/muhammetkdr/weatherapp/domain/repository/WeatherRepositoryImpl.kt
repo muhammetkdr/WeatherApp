@@ -9,8 +9,8 @@ import com.muhammetkdr.weatherapp.data.remote.RemoteDataSource
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
-import com.muhammetkdr.weatherapp.domain.listmapper.WeatherListMapper
-import com.muhammetkdr.weatherapp.domain.mapper.WeatherMapper
+import com.muhammetkdr.weatherapp.data.listmapper.WeatherListMapper
+import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

@@ -10,7 +10,6 @@ import dagger.hilt.android.scopes.FragmentScoped
 import dagger.hilt.android.scopes.ViewModelScoped
 import java.util.Calendar
 
-
 @Module
 @InstallIn(FragmentComponent::class)
 object AppModule {

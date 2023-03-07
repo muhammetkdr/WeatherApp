@@ -7,14 +7,6 @@ import com.muhammetkdr.weatherapp.BuildConfig
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.IMAGE_RESOLUTION_SIZE
 
-@BindingAdapter("setImage")
-fun ImageView.setImage(imageUrl: String?) {
-    Glide.with(this).load(imageUrl)
-        .placeholder(R.drawable.ic_downloading)
-        .error(R.drawable.ic_error)
-        .into(this)
-}
-
 @BindingAdapter("setWeatherImage")
 fun ImageView.setWeatherImage(weatherCondition:String?) {
     Glide.with(this).load(BuildConfig.IMAGE_URL + weatherCondition + IMAGE_RESOLUTION_SIZE)
