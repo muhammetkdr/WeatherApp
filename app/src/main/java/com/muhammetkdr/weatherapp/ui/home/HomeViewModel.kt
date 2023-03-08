@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
             val (day, month, year) = calendar
             val dayFormatted = day.toString().formatCalendar()
             val monthFormatted = month.toString().formatCalendar()
-            _date.postValue("$dayFormatted, $monthFormatted, $year")
+            _date.postValue("$dayFormatted.$monthFormatted.$year")
     }
 
     fun getMappedCurrentWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {

@@ -23,23 +23,23 @@ class DetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     private val barEntryList : MutableList<Entry> = mutableListOf()
 
     private var _hoursList : List<String> = mutableListOf()
-    val hoursList get() = _hoursList
+    val hoursList : List<String> get() = _hoursList
 
     private val _barEntry = MutableLiveData<List<Entry>>()
     val barEntry: LiveData<List<Entry>> get() = _barEntry
 
     private fun getChartData() = viewModelScope.launch(Dispatchers.IO) {
-        datesAndTimes?.childRvUiData?.forEachIndexed{ index , uiData ->
-            hoursIndexList.add(index.toFloat())
-            tempList.add(uiData.temperature.toFloat().orZero())
-        }
-        for(item in hoursIndexList){
-            barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
-        }
+        datesAndTimes?.childRvUiData?.let {
+            it.forEachIndexed { index, uiData ->
+                hoursIndexList.add(index.toFloat())
+                tempList.add(uiData.temperature.toFloat().orZero())
+            }
+            for (item in hoursIndexList) {
+                barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
+            }
+            _hoursList = datesAndTimes.hours
 
-        _hoursList = datesAndTimes?.hours ?: emptyList()
-
-        _barEntry.postValue(barEntryList)
+            _barEntry.postValue(barEntryList)
+        }
     }
-
 }

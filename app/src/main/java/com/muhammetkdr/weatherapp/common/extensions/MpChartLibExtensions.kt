@@ -11,7 +11,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.muhammetkdr.weatherapp.R
 
-
 fun LineChart.setLineChart(dataSet: LineDataSet , value : List<String>) {
     isDragEnabled = true
     setScaleEnabled(false)
@@ -19,7 +18,7 @@ fun LineChart.setLineChart(dataSet: LineDataSet , value : List<String>) {
     dataSet.apply {
         fillAlpha = 150
         setDrawFilled(true)
-        setColor(ContextCompat.getColor(context, R.color.light_gray))
+        color = ContextCompat.getColor(context, R.color.light_gray)
         lineWidth = 1f
         valueTextSize = 10f
         setColors(*ColorTemplate.MATERIAL_COLORS)

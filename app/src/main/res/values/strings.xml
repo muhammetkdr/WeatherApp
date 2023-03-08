@@ -19,5 +19,8 @@
     <string name="space_string">\u00A0</string>
     <string name="line_chart_avarage">Line Chart avarage</string>
     <string name="line_chart">Line Chart</string>
+    <string name="air_pressure">Hava Basıncı</string>
+    <string name="humidity">Nem</string>
+    <string name="wind">Rüzgar</string>
 
 </resources>

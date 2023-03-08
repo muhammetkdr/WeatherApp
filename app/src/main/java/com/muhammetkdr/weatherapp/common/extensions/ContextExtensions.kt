@@ -3,6 +3,7 @@ package com.muhammetkdr.weatherapp.common.extensions
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 fun Context.hasLocationPermission(): Boolean {
@@ -13,3 +14,6 @@ fun Context.hasLocationPermission(): Boolean {
     ) == PackageManager.PERMISSION_GRANTED
 }
 
+fun Context.toastBuilder(message: String){
+    Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+}

@@ -1,6 +1,5 @@
 package com.muhammetkdr.weatherapp.domain.entity.currentweather
 
-import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.data.dto.current.Main
 import com.muhammetkdr.weatherapp.data.dto.current.Sys
 import com.muhammetkdr.weatherapp.data.dto.current.Weather
@@ -12,11 +11,15 @@ data class CurrentWeatherEntity (
     val weather: List<Weather>,
 ){
 
-    fun getBackground() : Int{
-        return if(weather.first().main=="Clouds")
-            R.drawable.cloudy
-        else
-            R.drawable.foggy
+    fun getFormattedTemperature() : Double?{
+        val value = main.temp.toString()
+        val hourValue = value.substringAfter('.')
+        return if(hourValue.length == 2){
+            val tempStr = value.dropLast(1)
+            tempStr.toDouble()
+        }else{
+            main.temp
+        }
     }
 
 }

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/teal_700">
 
     <ImageView
         android:id="@+id/imgBackPress"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
-        android:hint="@string/Test_hint"
+        tools:text="21.06.1997"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/imgBackPress"
         app:layout_constraintEnd_toStartOf="@id/imgSearchPress"
@@ -31,8 +32,8 @@
 
     <ImageView
         android:id="@+id/imgSearchPress"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:padding="8dp"
         android:contentDescription="@string/custom_toolbar_searchimage"
         android:src="@drawable/ic_search"

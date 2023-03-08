@@ -1,11 +1,8 @@
 package com.muhammetkdr.weatherapp.data.dto.current
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 data class Weather(
     @SerializedName("description")
     val description: String?,
@@ -15,4 +12,4 @@ data class Weather(
     val id: Int?,
     @SerializedName("main")
     val main: String?
-) : Parcelable
+)
