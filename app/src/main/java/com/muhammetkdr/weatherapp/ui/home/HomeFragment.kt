@@ -2,17 +2,19 @@ package com.muhammetkdr.weatherapp.ui.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_PERMISSION_REQUEST_CODE_ZERO
 import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
@@ -31,20 +33,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private val parentAdapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::parentRvItemClick) }
 
+    private lateinit var requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>>
+
     @Inject
     lateinit var calendar: Calendar
 
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
-
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ), LOCATION_PERMISSION_REQUEST_CODE_ZERO
-        )
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,15 +48,69 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         observeCurrentWeatherData()
         observeCalendar()
 
-        requestPermission()
+        initRequestLocationPermissionLauncher()
+        requestLocationPermission()
 
-        getLocation()
         initDataBinding()
         initRvAdapter()
     }
 
+    private fun initRequestLocationPermissionLauncher(){
+        requestLocationPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val isFineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val isCoarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+            if (isFineLocationGranted && isCoarseLocationGranted) {
+                // İzinler verildi, istenen eylemleri gerçekleştirin
+                // Örneğin, konum verilerini alın ve API'ye gönderin
+                getLocation()
+            } else {
+                // İzinler verilmedi, istenen eylemleri gerçekleştiremezsiniz
+                requestLocationPermission()
+            }
+        }
+    }
+
+    private fun requestLocationPermission() {
+        when {
+            ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ->{
+                // İzinler zaten verildi, istenen eylemleri gerçekleştirin
+                // Örneğin, konum verilerini alın ve API'ye gönderin
+                getLocation()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) -> {
+                // Kullanıcı izni reddetti, ancak tekrar isteyebileceklerini açıklayın
+                // Örneğin, açıklamalı bir iletişim kutusu gösterin
+                Snackbar.make(requireView(),"Permission need!", Snackbar.LENGTH_INDEFINITE).apply {
+                    setAction("Give Permission"){
+                        requestLocationPermissionLauncher.launch(
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION)
+                        )
+                    }
+                    show()
+                }
+            }
+            else -> {
+                // İzinleri isteyin
+                requestLocationPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                )
+            }
+        }
+    }
+
     @SuppressLint("MissingPermission")
-    private fun getLocation() = lifecycleScope.launchWhenStarted {
+    private fun getLocation() = lifecycleScope.launchWhenStarted{
         try {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
                 viewModel.apply {
