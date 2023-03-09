@@ -3,6 +3,7 @@ package com.muhammetkdr.weatherapp.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.data.*
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.EMPTY
@@ -21,6 +22,11 @@ class DetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLineChart()
+
+        binding.detailToolbarView.onBackPressed{
+            findNavController().popBackStack()
+        }
+
     }
 
     private fun initLineChart() = viewModel.barEntry.observe(viewLifecycleOwner) {
@@ -29,12 +35,12 @@ class DetailsFragment :
 
     private fun entyListObserver(data : List<Entry>?) = with(binding){
         if(data==null){
-            detailsProgressBar.visible()
+//            detailsProgressBar.visible()
+
         }else{
-            detailsProgressBar.gone()
+//            detailsProgressBar.gone()
             val lineDataSet = LineDataSet(data,String.EMPTY)
             lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
-            tvDetails.text = viewModel.datesAndTimes?.date
         }
     }
 }

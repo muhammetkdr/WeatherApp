@@ -64,6 +64,14 @@ class CustomToolbarView @JvmOverloads constructor(
         binding.imgSearchPress.isVisible = isVisible
     }
 
+    fun onBackPressed(onClickListener: OnClickListener){
+        binding.imgBackPress.setOnClickListener(onClickListener)
+    }
+
+    fun onSearchButtonPressed(onClickListener: OnClickListener){
+        binding.imgSearchPress.setOnClickListener(onClickListener)
+    }
+
 }
 
 enum class CustomToolbarViewTextStyle(val type: Int) {

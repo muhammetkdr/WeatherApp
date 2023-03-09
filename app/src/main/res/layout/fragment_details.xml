@@ -1,155 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.details.DetailsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.details.DetailsFragment"
+    android:orientation="vertical">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446"
-        tools:text="01.01.1221">
+    <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
+        android:id="@+id/detailToolbarView"
+        app:ctv_showEndIcon="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    </com.google.android.material.textview.MaterialTextView>
+    </com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChartDetailsPage"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_margin="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_margin="2dp">
 
     </com.github.mikephil.charting.charts.LineChart>
-
-    <ProgressBar
-        android:id="@+id/detailsProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsProgressBar">
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="2"
+        >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:text="@string/wind"
+                android:textSize="20sp"
+                tools:text="Rüzgar" />
 
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="4dp"
-                    android:layout_weight="5"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvLinearLayout252"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/air_pressure"
-                        android:textSize="20sp"
-                        tools:text="Hava Basıncı" />
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="1dp"
-                        android:src="@drawable/air_pressure" />
-
-                </LinearLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvLinearLayout343"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    tools:text="1000 mb" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="4dp"
-                    android:layout_weight="5"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvLinearLayout223"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/humidity"
-                        android:textSize="20sp"
-                        tools:text="Nem" />
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_margin="1dp"
-                        android:src="@drawable/humidity" />
-
-                </LinearLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvLinearLayout3413"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    tools:text="%58" />
-            </LinearLayout>
-
-
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/wind" />
 
         </LinearLayout>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWind"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:textSize="18sp"
+            android:text="@string/humidity"
+            tools:text="2 km/s" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="4dp"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/humidity"
+                android:textSize="20sp"
+                tools:text="Nem" />
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/humidity" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/humidity"
+            android:textSize="18sp"
+            tools:text="%56" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/air_pressure"
+                android:textSize="20sp"
+                tools:text="Hava Basıncı" />
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/air_pressure" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPressure"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/humidity"
+            android:textSize="18sp"
+            tools:text="1020 mb" />
 
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
