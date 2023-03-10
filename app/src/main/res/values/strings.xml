@@ -4,6 +4,7 @@
     <string name="something_bad_happened">Something Bad happened..</string>
     <string name="search">Search a meal..</string>
     <string name="Test_hint">Test text</string>
+    <string name="binding_null">Binding is not initialized!</string>
     <string name="gps_disabled">GPS is disabled</string>
     <string name="permission_denied_rationale">You need to accept location permissions to be able to use this app!</string>
     <string name="permission_missing">Missing location permission!</string>
@@ -22,5 +23,7 @@
     <string name="air_pressure">Hava Basıncı</string>
     <string name="humidity">Nem</string>
     <string name="wind">Rüzgar</string>
+    <string name="permission_need">Permission needed!</string>
+    <string name="give_permission">Give Permission</string>
 
 </resources>
