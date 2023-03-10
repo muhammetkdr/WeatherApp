@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
+import com.muhammetkdr.weatherapp.R
+import com.muhammetkdr.weatherapp.common.logger.Logger
 import com.muhammetkdr.weatherapp.common.logger.LoggerImpl
 import java.lang.IllegalArgumentException
 import javax.inject.Inject
@@ -16,12 +18,14 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
 ) : Fragment() {
 
     private var _binding: VB? = null
-    protected val binding: VB get() = _binding as VB
+
+    protected val binding: VB
+        get() = _binding ?: throw IllegalStateException(getString(R.string.binding_null))
 
     protected abstract val viewModel: VM
 
     @Inject
-    lateinit var logger:LoggerImpl
+    lateinit var logger: LoggerImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         logger.log("onCreateF")
@@ -35,11 +39,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     ): View? {
         _binding = bindingInflater.invoke(inflater)
 
-        if (_binding == null) {
-            throw IllegalArgumentException("Binding null")
-        }
         logger.log("onCreateViewF")
-
         return binding.root
     }
 
@@ -72,7 +72,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     override fun onDestroy() {
         logger.log("onDestroyF")
         super.onDestroy()
-
     }
 
     override fun onDetach() {
