@@ -12,10 +12,11 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.muhammetkdr.weatherapp.R
 
 fun LineChart.setLineChart(dataSet: LineDataSet , value : List<String>) {
+
     isDragEnabled = true
     setScaleEnabled(false)
 
-    dataSet.apply {
+    with(dataSet){
         fillAlpha = 150
         setDrawFilled(true)
         color = ContextCompat.getColor(context, R.color.light_gray)
@@ -24,7 +25,7 @@ fun LineChart.setLineChart(dataSet: LineDataSet , value : List<String>) {
         setColors(*ColorTemplate.MATERIAL_COLORS)
     }
 
-    xAxis.apply {
+    with(xAxis){
         axisMaximum = 0f
         axisMaximum = 7f
         textColor = Color.BLACK
