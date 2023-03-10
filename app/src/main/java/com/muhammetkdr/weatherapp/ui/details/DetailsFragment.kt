@@ -21,10 +21,19 @@ class DetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLineChart()
 
-        binding.detailToolbarView.onBackPressed{
+        initLineChart()
+        initToolbar()
+
+    }
+
+    private fun initToolbar() = with(binding) {
+        detailToolbarView.onBackPressed{
             findNavController().popBackStack()
+        }
+
+        viewModel.currentDate.observe(viewLifecycleOwner){
+            detailToolbarView.updateTitle(it)
         }
 
     }
@@ -35,12 +44,12 @@ class DetailsFragment :
 
     private fun entyListObserver(data : List<Entry>?) = with(binding){
         if(data==null){
-//            detailsProgressBar.visible()
-
+            detailScreenProgressbar.visible()
         }else{
-//            detailsProgressBar.gone()
+            detailScreenProgressbar.gone()
             val lineDataSet = LineDataSet(data,String.EMPTY)
             lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
         }
     }
+
 }

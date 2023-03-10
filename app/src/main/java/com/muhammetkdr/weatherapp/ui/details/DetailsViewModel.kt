@@ -15,7 +15,7 @@ class DetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     val datesAndTimes: DatesAndTimes? = savedStateHandle.get<DatesAndTimes>("datesAndTimes")
 
     init {
-        getChartData()
+        getData()
     }
 
     private val tempList : MutableList<Float> = mutableListOf()
@@ -25,10 +25,13 @@ class DetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     private var _hoursList : List<String> = mutableListOf()
     val hoursList : List<String> get() = _hoursList
 
+    private val _currentDate : MutableLiveData<String> = MutableLiveData()
+    val currentDate : LiveData<String> get() = _currentDate
+
     private val _barEntry = MutableLiveData<List<Entry>>()
     val barEntry: LiveData<List<Entry>> get() = _barEntry
 
-    private fun getChartData() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getData() = viewModelScope.launch(Dispatchers.IO) {
         datesAndTimes?.childRvUiData?.let {
             it.forEachIndexed { index, uiData ->
                 hoursIndexList.add(index.toFloat())
@@ -41,5 +44,14 @@ class DetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
 
             _barEntry.postValue(barEntryList)
         }
+
+        datesAndTimes?.date?.let {
+            _currentDate.postValue(it)
+        }
+
+
+
     }
+
+
 }
