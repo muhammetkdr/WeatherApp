@@ -3,14 +3,6 @@ package com.muhammetkdr.weatherapp.common.extensions
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.capitalizeFirstWord(): String {
-    return this.replaceFirstChar {
-        if (it.isLowerCase())
-            it.titlecase(Locale.getDefault())
-        else it.toString()
-    }
-}
-
 fun String.capitalizeWords(): String = split(" ").map { word ->
     word.replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
@@ -18,6 +10,7 @@ fun String.capitalizeWords(): String = split(" ").map { word ->
         ) else it.toString()
     }
 }.joinToString(" ")
+
 
 fun String.formatCalendar(): String {
     return if (this.length == 1) {
