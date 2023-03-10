@@ -1,12 +1,15 @@
 package com.muhammetkdr.weatherapp.domain.entity.forecastweather
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
+@Parcelize
 data class ChildRvUiData @Inject constructor(
     val hours: String,
     val temperature: Double,
     val icons: String
-) {
+) :Parcelable{
     fun getFormattedTemperature(): Double{
         val value = temperature.toString()
         val hourValue = value.substringAfter('.')
