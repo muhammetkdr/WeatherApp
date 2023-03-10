@@ -25,5 +25,6 @@
     <string name="wind">Rüzgar</string>
     <string name="permission_need">Permission needed!</string>
     <string name="give_permission">Give Permission</string>
+    <string name="not_initialized">it is not initialized!</string>
 
 </resources>
