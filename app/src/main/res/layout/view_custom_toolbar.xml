@@ -23,12 +23,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
-        tools:text="21.06.1997"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgBackPress"
-        app:layout_constraintEnd_toStartOf="@id/imgSearchPress"
-        app:layout_constraintStart_toEndOf="@id/imgBackPress"
-        app:layout_constraintTop_toTopOf="@id/imgBackPress" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="21.06.1997" />
 
     <ImageView
         android:id="@+id/imgSearchPress"
