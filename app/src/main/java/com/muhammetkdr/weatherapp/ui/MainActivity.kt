@@ -5,6 +5,4 @@ import com.muhammetkdr.weatherapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>({ inflater ->
-    ActivityMainBinding.inflate(inflater)
-})
+class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate)
