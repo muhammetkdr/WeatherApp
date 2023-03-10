@@ -31,7 +31,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 ) {
     override val viewModel by viewModels<HomeViewModel>()
 
-    private val parentAdapter: HomeParentForecastWeatherAdapter by lazy { HomeParentForecastWeatherAdapter(::parentRvItemClick) }
+    private val parentAdapter: HomeParentForecastWeatherAdapter by lazy {
+        HomeParentForecastWeatherAdapter(
+            ::parentRvItemClick
+        )
+    }
 
     private lateinit var requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>>
 
@@ -55,18 +59,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         initRvAdapter()
     }
 
-    private fun initRequestLocationPermissionLauncher(){
+    private fun initRequestLocationPermissionLauncher() {
         requestLocationPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
-            val isFineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
-            val isCoarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+            val isFineLocationGranted =
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val isCoarseLocationGranted =
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
             if (isFineLocationGranted && isCoarseLocationGranted) {
-                // İzinler verildi, istenen eylemleri gerçekleştirin
-                // Örneğin, konum verilerini alın ve API'ye gönderin
                 getLocation()
             } else {
-                // İzinler verilmedi, istenen eylemleri gerçekleştiremezsiniz
                 requestLocationPermission()
             }
         }
@@ -74,31 +77,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun requestLocationPermission() {
         when {
-            ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ->{
-                // İzinler zaten verildi, istenen eylemleri gerçekleştirin
-                // Örneğin, konum verilerini alın ve API'ye gönderin
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED -> {
                 getLocation()
             }
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) || shouldShowRequestPermissionRationale(
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) -> {
-                // Kullanıcı izni reddetti, ancak tekrar isteyebileceklerini açıklayın
-                // Örneğin, açıklamalı bir iletişim kutusu gösterin
-                Snackbar.make(requireView(),"Permission need!", Snackbar.LENGTH_INDEFINITE).apply {
-                    setAction("Give Permission"){
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
+                    shouldShowRequestPermissionRationale(
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) -> {
+                Snackbar.make(requireView(), R.string.permission_need, Snackbar.LENGTH_INDEFINITE).apply {
+                    setAction(R.string.give_permission) {
                         requestLocationPermissionLauncher.launch(
-                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION)
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
                         )
                     }
                     show()
                 }
             }
             else -> {
-                // İzinleri isteyin
                 requestLocationPermissionLauncher.launch(
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -110,7 +115,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() = lifecycleScope.launchWhenStarted{
+    private fun getLocation() = lifecycleScope.launchWhenStarted {
         try {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
                 viewModel.apply {
@@ -131,7 +136,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             when (Resource) {
                 is Resource.Success -> {
                     Resource.data.let {
-                        with(binding){
+                        with(binding) {
                             homeProgressbar.gone()
                             containerCurrentWeather.weatherEntity = it
 //                          root.setBackgroundResource(it.getBackground())
@@ -170,9 +175,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    private fun observeCalendar(){
-        viewModel.getTodaysCallendar(calendar)
-        viewModel.date.observe(viewLifecycleOwner){
+    private fun observeCalendar() {
+        viewModel.getTodaysCalendar(calendar)
+        viewModel.date.observe(viewLifecycleOwner) {
             binding.customToolBar.updateTitle(it)
         }
     }
