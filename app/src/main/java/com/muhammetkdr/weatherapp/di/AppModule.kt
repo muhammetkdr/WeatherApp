@@ -2,24 +2,23 @@ package com.muhammetkdr.weatherapp.di
 
 import com.muhammetkdr.weatherapp.common.logger.Logger
 import com.muhammetkdr.weatherapp.common.logger.LoggerImpl
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
+import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.scopes.FragmentScoped
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
 import java.util.Calendar
+import javax.inject.Singleton
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
-    @FragmentScoped
+    @Singleton
     fun provideLogger() :Logger = LoggerImpl()
-
-    @Provides
-    @FragmentScoped
-    fun provideCallender(): Calendar = Calendar.getInstance()
 
 }
