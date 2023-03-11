@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
     private val _date : MutableLiveData<String> = MutableLiveData("")
     val date : LiveData<String> get() = _date
 
-    fun getTodaysCallendar(calendar: Calendar){
+    fun getTodaysCalendar(calendar: Calendar){
             val (day, month, year) = calendar
             val dayFormatted = day.toString().formatCalendar()
             val monthFormatted = month.toString().formatCalendar()

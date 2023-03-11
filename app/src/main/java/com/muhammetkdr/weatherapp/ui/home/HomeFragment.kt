@@ -160,7 +160,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 is Resource.Success -> {
                     Resource.data.let {
                         binding.homeProgressbar.gone()
-                        val list = it.getMappedWeatherList()
+                        val list = it.uiDataMapper()
                         parentAdapter.submitList(list)
                     }
                 }
