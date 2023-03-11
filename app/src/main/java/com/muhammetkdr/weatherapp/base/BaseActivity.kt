@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.logger.Logger
-import com.muhammetkdr.weatherapp.common.logger.LoggerImpl
 import javax.inject.Inject
 
 abstract class BaseActivity<VB : ViewBinding>(private val inflate: (LayoutInflater) -> VB) : AppCompatActivity() {
@@ -16,7 +15,7 @@ abstract class BaseActivity<VB : ViewBinding>(private val inflate: (LayoutInflat
         get() = _binding ?: throw IllegalStateException(getString(R.string.binding_null))
 
     @Inject
-    lateinit var logger: LoggerImpl
+    lateinit var logger: Logger
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.logger.Logger
-import com.muhammetkdr.weatherapp.common.logger.LoggerImpl
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
@@ -25,7 +23,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>(
     protected abstract val viewModel: VM
 
     @Inject
-    lateinit var logger: LoggerImpl
+    lateinit var logger: Logger
 
     override fun onCreate(savedInstanceState: Bundle?) {
         logger.log("onCreateF")
