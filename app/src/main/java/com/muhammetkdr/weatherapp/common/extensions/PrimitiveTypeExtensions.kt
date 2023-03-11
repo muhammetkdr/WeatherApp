@@ -3,4 +3,6 @@ package com.muhammetkdr.weatherapp.common.extensions
 
 fun Float?.orZero() = this ?: 0.0f
 
-val Int?.orZero: Int get() = this ?: 0
+fun Int?.orZero() = this ?: 0
+
+fun Double?.orZero() = this ?: 0.0
