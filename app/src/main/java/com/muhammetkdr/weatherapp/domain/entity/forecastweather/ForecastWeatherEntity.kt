@@ -10,10 +10,10 @@ data class ForecastWeatherEntity(
     val city: City,
     val main: Main,
     val list: List<WeatherList>,
-    val dtTxt: String,
+    val dtTxt: String
 ) :ForecastWeatherDataMapper{
 
-    override fun getMappedWeatherList(): MutableList<DatesAndTimes?> {
+    override fun uiDataMapper(): MutableList<DatesAndTimes?> {
         val responseListMapper = mutableListOf<DatesAndTimes?>()
         val dates = mutableSetOf<String>()
 
@@ -38,13 +38,13 @@ data class ForecastWeatherEntity(
                         val hour = hourValue.dropLast(3)
                         val temp = response.main?.temp ?: 0.0
                         val icon = response.weather?.first()?.icon.orEmpty()
+
                         hours.add(hour)
                         temperature.add(temp)
                         icons.add(icon)
                         childRvUiData.add(ChildRvUiData(hour,temp,icon))
                     }
                 }
-
             }
             val formattedDate = date.getDateInAnotherFormat("yyyy-MM-dd","dd.MM.YYYY")
             val dayOfTheWeek = date.zellerCongruence()
@@ -53,7 +53,11 @@ data class ForecastWeatherEntity(
                 date = formattedDate,
                 dayOfTheWeek = dayOfTheWeek,
                 hours = hours,
-                childRvUiData = childRvUiData)
+                grndLevel = main.grndLevel.toString() ?: "0",
+                pressure = main.pressure.toString() ?: "0",
+                humidity = main.humidity.toString() ?: "0",
+                childRvUiData = childRvUiData
+            )
             responseListMapper.add(dateAndTimes)
         }
         return responseListMapper

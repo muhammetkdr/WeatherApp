@@ -10,48 +10,42 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(savedStateHandle: SavedStateHandle) : ViewModel() {
+class DetailsViewModel @Inject constructor() : ViewModel() {
 
-    val datesAndTimes: DatesAndTimes? = savedStateHandle.get<DatesAndTimes>("datesAndTimes")
+    private val tempList: MutableList<Float> = mutableListOf()
+    private val hoursIndexList: MutableList<Float> = mutableListOf()
+    private val barEntryList: MutableList<Entry> = mutableListOf()
 
-    init {
-        getData()
-    }
-
-    private val tempList : MutableList<Float> = mutableListOf()
-    private val hoursIndexList : MutableList<Float> = mutableListOf()
-    private val barEntryList : MutableList<Entry> = mutableListOf()
-
-    private var _hoursList : List<String> = mutableListOf()
-    val hoursList : List<String> get() = _hoursList
-
-    private val _currentDate : MutableLiveData<String> = MutableLiveData()
-    val currentDate : LiveData<String> get() = _currentDate
+    private var _hoursList: List<String> = mutableListOf()
+    val hoursList: List<String> get() = _hoursList
 
     private val _barEntry = MutableLiveData<List<Entry>>()
     val barEntry: LiveData<List<Entry>> get() = _barEntry
 
-    private fun getData() = viewModelScope.launch(Dispatchers.IO) {
-        datesAndTimes?.childRvUiData?.let {
-            it.forEachIndexed { index, uiData ->
+    private val _humidity: MutableLiveData<String> = MutableLiveData()
+    val humidity: LiveData<String> get() = _humidity
+
+    private val _pressure: MutableLiveData<String> = MutableLiveData()
+    val pressure: LiveData<String> get() = _pressure
+
+    private val _grndLevel: MutableLiveData<String> = MutableLiveData()
+    val grndLevel: LiveData<String> get() = _grndLevel
+
+    fun getData(data : DatesAndTimes) = viewModelScope.launch(Dispatchers.IO) {
+        data.childRvUiData.forEachIndexed{ index, uiData ->
                 hoursIndexList.add(index.toFloat())
                 tempList.add(uiData.temperature.toFloat().orZero())
             }
             for (item in hoursIndexList) {
                 barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
             }
-            _hoursList = datesAndTimes.hours
+            _hoursList = data.hours
 
             _barEntry.postValue(barEntryList)
+
+            _humidity.postValue(data.humidity)
+            _pressure.postValue(data.pressure)
+            _grndLevel.postValue(data.grndLevel)
         }
-
-        datesAndTimes?.date?.let {
-            _currentDate.postValue(it)
-        }
-
-
 
     }
-
-
-}

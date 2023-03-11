@@ -10,6 +10,9 @@ import javax.inject.Inject
 data class DatesAndTimes @Inject constructor(
     val date: String,
     val dayOfTheWeek: String,
+    val grndLevel : String,
+    val pressure : String,
+    val humidity : String,
     val hours: List<String>,
     val childRvUiData: List<@RawValue ChildRvUiData>
 ):Parcelable

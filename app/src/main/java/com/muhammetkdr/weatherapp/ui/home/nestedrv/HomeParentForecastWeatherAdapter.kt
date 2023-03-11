@@ -22,7 +22,6 @@ class HomeParentForecastWeatherAdapter @Inject constructor(
     ): RecyclerView.ViewHolder {
         val binding = ItemParentForecastRvBinding.inflate(inflater, parent, false)
 
-
         return HomeParentForecastWeatherViewHolder(
             binding,
             onCategoryItemClickListener
