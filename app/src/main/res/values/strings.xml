@@ -3,7 +3,7 @@
     <string name="no_data_response">There is nothing as a response!</string>
     <string name="something_bad_happened">Something Bad happened..</string>
     <string name="search">Search a meal..</string>
-    <string name="Test_hint">Test text</string>
+    <string name="Test">Test text</string>
     <string name="binding_null">Binding is not initialized!</string>
     <string name="gps_disabled">GPS is disabled</string>
     <string name="permission_denied_rationale">You need to accept location permissions to be able to use this app!</string>
@@ -15,6 +15,9 @@
     <string name="custom_toolbar_searchimage">Custom toolbar search image</string>
     <string name="current_weather">(Anlık)</string>
     <string name="coma">,</string>
+    <string name="distance">m</string>
+    <string name="percentage">%</string>
+    <string name="pressure">mb</string>
     <string name="current_weather_condition">Mevcut durum:\u00A0</string>
     <string name="current_feels_like">(Hissedilen)</string>
     <string name="space_string">\u00A0</string>
@@ -22,7 +25,7 @@
     <string name="line_chart">Line Chart</string>
     <string name="air_pressure">Hava Basıncı</string>
     <string name="humidity">Nem</string>
-    <string name="wind">Rüzgar</string>
+    <string name="grnd_level">Rakım</string>
     <string name="permission_need">Permission needed!</string>
     <string name="give_permission">Give Permission</string>
     <string name="not_initialized">it is not initialized!</string>
