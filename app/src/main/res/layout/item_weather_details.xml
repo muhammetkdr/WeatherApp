@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="childData"
+            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/teal_700"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:text="@{childData.hours}"
+                android:textSize="16sp"
+                tools:text="12:00" />
+
+            <ImageView
+                android:id="@+id/item_weather_img"
+                setWeatherImage="@{childData.icons}"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/air_pressure">
+            </ImageView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:text="@{Double.toString(childData.getFormattedTemperature)+@string/celcius_string}"
+                android:textSize="16sp"
+                tools:text="12.1 C" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
