@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
+import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes

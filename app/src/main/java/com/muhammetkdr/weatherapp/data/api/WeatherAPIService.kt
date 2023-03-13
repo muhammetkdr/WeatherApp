@@ -1,8 +1,8 @@
 package com.muhammetkdr.weatherapp.data.api
 
 import com.muhammetkdr.weatherapp.BuildConfig
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LANGUAGE
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.METRIC
+import com.muhammetkdr.weatherapp.common.utils.Constants.LANGUAGE
+import com.muhammetkdr.weatherapp.common.utils.Constants.METRIC
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import retrofit2.Response

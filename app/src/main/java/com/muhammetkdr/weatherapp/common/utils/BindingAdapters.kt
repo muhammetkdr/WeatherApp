@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.muhammetkdr.weatherapp.BuildConfig
 import com.muhammetkdr.weatherapp.R
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.IMAGE_RESOLUTION_SIZE
+import com.muhammetkdr.weatherapp.common.utils.Constants.IMAGE_RESOLUTION_SIZE
 
 @BindingAdapter("setWeatherImage")
 fun ImageView.setWeatherImage(weatherCondition:String?) {

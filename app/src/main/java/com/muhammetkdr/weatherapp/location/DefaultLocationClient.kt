@@ -7,9 +7,9 @@ import android.location.LocationManager
 import android.os.Looper
 import com.google.android.gms.location.*
 import com.muhammetkdr.weatherapp.common.extensions.hasLocationPermission
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_DURATION
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_MAX_DURATION
-import com.muhammetkdr.weatherapp.common.utils.Const.Companion.LOCATION_REQUEST_MIN_DURATION
+import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
+import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_MAX_DURATION
+import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_MIN_DURATION
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
