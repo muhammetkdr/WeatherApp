@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
 import javax.inject.Inject
 
 class HomeParentForecastWeatherAdapter @Inject constructor(
-    private val onCategoryItemClickListener: ((DatesAndTimes) -> Unit)?
-) :
-    BaseListAdapter<DatesAndTimes>(
+    private val onItemClickListener: ((DatesAndTimes) -> Unit)?
+) : BaseListAdapter<DatesAndTimes>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }) {
         override fun onCreateViewHolder(
@@ -24,7 +22,7 @@ class HomeParentForecastWeatherAdapter @Inject constructor(
 
         return HomeParentForecastWeatherViewHolder(
             binding,
-            onCategoryItemClickListener
+            onItemClickListener
         )
     }
 
