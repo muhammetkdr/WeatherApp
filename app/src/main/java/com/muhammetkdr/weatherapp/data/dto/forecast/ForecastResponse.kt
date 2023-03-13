@@ -2,6 +2,7 @@ package com.muhammetkdr.weatherapp.data.dto.forecast
 
 
 import com.google.gson.annotations.SerializedName
+import com.muhammetkdr.weatherapp.data.dto.forecast.City
 
 data class ForecastResponse(
     @SerializedName("city")

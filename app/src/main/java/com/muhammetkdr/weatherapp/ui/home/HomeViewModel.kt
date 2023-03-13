@@ -61,5 +61,4 @@ class HomeViewModel @Inject constructor(
             _forecastWeather.emit(it)
         }
     }
-
 }

@@ -9,6 +9,8 @@ import com.github.mikephil.charting.data.*
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.databinding.FragmentDetailsBinding
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
+import com.muhammetkdr.weatherapp.ui.details.rv.DetailsWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,14 +21,26 @@ class DetailsFragment :
 
     private val args: DetailsFragmentArgs by navArgs()
 
+    private val detailsWeatherAdapter: DetailsWeatherAdapter by lazy { DetailsWeatherAdapter(::itemClick) }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initLineChart()
         initToolbar()
         initDataBinding()
-        viewModel.getData(args.datesAndTimes)
+        initViewModelNavArgs()
+        initRvAdapter()
+
     }
+
+    private fun initRvAdapter() = with(binding) {
+        val list = args.datesAndTimes.childRvUiData
+        detailsWeatherAdapter.submitList(list)
+        rvDetails.adapter = detailsWeatherAdapter
+    }
+
+    private fun initViewModelNavArgs() = viewModel.getData(args.datesAndTimes)
 
     private fun initDataBinding() = with(binding) {
         detailViewModel = viewModel
@@ -54,6 +68,10 @@ class DetailsFragment :
             val lineDataSet = LineDataSet(data, String.EMPTY)
             lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
         }
+    }
+
+    private fun itemClick(data: ChildRvUiData){
+
     }
 
 }

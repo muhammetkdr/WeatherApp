@@ -1,7 +1,6 @@
 package com.muhammetkdr.weatherapp.domain.entity.forecastweather
 
 import android.os.Parcelable
-import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 import javax.inject.Inject

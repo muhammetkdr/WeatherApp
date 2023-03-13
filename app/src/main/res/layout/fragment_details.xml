@@ -9,10 +9,6 @@
             name="detailViewModel"
             type="com.muhammetkdr.weatherapp.ui.details.DetailsViewModel" />
 
-        <variable
-            name="datesAndTimes"
-            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
-
     </data>
 
     <FrameLayout
@@ -44,10 +40,23 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChartDetailsPage"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="350dp"
                 android:layout_margin="2dp">
 
             </com.github.mikephil.charting.charts.LineChart>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:itemCount="2"
+                android:layout_marginTop="4dp"
+                tools:listitem="@layout/item_weather_details"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
 
 
             <LinearLayout
