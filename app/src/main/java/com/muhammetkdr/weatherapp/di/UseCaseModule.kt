@@ -22,4 +22,8 @@ abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindWeatherListUseCase(weatherListUseCaseImpl: WeatherListUseCaseImpl): WeatherListUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSearchQueryUseCase(searchWeatherUseCaseImpl: SearchWeatherUseCaseImpl) : SearchWeatherUseCase
 }
