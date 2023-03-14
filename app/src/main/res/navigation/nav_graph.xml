@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -23,4 +26,9 @@
             android:name="datesAndTimes"
             app:argType="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.muhammetkdr.weatherapp.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
