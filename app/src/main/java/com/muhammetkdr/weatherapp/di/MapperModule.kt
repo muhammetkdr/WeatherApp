@@ -3,6 +3,7 @@ package com.muhammetkdr.weatherapp.di
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.data.dto.search.SearchResponse
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
@@ -10,7 +11,9 @@ import com.muhammetkdr.weatherapp.data.listmapper.WeatherListMapper
 import com.muhammetkdr.weatherapp.data.listmapper.WeatherListMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.CurrentWeatherMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.ForecastWeatherMapperImpl
+import com.muhammetkdr.weatherapp.data.mapper.SearchWeatherMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
+import com.muhammetkdr.weatherapp.domain.entity.searchweather.SearchWeatherEntity
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -32,5 +35,9 @@ abstract class MapperModule {
     @Binds
     @ViewModelScoped
     abstract fun bindResponseToWeatherListEntityMapper(weatherListMapperImpl: WeatherListMapperImpl) : WeatherListMapper<WeatherList, WeatherListEntity>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindResponseToSearchEntityMapper(searchWeatherMapperImpl: SearchWeatherMapperImpl) : WeatherMapper<SearchResponse,SearchWeatherEntity>
 
 }
