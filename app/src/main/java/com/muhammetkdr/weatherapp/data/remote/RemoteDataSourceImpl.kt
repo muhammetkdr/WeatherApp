@@ -5,6 +5,7 @@ import com.muhammetkdr.weatherapp.data.api.WeatherAPIService
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.data.dto.search.SearchResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -57,6 +58,22 @@ class RemoteDataSourceImpl @Inject constructor(
                 emit(Resource.Error(NO_DATA))
             }
         } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
+        }
+    }
+
+    override fun getSearchResponse(cityNameQuery: String): Flow<Resource<SearchResponse>> = flow {
+        try {
+            emit(Resource.Loading)
+            val response = api.getSearchWeatherResponse(cityNameQuery = cityNameQuery)
+            if (response.isSuccessful){
+                response.body()?.let {
+                    emit(Resource.Success(it))
+                }
+            }else {
+                emit(Resource.Error(NO_DATA))
+            }
+        } catch (e:Exception){
             emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
         }
     }
