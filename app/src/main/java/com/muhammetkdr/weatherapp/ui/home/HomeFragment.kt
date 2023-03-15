@@ -57,6 +57,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         initDataBinding()
         initRvAdapter()
+
+        binding.customToolBar.onSearchButtonPressed{
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            findNavController().navigate(action)
+        }
+
     }
 
     private fun initRequestLocationPermissionLauncher() {
