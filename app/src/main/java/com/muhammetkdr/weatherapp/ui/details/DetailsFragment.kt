@@ -54,7 +54,7 @@ class DetailsFragment :
         detailToolbarView.updateTitle(args.datesAndTimes.date)
     }
 
-    private fun initLineChart() = viewModel.barEntry.observe(viewLifecycleOwner) {
+    private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner) {
         entyListObserver(it)
     }
 

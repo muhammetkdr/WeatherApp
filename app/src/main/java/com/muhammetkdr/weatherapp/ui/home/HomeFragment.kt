@@ -183,7 +183,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun observeCalendar() {
         viewModel.getTodaysCalendar(calendar)
-        viewModel.date.observe(viewLifecycleOwner) {
+        viewModel.date.observeIfNotNull(viewLifecycleOwner) {
             binding.customToolBar.updateTitle(it)
         }
     }
