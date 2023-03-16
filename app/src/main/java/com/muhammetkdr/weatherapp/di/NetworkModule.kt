@@ -1,13 +1,13 @@
 package com.muhammetkdr.weatherapp.di
 
-import android.content.Context
 import androidx.viewbinding.BuildConfig
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.muhammetkdr.weatherapp.data.api.WeatherAPIService
+import com.muhammetkdr.weatherapp.common.utils.Constants.CITY_BASE_URL
+import com.muhammetkdr.weatherapp.common.utils.Constants.WEATHER_BASE_URL
+import com.muhammetkdr.weatherapp.data.api.city.CityApi
+import com.muhammetkdr.weatherapp.data.api.weather.WeatherAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,7 +32,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClint(@ApplicationContext context: Context, httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideHttpClint(
+//        @ApplicationContext context: Context,
+        httpLoggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
 //            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
@@ -49,16 +52,36 @@ object NetworkModule {
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
+        baseUrl: String,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
-        return Retrofit.Builder().baseUrl(com.muhammetkdr.weatherapp.BuildConfig.BASE_URL).client(okHttpClient)
+        return Retrofit.Builder().baseUrl(baseUrl).client(okHttpClient)
             .addConverterFactory(gsonConverterFactory).build()
     }
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): WeatherAPIService {
-        return retrofit.create(WeatherAPIService::class.java)
-    }
+    fun provideWeatherApiService(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): WeatherAPIService =
+        provideRetrofitInstance(
+            baseUrl = WEATHER_BASE_URL,
+            okHttpClient = okHttpClient,
+            gsonConverterFactory = gsonConverterFactory
+        ).create(
+            WeatherAPIService::class.java
+        )
+
+    @Singleton
+    @Provides
+    fun provideCityApi(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): CityApi = provideRetrofitInstance(
+        baseUrl = CITY_BASE_URL,
+        okHttpClient = okHttpClient,
+        gsonConverterFactory = gsonConverterFactory
+    ).create(CityApi::class.java)
 
 }
