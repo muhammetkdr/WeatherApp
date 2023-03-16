@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.data.api
+package com.muhammetkdr.weatherapp.data.api.weather
 
 import com.muhammetkdr.weatherapp.BuildConfig
 import com.muhammetkdr.weatherapp.common.utils.Constants.LANGUAGE

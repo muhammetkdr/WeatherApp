@@ -1,19 +1,18 @@
-package com.muhammetkdr.weatherapp.data.remote
+package com.muhammetkdr.weatherapp.data.remote.weather
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.api.WeatherAPIService
+import com.muhammetkdr.weatherapp.data.api.weather.WeatherAPIService
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.data.dto.search.SearchResponse
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class RemoteDataSourceImpl @Inject constructor(
+class WeatherRemoteDataSourceImpl @Inject constructor(
     private val api: WeatherAPIService,
-) : RemoteDataSource {
+) : WeatherRemoteDataSource {
 
     override fun getCurrentWeather(lat: String, long: String): Flow<Resource<WeatherResponse>> = flow {
         try {
