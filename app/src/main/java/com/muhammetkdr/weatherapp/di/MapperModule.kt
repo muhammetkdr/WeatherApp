@@ -1,18 +1,21 @@
 package com.muhammetkdr.weatherapp.di
 
+import com.muhammetkdr.weatherapp.data.dto.city.CitiesResponse
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
 import com.muhammetkdr.weatherapp.data.dto.search.SearchResponse
+import com.muhammetkdr.weatherapp.data.listmapper.CitiesListMapperImpl
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
-import com.muhammetkdr.weatherapp.data.listmapper.WeatherListMapper
+import com.muhammetkdr.weatherapp.data.listmapper.ListMapper
 import com.muhammetkdr.weatherapp.data.listmapper.WeatherListMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.CurrentWeatherMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.ForecastWeatherMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.SearchWeatherMapperImpl
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
+import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.domain.entity.searchweather.SearchWeatherEntity
 import dagger.Binds
 import dagger.Module
@@ -34,10 +37,14 @@ abstract class MapperModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindResponseToWeatherListEntityMapper(weatherListMapperImpl: WeatherListMapperImpl) : WeatherListMapper<WeatherList, WeatherListEntity>
+    abstract fun bindResponseToWeatherListEntityMapper(weatherListMapperImpl: WeatherListMapperImpl) : ListMapper<WeatherList, WeatherListEntity>
 
     @Binds
     @ViewModelScoped
     abstract fun bindResponseToSearchEntityMapper(searchWeatherMapperImpl: SearchWeatherMapperImpl) : WeatherMapper<SearchResponse,SearchWeatherEntity>
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindResponseToCityEntityMapper(cityListMapperImpl: CitiesListMapperImpl): ListMapper<CitiesResponse, CitiesEntity>
 
 }
