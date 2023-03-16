@@ -1,5 +1,7 @@
 package com.muhammetkdr.weatherapp.ui.search
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Resource
@@ -7,9 +9,8 @@ import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CitiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,25 +22,49 @@ class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCa
         MutableStateFlow(Resource.Loading)
     val cityList: StateFlow<Resource<List<CitiesEntity>>> get() = _cityList.asStateFlow()
 
+    private val _cities: MutableLiveData<List<CitiesEntity>> = MutableLiveData(emptyList())
+    val cities: LiveData<List<CitiesEntity>> get() = _cities
+
+    private val _citiesQueryList: MutableLiveData<List<CitiesEntity>> = MutableLiveData(emptyList())
+    val citiesQueryList: LiveData<List<CitiesEntity>> get() = _citiesQueryList
+
     init {
         getData()
     }
 
     private fun getData() = viewModelScope.launch(Dispatchers.IO) {
-        citiesUseCase.invoke().collect{
+        citiesUseCase.invoke().collect {
             _cityList.emit(it)
         }
     }
 
-//    fun getQueryResult(q: String) {
-//        if (q.isEmpty() || q.count() < 2) {
-//            return
-//        }
-//        viewModelScope.launch(Dispatchers.IO) {
-//            searchWeatherUseCase.invoke(q).collectLatest {
-//                _currentWeather.emit(it)
-//            }
-//        }
-//    }
+    fun setCityListData(list: List<CitiesEntity>) = viewModelScope.launch {
+        _cities.postValue(list)
+    }
+
+    fun filterCityQuery(query: String?) = viewModelScope.launch(Dispatchers.IO) {
+        if (query.isNullOrEmpty()) return@launch
+        delay(700)
+        val queryList = mutableListOf<CitiesEntity>()
+
+        var citiesList = listOf<CitiesEntity>()
+
+        _cities.value?.let {
+            citiesList = it
+        }
+
+        if (query.count() < 3) {
+            _citiesQueryList.postValue(citiesList)
+            return@launch
+        }
+
+        _cities.value?.forEach {
+            if (it.cityName.contains(query, true)) {
+                queryList.add(it)
+            }
+        }
+        _citiesQueryList.postValue(queryList)
+
+    }
 
 }
