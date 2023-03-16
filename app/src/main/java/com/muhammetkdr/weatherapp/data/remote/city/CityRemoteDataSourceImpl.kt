@@ -2,7 +2,7 @@ package com.muhammetkdr.weatherapp.data.remote.city
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.api.city.CityApi
-import com.muhammetkdr.weatherapp.data.dto.city.CityResponseItem
+import com.muhammetkdr.weatherapp.data.dto.city.CitiesResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +14,7 @@ class CityRemoteDataSourceImpl @Inject constructor(
     private val ioDispatcher: CoroutineContext
 ) : CityRemoteDataSource {
 
-    override fun getCityResponse(): Flow<Resource<List<CityResponseItem>>> = flow {
+    override fun getCityResponse(): Flow<Resource<List<CitiesResponse>>> = flow {
             try {
             emit(Resource.Loading)
             val response = cityApi.getCityResponse()

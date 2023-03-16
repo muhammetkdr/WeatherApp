@@ -2,7 +2,7 @@ package com.muhammetkdr.weatherapp.domain.usecase
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.domain.entity.searchweather.SearchWeatherEntity
-import com.muhammetkdr.weatherapp.domain.repository.WeatherRepository
+import com.muhammetkdr.weatherapp.domain.repository.weather.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

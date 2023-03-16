@@ -4,22 +4,24 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
+import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
+import com.muhammetkdr.weatherapp.domain.entity.searchweather.SearchWeatherEntity
+import com.muhammetkdr.weatherapp.ui.search.rv.CitiesRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SearchFragment :
     BaseFragment<FragmentSearchBinding, SearchViewModel>(FragmentSearchBinding::inflate) {
 
     override val viewModel by viewModels<SearchViewModel>()
+
+    private val adapter: CitiesRvAdapter by lazy { CitiesRvAdapter(::itemClick) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,27 +32,23 @@ class SearchFragment :
 
         setEditTextChangedListener()
 
+        setupRv()
     }
 
+    private fun setupRv() {
+        binding.rvSearch.adapter = adapter
+    }
 
     private fun setEditTextChangedListener() {
-        binding.searchTextField.editText?.addTextChangedListener {
-            lifecycleScope.launchWhenStarted {
-                it?.let {
-                    if (it.toString().isNotEmpty() && it.count() > 2) {
-                        viewModel.getData(it.toString())
-                    }
-                }
-            }
-        }
+
     }
 
     private fun observeSearchResponse() = lifecycleScope.launchWhenStarted {
-        viewModel.currentWeather.collectLatest { Resource ->
-            when(Resource) {
+        viewModel.cityList.collect { Resource ->
+            when (Resource) {
                 is Resource.Success -> {
-                    Resource.data.let {
-                        requireView().showSnackbar(it.cityName)
+                    Resource.data.apply {
+                        adapter.submitList(this)
                     }
                 }
                 is Resource.Error -> {
@@ -61,19 +59,24 @@ class SearchFragment :
                 }
             }
         }
+    }
 
+    private fun itemClick(data: CitiesEntity) {
+        requireView().showSnackbar(data.cityName)
     }
 
     private fun setRootViewClickListener() = with(binding) {
         root.setOnClickListener {
-            hideKeyBoard()
+            hideKeyboardAndClearFocus()
         }
     }
 
-    private fun hideKeyBoard() {
+    private fun hideKeyboardAndClearFocus() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
+
         binding.searchTextField.clearFocus()
     }
+
 }

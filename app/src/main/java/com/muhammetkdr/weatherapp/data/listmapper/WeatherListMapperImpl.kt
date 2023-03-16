@@ -5,7 +5,7 @@ import com.muhammetkdr.weatherapp.domain.entity.weatherlist.WeatherListEntity
 import javax.inject.Inject
 
 class WeatherListMapperImpl @Inject constructor():
-    WeatherListMapper<WeatherList, WeatherListEntity> {
+    ListMapper<WeatherList, WeatherListEntity> {
     override fun map(input: List<WeatherList>?): List<WeatherListEntity> {
         return input?.map {
             WeatherListEntity(

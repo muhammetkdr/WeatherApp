@@ -1,7 +1,6 @@
-package com.muhammetkdr.weatherapp.domain.repository
+package com.muhammetkdr.weatherapp.domain.repository.weather
 
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.search.SearchResponse
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.searchweather.SearchWeatherEntity
