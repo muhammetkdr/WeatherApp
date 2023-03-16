@@ -2,7 +2,7 @@ package com.muhammetkdr.weatherapp.domain.repository.city
 
 import com.muhammetkdr.weatherapp.common.extensions.mapResource
 import com.muhammetkdr.weatherapp.common.utils.Resource
-import com.muhammetkdr.weatherapp.data.dto.city.CityResponseItem
+import com.muhammetkdr.weatherapp.data.dto.city.CitiesResponse
 import com.muhammetkdr.weatherapp.data.listmapper.ListMapper
 import com.muhammetkdr.weatherapp.data.remote.city.CityRemoteDataSource
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 class CityRepositoryImpl @Inject constructor(
     private val cityRemoteDataSource: CityRemoteDataSource,
-    private val cityListMapper: ListMapper<CityResponseItem, CitiesEntity>,
+    private val cityListMapper: ListMapper<CitiesResponse, CitiesEntity>,
     private val ioDispatcher: CoroutineContext
 ) : CityRepository {
     override fun getAllCities(): Flow<Resource<List<CitiesEntity>>> =
