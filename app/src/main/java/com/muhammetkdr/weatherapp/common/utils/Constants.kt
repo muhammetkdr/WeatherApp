@@ -8,6 +8,7 @@ object Constants {
         const val LOCATION_REQUEST_MAX_DURATION = 4000L
         const val IMAGE_RESOLUTION_SIZE = "@4x.png"
 
-        const val APPLICATION_ID ="LAZMN4VM3O"
-        const val SEARCH_API_KEY = "10e4611a6baba918bba6b0fffce7efad"
+        const val CITY_BASE_URL = "https://gist.github.com/"
+        const val WEATHER_BASE_URL="https://api.openweathermap.org/"
+        const val WEATHER_IMAGE_BASE_URL="https://openweathermap.org/img/wn/"
 }

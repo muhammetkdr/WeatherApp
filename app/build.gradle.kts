@@ -25,14 +25,8 @@ android {
             useSupportLibrary = true
         }
 
-        val baseUrl = gradleLocalProperties(rootDir).getProperty("BASE_URL")
-        buildConfigField("String", "BASE_URL", baseUrl)
-
         val apiKey = gradleLocalProperties(rootDir).getProperty("API_KEY")
         buildConfigField("String", "API_KEY", apiKey)
-
-        val imageBaseUrl = gradleLocalProperties(rootDir).getProperty("IMAGE_URL")
-        buildConfigField("String", "IMAGE_URL", imageBaseUrl)
 
     }
 
