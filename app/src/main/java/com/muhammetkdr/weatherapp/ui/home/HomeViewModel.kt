@@ -61,4 +61,18 @@ class HomeViewModel @Inject constructor(
             _forecastWeather.emit(it)
         }
     }
+
+    fun getMappedCurrentWeather(lat: String, long: String) = viewModelScope.launch(Dispatchers.IO) {
+        currentWeatherUseCase.invoke(lat, long).collect {
+            _currentWeather.emit(it)
+        }
+    }
+
+    fun getMappedForecastWeather(lat: String, long: String) = viewModelScope.launch(Dispatchers.IO) {
+        forecastWeatherUseCase.invoke(lat, long).collect {
+            _forecastWeather.emit(it)
+        }
+    }
+
+
 }

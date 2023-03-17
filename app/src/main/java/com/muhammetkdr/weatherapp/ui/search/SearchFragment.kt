@@ -1,15 +1,13 @@
 package com.muhammetkdr.weatherapp.ui.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
-import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
@@ -34,6 +32,8 @@ class SearchFragment :
         setupRv()
 
         observeQueryList()
+
+
     }
 
     private fun observeQueryList() {
@@ -74,15 +74,8 @@ class SearchFragment :
     }
 
     private fun itemClick(data: CitiesEntity) {
-        requireView().showSnackbar(data.cityName)
-    }
-
-    private fun hideKeyboardAndClearFocus() {
-        val inputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(binding.root.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
-
-        binding.searchTextField.clearFocus()
+        val action = SearchFragmentDirections.actionSearchFragmentToHomeFragment(data)
+        findNavController().navigate(action)
     }
 
 }

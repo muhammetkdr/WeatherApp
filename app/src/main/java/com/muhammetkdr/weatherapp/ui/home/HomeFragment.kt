@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
@@ -45,6 +46,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     @Inject
     lateinit var defaultLocationClient: DefaultLocationClient
 
+    private val args: HomeFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,18 +55,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         observeCurrentWeatherData()
         observeCalendar()
 
-        initRequestLocationPermissionLauncher()
-        requestLocationPermission()
+        locationDataDecider()
 
         initDataBinding()
         initRvAdapter()
 
-        binding.customToolBar.onSearchButtonPressed{
-            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
-            findNavController().navigate(action)
-        }
-
+        handleCustomToolbarSearchPressed()
+        handleBackPressed()
     }
+
+    private fun handleBackPressed() {
+        addOnBackPressedDispatcher {
+            navigateHomeFragmentSelf()
+        }
+    }
+
+    fun navigateHomeFragmentSelf() {
+        val action = HomeFragmentDirections.actionHomeFragmentSelf()
+        findNavController().navigate(action)
+    }
+
+    private fun locationDataDecider() {
+        if (args.selectedCity == null) {
+            initRequestLocationPermissionLauncher()
+            requestLocationPermission()
+        } else {
+            args.selectedCity?.let {
+                viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
+                viewModel.getMappedForecastWeather(it.latitude, it.longitude)
+            }
+        }
+    }
+
 
     private fun initRequestLocationPermissionLauncher() {
         requestLocationPermissionLauncher = registerForActivityResult(
@@ -97,17 +120,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     shouldShowRequestPermissionRationale(
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     ) -> {
-                Snackbar.make(requireView(), R.string.permission_need, Snackbar.LENGTH_INDEFINITE).apply {
-                    setAction(R.string.give_permission) {
-                        requestLocationPermissionLauncher.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
+                Snackbar.make(requireView(), R.string.permission_need, Snackbar.LENGTH_INDEFINITE)
+                    .apply {
+                        setAction(R.string.give_permission) {
+                            requestLocationPermissionLauncher.launch(
+                                arrayOf(
+                                    Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION
+                                )
                             )
-                        )
+                        }
+                        show()
                     }
-                    show()
-                }
             }
             else -> {
                 requestLocationPermissionLauncher.launch(
@@ -130,10 +154,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 }
             }
         } catch (e: Exception) {
-            requireView().showSnackbar(
-                e.localizedMessage
-                    ?: requireContext().resources.getString(R.string.gps_or_network_disabled)
-            )
+            Snackbar.make(
+                requireView(),
+                e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
+                Snackbar.LENGTH_INDEFINITE
+            ).apply {
+                setAction(R.string.REFRESH) {
+                    navigateHomeFragmentSelf()
+                }
+                show()
+            }
         }
     }
 
@@ -185,6 +215,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         viewModel.getTodaysCalendar(calendar)
         viewModel.date.observeIfNotNull(viewLifecycleOwner) {
             binding.customToolBar.updateTitle(it)
+        }
+    }
+
+    private fun handleCustomToolbarSearchPressed() {
+        binding.customToolBar.onSearchButtonPressed {
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            findNavController().navigate(action)
         }
     }
 
