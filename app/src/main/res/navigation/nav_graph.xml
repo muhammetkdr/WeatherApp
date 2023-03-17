@@ -16,6 +16,14 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <argument
+            android:name="selectedCity"
+            app:argType="com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -30,5 +38,9 @@
         android:id="@+id/searchFragment"
         android:name="com.muhammetkdr.weatherapp.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
