@@ -9,7 +9,7 @@ import com.github.mikephil.charting.data.*
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.databinding.FragmentDetailsBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
 import com.muhammetkdr.weatherapp.ui.details.rv.DetailsWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,46 +31,40 @@ class DetailsFragment :
         initDataBinding()
         initViewModelNavArgs()
         initRvAdapter()
-
     }
 
-    private fun initRvAdapter() = with(binding) {
-        val list = args.datesAndTimes.childRvUiData
-        detailsWeatherAdapter.submitList(list)
-        rvDetails.adapter = detailsWeatherAdapter
+    private fun initRvAdapter() {
+        with(binding) {
+            val list = args.datesAndTimes.childRvUiData
+            detailsWeatherAdapter.submitList(list)
+            rvDetails.adapter = detailsWeatherAdapter
+        }
     }
 
     private fun initViewModelNavArgs() = viewModel.getData(args.datesAndTimes)
 
-    private fun initDataBinding() = with(binding) {
-        detailViewModel = viewModel
-        lifecycleOwner = viewLifecycleOwner
+    private fun initDataBinding() {
+        with(binding) {
+            detailViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
-    private fun initToolbar() = with(binding) {
-        detailToolbarView.onBackPressed {
-            findNavController().popBackStack()
+    private fun initToolbar() {
+        with(binding) {
+            detailToolbarView.onBackPressed {
+                findNavController().popBackStack()
+            }
+            detailToolbarView.updateTitle(args.datesAndTimes.date)
         }
-        detailToolbarView.updateTitle(args.datesAndTimes.date)
     }
 
     private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner) {
-        entyListObserver(it)
+        val lineDataSet = LineDataSet(it, String.EMPTY)
+        binding.lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
     }
 
-    private fun entyListObserver(data: List<Entry>?) = with(binding) {
-        if (data == null) {
-            detailScreenProgressbar.visible()
-            detailViewLinearLayout.invisible()
-        } else {
-            detailScreenProgressbar.gone()
-            detailViewLinearLayout.visible()
-            val lineDataSet = LineDataSet(data, String.EMPTY)
-            lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
-        }
-    }
-
-    private fun itemClick(data: ChildRvUiData){
+    private fun itemClick(data: ChildRvUiData) {
 
     }
 

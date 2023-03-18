@@ -6,6 +6,8 @@ object Constants {
         const val LOCATION_REQUEST_DURATION = 600000L
         const val LOCATION_REQUEST_MIN_DURATION = 3000L
         const val LOCATION_REQUEST_MAX_DURATION = 20000L
+
+        const val SEARCH_DELAY = 600L
         const val IMAGE_RESOLUTION_SIZE = "@4x.png"
 
         const val CITY_BASE_URL = "https://gist.github.com/"

@@ -6,7 +6,7 @@
     <data>
             <variable
                 name="datesAndTimes"
-                type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
+                type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

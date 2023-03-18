@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.domain.entity.forecastweather
+package com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

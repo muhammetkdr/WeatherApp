@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import javax.inject.Inject
 
 class HomeParentForecastWeatherAdapter @Inject constructor(

@@ -10,9 +10,9 @@ data class CurrentWeatherEntity (
     val sys: Sys,
     val main: Main,
     val weather: List<Weather>,
-){
+): CurrentWeatherDataFormatter{
 
-    fun getFormattedTemperature() : Double{
+    override fun getFormattedTemperature() : Double{
         val value = main.temp.toString()
         val hourValue = value.substringAfter('.')
         return if(hourValue.length == 2){
@@ -23,7 +23,7 @@ data class CurrentWeatherEntity (
         }
     }
 
-    fun getFormattedFellsLikeTemperature() : Double{
+    override fun getFormattedFellsLikeTemperature() : Double{
         val value = main.feelsLike.toString()
         val hourValue = value.substringAfter('.')
         return if(hourValue.length == 2){
@@ -34,8 +34,7 @@ data class CurrentWeatherEntity (
         }
     }
 
-    fun getFormettedCurrentCondition() : String {
+    override fun getFormettedCurrentCondition() : String {
         return weather[0].description?.capitalizeWords() ?: "its not initialized"
     }
-
 }

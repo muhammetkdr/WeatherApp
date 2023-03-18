@@ -2,7 +2,7 @@ package com.muhammetkdr.weatherapp.ui.details.rv
 
 import com.muhammetkdr.weatherapp.base.BaseViewHolder
 import com.muhammetkdr.weatherapp.databinding.ItemWeatherDetailsBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
 import javax.inject.Inject
 
 class DetailsWeatherViewHolder@Inject constructor(

@@ -5,6 +5,8 @@ import com.muhammetkdr.weatherapp.common.extensions.zellerCongruence
 import com.muhammetkdr.weatherapp.data.dto.current.Main
 import com.muhammetkdr.weatherapp.data.dto.forecast.City
 import com.muhammetkdr.weatherapp.data.dto.forecast.WeatherList
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 
 data class ForecastWeatherEntity(
     val city: City,
@@ -53,9 +55,9 @@ data class ForecastWeatherEntity(
                 date = formattedDate,
                 dayOfTheWeek = dayOfTheWeek,
                 hours = hours,
-                grndLevel = main.grndLevel.toString() ?: "0",
-                pressure = main.pressure.toString() ?: "0",
-                humidity = main.humidity.toString() ?: "0",
+                grndLevel = main.grndLevel.toString(),
+                pressure = main.pressure.toString(),
+                humidity = main.humidity.toString(),
                 childRvUiData = childRvUiData
             )
             responseListMapper.add(dateAndTimes)

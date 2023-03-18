@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.domain.entity.forecastweather
+package com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -9,8 +9,8 @@ data class ChildRvUiData @Inject constructor(
     val hours: String,
     val temperature: Double,
     val icons: String
-) :Parcelable{
-    fun getFormattedTemperature(): Double{
+) :Parcelable, ChildDataFormatter {
+    override fun getFormattedTemperature(): Double{
         val value = temperature.toString()
         val hourValue = value.substringAfter('.')
         return if (hourValue.length == 2) {

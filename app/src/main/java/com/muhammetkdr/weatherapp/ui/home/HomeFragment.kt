@@ -19,7 +19,7 @@ import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,23 +70,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    fun navigateHomeFragmentSelf() {
+    private fun navigateHomeFragmentSelf() {
         val action = HomeFragmentDirections.actionHomeFragmentSelf()
         findNavController().navigate(action)
     }
 
     private fun locationDataDecider() {
-        if (args.selectedCity == null) {
+        args.selectedCity?.let {
+            viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
+            viewModel.getMappedForecastWeather(it.latitude, it.longitude)
+        } ?: run {
             initRequestLocationPermissionLauncher()
             requestLocationPermission()
-        } else {
-            args.selectedCity?.let {
-                viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
-                viewModel.getMappedForecastWeather(it.latitude, it.longitude)
-            }
         }
     }
-
 
     private fun initRequestLocationPermissionLauncher() {
         requestLocationPermissionLauncher = registerForActivityResult(
@@ -145,67 +142,73 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLocation() = lifecycleScope.launchWhenStarted {
-        try {
-            defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
-                viewModel.apply {
-                    getMappedCurrentWeather(it.latitude, it.longitude)
-                    getMappedForecastWeather(it.latitude, it.longitude)
+    private fun getLocation() {
+        lifecycleScope.launchWhenStarted {
+            try {
+                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
+                    viewModel.apply {
+                        getMappedCurrentWeather(it.latitude, it.longitude)
+                        getMappedForecastWeather(it.latitude, it.longitude)
+                    }
                 }
-            }
-        } catch (e: Exception) {
-            Snackbar.make(
-                requireView(),
-                e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
-                Snackbar.LENGTH_INDEFINITE
-            ).apply {
-                setAction(R.string.REFRESH) {
-                    navigateHomeFragmentSelf()
+            } catch (e: Exception) {
+                Snackbar.make(
+                    requireView(),
+                    e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
+                    Snackbar.LENGTH_INDEFINITE
+                ).apply {
+                    setAction(R.string.REFRESH) {
+                        navigateHomeFragmentSelf()
+                    }
+                    show()
                 }
-                show()
             }
         }
     }
 
-    private fun observeCurrentWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.currentWeather.collect { Resource ->
-            when (Resource) {
-                is Resource.Success -> {
-                    Resource.data.let {
-                        with(binding) {
-                            homeProgressbar.gone()
-                            containerCurrentWeather.weatherEntity = it
+    private fun observeCurrentWeatherData() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.currentWeather.collect { Resource ->
+                when (Resource) {
+                    is Resource.Success -> {
+                        Resource.data.let {
+                            with(binding) {
+                                homeProgressbar.gone()
+                                containerCurrentWeather.weatherEntity = it
 //                          root.setBackgroundResource(it.getBackground())
+                            }
                         }
                     }
-                }
-                is Resource.Loading -> {
-                    binding.homeProgressbar.visible()
-                }
-                is Resource.Error -> {
-                    binding.homeProgressbar.visible()
-                    requireView().showSnackbar(Resource.error)
+                    is Resource.Loading -> {
+                        binding.homeProgressbar.visible()
+                    }
+                    is Resource.Error -> {
+                        binding.homeProgressbar.visible()
+                        requireView().showSnackbar(Resource.error)
+                    }
                 }
             }
         }
     }
 
-    private fun observeForecastWeatherData() = lifecycleScope.launchWhenStarted {
-        viewModel.forecastWeather.collect { Resource ->
-            when (Resource) {
-                is Resource.Success -> {
-                    Resource.data.let {
-                        binding.homeProgressbar.gone()
-                        val list = it.uiDataMapper()
-                        parentAdapter.submitList(list)
+    private fun observeForecastWeatherData() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.forecastWeather.collect { Resource ->
+                when (Resource) {
+                    is Resource.Success -> {
+                        Resource.data.let {
+                            binding.homeProgressbar.gone()
+                            val list = it.uiDataMapper()
+                            parentAdapter.submitList(list)
+                        }
                     }
-                }
-                is Resource.Error -> {
-                    binding.homeProgressbar.visible()
-                    requireView().showSnackbar(Resource.error)
-                }
-                is Resource.Loading -> {
-                    binding.homeProgressbar.visible()
+                    is Resource.Error -> {
+                        binding.homeProgressbar.visible()
+                        requireView().showSnackbar(Resource.error)
+                    }
+                    is Resource.Loading -> {
+                        binding.homeProgressbar.visible()
+                    }
                 }
             }
         }
@@ -225,13 +228,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    private fun initDataBinding() = with(binding) {
-        lifecycleOwner = viewLifecycleOwner
-        containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
+    private fun initDataBinding() {
+        with(binding) {
+            lifecycleOwner = viewLifecycleOwner
+            containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
+        }
     }
 
-    private fun initRvAdapter() = with(binding) {
-        rvWeatherHome.adapter = parentAdapter
+    private fun initRvAdapter() {
+        with(binding) {
+            rvWeatherHome.adapter = parentAdapter
+        }
     }
 
     private fun parentRvItemClick(data: DatesAndTimes) {

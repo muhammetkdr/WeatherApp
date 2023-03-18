@@ -2,8 +2,8 @@ package com.muhammetkdr.weatherapp.ui.home.nestedrv
 
 import com.muhammetkdr.weatherapp.base.BaseViewHolder
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import javax.inject.Inject
 
 class HomeParentForecastWeatherViewHolder @Inject constructor(
@@ -23,7 +23,7 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
 
     }
 
-    fun onChildItemClick(data:ChildRvUiData){
+    fun onChildItemClick(data: ChildRvUiData){
         binding.root.callOnClick()
     }
 }

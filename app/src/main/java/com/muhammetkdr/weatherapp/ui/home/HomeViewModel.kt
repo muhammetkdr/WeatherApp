@@ -17,7 +17,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -28,51 +27,62 @@ class HomeViewModel @Inject constructor(
     private val forecastWeatherUseCase: ForecastWeatherUseCase,
 ) : ViewModel() {
 
-    private val _currentWeather: MutableStateFlow<Resource<CurrentWeatherEntity>> = MutableStateFlow(Resource.Loading)
-    val currentWeather: StateFlow<Resource<CurrentWeatherEntity>> get() = _currentWeather.asStateFlow()
+    private val _currentWeather: MutableStateFlow<Resource<CurrentWeatherEntity>> =
+        MutableStateFlow(Resource.Loading)
+    val currentWeather: StateFlow<Resource<CurrentWeatherEntity>>
+        get() = _currentWeather
 
-    private val _forecastWeather: MutableStateFlow<Resource<ForecastWeatherEntity>> = MutableStateFlow(Resource.Loading)
-    val forecastWeather: StateFlow<Resource<ForecastWeatherEntity>> get() = _forecastWeather.asStateFlow()
+    private val _forecastWeather: MutableStateFlow<Resource<ForecastWeatherEntity>> =
+        MutableStateFlow(Resource.Loading)
+    val forecastWeather: StateFlow<Resource<ForecastWeatherEntity>>
+        get() = _forecastWeather
 
-    private val _date : MutableLiveData<String> = MutableLiveData("")
-    val date : LiveData<String> get() = _date
+    private val _date: MutableLiveData<String> = MutableLiveData("")
+    val date: LiveData<String>
+        get() = _date
 
-    fun getTodaysCalendar(calendar: Calendar){
-            val (day, month, year) = calendar
-            val dayFormatted = day.toString().formatCalendar()
-            val monthFormatted = month.toString().formatCalendar()
-            _date.postValue("$dayFormatted.$monthFormatted.$year")
+    fun getTodaysCalendar(calendar: Calendar) {
+        val (day, month, year) = calendar
+        val dayFormatted = day.toString().formatCalendar()
+        val monthFormatted = month.toString().formatCalendar()
+        _date.value = "$dayFormatted.$monthFormatted.$year"
     }
 
-    fun getMappedCurrentWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {
-        val latitude = lat.toString()
-        val longitude = long.toString()
+    fun getMappedCurrentWeather(lat: Double, long: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val latitude = lat.toString()
+            val longitude = long.toString()
 
-        currentWeatherUseCase.invoke(latitude, longitude).collect {
-            _currentWeather.emit(it)
+            currentWeatherUseCase.invoke(latitude, longitude).collect {
+                _currentWeather.emit(it)
+            }
         }
     }
 
-    fun getMappedForecastWeather(lat: Double, long: Double) = viewModelScope.launch(Dispatchers.IO) {
-        val latitude = lat.toString()
-        val longitude = long.toString()
+    fun getMappedForecastWeather(lat: Double, long: Double) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val latitude = lat.toString()
+            val longitude = long.toString()
 
-        forecastWeatherUseCase.invoke(latitude, longitude).collect {
-            _forecastWeather.emit(it)
+            forecastWeatherUseCase.invoke(latitude, longitude).collect {
+                _forecastWeather.emit(it)
+            }
         }
     }
 
-    fun getMappedCurrentWeather(lat: String, long: String) = viewModelScope.launch(Dispatchers.IO) {
-        currentWeatherUseCase.invoke(lat, long).collect {
-            _currentWeather.emit(it)
+    fun getMappedCurrentWeather(lat: String, long: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentWeatherUseCase.invoke(lat, long).collect {
+                _currentWeather.emit(it)
+            }
         }
     }
 
-    fun getMappedForecastWeather(lat: String, long: String) = viewModelScope.launch(Dispatchers.IO) {
-        forecastWeatherUseCase.invoke(lat, long).collect {
-            _forecastWeather.emit(it)
+    fun getMappedForecastWeather(lat: String, long: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            forecastWeatherUseCase.invoke(lat, long).collect {
+                _forecastWeather.emit(it)
+            }
         }
     }
-
-
 }

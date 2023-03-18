@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
 import com.muhammetkdr.weatherapp.databinding.ItemWeatherDetailsBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData
+import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
 import javax.inject.Inject
 
 class DetailsWeatherAdapter @Inject constructor(

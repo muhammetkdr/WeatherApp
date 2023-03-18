@@ -8,11 +8,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
+import com.muhammetkdr.weatherapp.common.utils.Constants.SEARCH_DELAY
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.ui.search.rv.CitiesRvAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment :
@@ -26,18 +30,13 @@ class SearchFragment :
         super.onViewCreated(view, savedInstanceState)
 
         observeSearchResponse()
-
         setEditTextChangedListener()
-
         setupRv()
-
         observeQueryList()
-
-
     }
 
     private fun observeQueryList() {
-        viewModel.citiesQueryList.observeIfNotNull(viewLifecycleOwner){
+        viewModel.citiesQueryList.observeIfNotNull(viewLifecycleOwner) {
             adapter.submitList(it)
         }
     }
@@ -47,27 +46,34 @@ class SearchFragment :
     }
 
     private fun setEditTextChangedListener() {
-        binding.searchTextField.editText?.addTextChangedListener {editable ->
+        var job: Job? = null
+        binding.searchTextField.editText?.addTextChangedListener { editable ->
+            job?.cancel()
+            job = lifecycleScope.launch {
+                delay(SEARCH_DELAY)
                 editable?.let {
                     viewModel.filterCityQuery(it.toString())
+                }
             }
         }
     }
 
-    private fun observeSearchResponse() = lifecycleScope.launchWhenStarted {
-        viewModel.cityList.collect { Resource ->
-            when (Resource) {
-                is Resource.Success -> {
-                    Resource.data.apply {
-                        adapter.submitList(this)
-                        viewModel.setCityListData(this)
+    private fun observeSearchResponse() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.cityList.collect { Resource ->
+                when (Resource) {
+                    is Resource.Success -> {
+                        Resource.data.apply {
+                            adapter.submitList(this)
+                            viewModel.setCityListData(this)
+                        }
                     }
-                }
-                is Resource.Error -> {
+                    is Resource.Error -> {
 
-                }
-                is Resource.Loading -> {
+                    }
+                    is Resource.Loading -> {
 
+                    }
                 }
             }
         }
@@ -77,5 +83,4 @@ class SearchFragment :
         val action = SearchFragmentDirections.actionSearchFragmentToHomeFragment(data)
         findNavController().navigate(action)
     }
-
 }

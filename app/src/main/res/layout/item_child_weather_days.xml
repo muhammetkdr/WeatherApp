@@ -5,7 +5,7 @@
     <data>
         <variable
             name="childUiData"
-            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.ChildRvUiData" />
+            type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -43,6 +43,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/img_item_child"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <com.google.android.material.textview.MaterialTextView

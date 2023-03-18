@@ -1,6 +1,5 @@
 package com.muhammetkdr.weatherapp.di
 
-import androidx.viewbinding.BuildConfig
 import com.muhammetkdr.weatherapp.common.utils.Constants.CITY_BASE_URL
 import com.muhammetkdr.weatherapp.common.utils.Constants.WEATHER_BASE_URL
 import com.muhammetkdr.weatherapp.data.api.city.CityApi
@@ -24,7 +23,7 @@ object NetworkModule {
     @Provides
     fun provideHttpLoggerInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        if (BuildConfig.DEBUG) {
+        if (androidx.viewbinding.BuildConfig.DEBUG) {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         } else httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
         return httpLoggingInterceptor
@@ -38,6 +37,15 @@ object NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
 //            .addInterceptor(ChuckerInterceptor.Builder(context).build())
+            .addInterceptor{ chain ->
+                val url = chain
+                    .request()
+                    .url
+                    .newBuilder()
+                    .addQueryParameter("appid", com.muhammetkdr.weatherapp.BuildConfig.API_KEY)
+                    .build()
+                chain.proceed(chain.request().newBuilder().url(url).build())
+            }
             .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
             .build()
     }

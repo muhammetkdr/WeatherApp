@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="datesAndTimes"
-            app:argType="com.muhammetkdr.weatherapp.domain.entity.forecastweather.DatesAndTimes" />
+            app:argType="com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
