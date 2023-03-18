@@ -79,28 +79,4 @@ fun String.getDateInAnotherFormat(inputFormat: String, outputFormat: String): St
     SimpleDateFormat(inputFormat, Locale.getDefault()).parse(this)
         ?.let { SimpleDateFormat(outputFormat, Locale.getDefault()).format(it) } ?: ""
 
-fun String?.hideNameAndSurname(): String? {
-    if (this.isNullOrEmpty()) return this
-    val nameAndSurname = " $this"
-
-    nameAndSurname.trimEnd(' ')
-
-    val firstCharacterIndexes = mutableListOf<Int>()
-    nameAndSurname.forEachIndexed { index, char ->
-        if (char == ' ') {
-            firstCharacterIndexes.add(index)
-        }
-    }
-    var newName = ""
-    firstCharacterIndexes.forEachIndexed { index, i ->
-        newName += if (firstCharacterIndexes.lastIndex == index) {
-            nameAndSurname[i + 1].toString().padEnd(nameAndSurname.length - i - 1, '*')
-        } else {
-            nameAndSurname[i + 1].toString()
-                .padEnd(firstCharacterIndexes[index + 1] - i - 1, '*') + ' '
-        }
-    }
-    return newName
-}
-
 val String.Companion.EMPTY: String get() = ""
