@@ -32,4 +32,9 @@
     <string name="give_permission">Give Permission</string>
     <string name="not_initialized">it is not initialized!</string>
 
+    <string name="img_item_details">details weather item view</string>
+    <string name="img_item_child">child weather item view</string>
+
+
+
 </resources>
