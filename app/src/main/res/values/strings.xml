@@ -35,6 +35,8 @@
     <string name="img_item_details">details weather item view</string>
     <string name="img_item_child">child weather item view</string>
 
-
+    <string name="img_details_humidiy">humidity img view</string>
+    <string name="img_details_pressure">pressure img view</string>
+    <string name="img_details_altitude">altitude img view</string>
 
 </resources>
