@@ -22,6 +22,7 @@ android {
 
         testInstrumentationRunner = Config.testInstRunner
         vectorDrawables {
+            @Suppress("UnstableApiUsage")
             useSupportLibrary = true
         }
 
@@ -32,8 +33,11 @@ android {
 
     buildTypes {
         release {
+            @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
             proguardFiles(
+
+                @Suppress("UnstableApiUsage")
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
@@ -46,6 +50,8 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    @Suppress("UnstableApiUsage")
     buildFeatures{
         dataBinding = true
         viewBinding = true
@@ -62,8 +68,8 @@ dependencies {
     implementation (Libs.AndroidX.liveData)
     implementation (Libs.AndroidX.vmLifeCycle)
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
 
     //test
     testImplementation (Libs.TestLibs.junit)
@@ -111,10 +117,9 @@ dependencies {
     // Lottie anim.
     implementation (Libs.LottieAnimations.lottieLib)
     // MP chart
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
 
     debugImplementation ("com.github.chuckerteam.chucker:library:3.5.2")
     releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.5.2")
-
 
 }
