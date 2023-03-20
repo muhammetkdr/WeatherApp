@@ -2,62 +2,69 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="childUiData"
             type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/childRvItemCardView"
+    <LinearLayout
+        android:id="@+id/rvItemRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardCornerRadius="15dp"
-        android:elevation="10dp"
-        >
+        android:background="@drawable/item_child_background"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/rvItemRelativeLayout"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvItemWeatherDegree"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{childUiData.hours}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="03:00" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvItemWeatherDegree"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:text="@{childUiData.hours}"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                tools:text="03:00"
-                android:textSize="16sp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_chil_imgv_background"
+            >
 
             <ImageView
                 android:id="@+id/imgWeatherCondition"
+                setWeatherImage="@{childUiData.icons}"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                setWeatherImage="@{childUiData.icons}"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
                 android:contentDescription="@string/img_item_child"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvItemWeatherTime"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:text="@{Double.toString(childUiData.getFormattedTemperature)+@string/celcius_string}"
-                android:gravity="center"
-                tools:text="12.5"
-                android:textSize="16sp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvItemWeatherTime"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{Double.toString(childUiData.getFormattedTemperature)+@string/celcius_string}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:text="12.5" />
+
+    </LinearLayout>
 </layout>

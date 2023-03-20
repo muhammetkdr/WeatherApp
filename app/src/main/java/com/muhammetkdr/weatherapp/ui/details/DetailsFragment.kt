@@ -64,8 +64,6 @@ class DetailsFragment :
         binding.lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
     }
 
-    private fun itemClick(data: ChildRvUiData) {
-
-    }
+    private fun itemClick(data: ChildRvUiData) {  }
 
 }

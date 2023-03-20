@@ -17,12 +17,14 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/homeNestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/dark_blue"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/homeConstraint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:context=".ui.home.HomeFragment">
 
             <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
@@ -30,8 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:ctv_showBackPressIcon="false"
-                app:layout_constraintTop_toTopOf="parent">
-            </com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/homeProgressbar"
@@ -47,13 +48,22 @@
 
             <include
                 android:id="@+id/containerCurrentWeather"
-                layout="@layout/custom_home_layout"
-                android:layout_width="0dp"
+                layout="@layout/custom_home_layout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customToolBar" />
+
+            <View
+                android:id="@+id/lineDivider"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/home_line_divider_background"
+                app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
+                app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather">
+            </View>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvWeatherHome"
@@ -61,10 +71,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_margin="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather"
+                app:layout_constraintTop_toBottomOf="@+id/lineDivider"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_child_weather_days" />
 

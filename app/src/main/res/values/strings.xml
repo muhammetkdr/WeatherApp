@@ -20,7 +20,7 @@
     <string name="distance">m</string>
     <string name="percentage">%</string>
     <string name="pressure">mb</string>
-    <string name="current_weather_condition">Mevcut durum:\u00A0</string>
+    <string name="current_weather_condition">Mevcut Durum:\u00A0</string>
     <string name="current_feels_like">(Hissedilen)</string>
     <string name="space_string">\u00A0</string>
     <string name="line_chart_avarage">Line Chart avarage</string>
@@ -38,5 +38,6 @@
     <string name="img_details_humidiy">humidity img view</string>
     <string name="img_details_pressure">pressure img view</string>
     <string name="img_details_altitude">altitude img view</string>
+    <string name="custom_home_layout_imgv">custom_home_layout_img view</string>
 
 </resources>

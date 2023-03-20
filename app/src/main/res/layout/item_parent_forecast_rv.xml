@@ -9,18 +9,12 @@
                 type="com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/parentItemRvCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardCornerRadius="18dp"
-        android:elevation="10dp">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:background="@color/transparent"
+            android:layout_marginTop="4dp"
+            >
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvParentDate"
@@ -31,6 +25,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/white"
                 android:layout_margin="8dp"
                 tools:text="21.06.1997" />
 
@@ -38,7 +33,6 @@
                 android:id="@+id/childRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +44,15 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/lineDivider"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/home_line_divider_background"
+                app:layout_constraintTop_toBottomOf="@+id/childRv">
 
-    </com.google.android.material.card.MaterialCardView>
+            </View>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
