@@ -20,48 +20,45 @@
             android:id="@+id/imgView_custom_home"
             setWeatherImage="@{weatherEntity.weather.get(0).icon}"
             android:layout_width="220dp"
-            android:layout_height="200dp"
-            android:layout_below="@+id/linearLayoutCityandCountry"
+            android:layout_height="140dp"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="6dp"
             android:layout_marginStart="6dp"
-            android:layout_alignParentStart="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/custom_home_layout_imgv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutCityandCountry"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
             android:id="@+id/linearLayoutCityandCountry"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgView_custom_home"
-            app:layout_constraintTop_toTopOf="@+id/imgView_custom_home">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
                 android:layout_marginEnd="4dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.6"
                 android:gravity="end"
                 android:text="@{weatherEntity.name+@string/coma}"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 tools:text="Denizli," />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvCountry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
                 android:layout_weight="0.5"
                 android:gravity="start"
                 android:text="@{weatherEntity.sys.country}"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 tools:text="TR" />
         </LinearLayout>
 
@@ -73,51 +70,29 @@
             android:gravity="center"
             android:text="@{weatherEntity.formattedTemperature+@string/celcius_string}"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgView_custom_home"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgView_custom_home"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutCityandCountry"
+            app:layout_constraintVertical_bias="0.2"
             tools:text="28.4 C" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvCurrentWeatherString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:text="@string/current_weather"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgView_custom_home"
-            app:layout_constraintTop_toBottomOf="@+id/tvCurrentTemp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvFeelsLikeTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="@{weatherEntity.formattedFellsLikeTemperature+@string/celcius_string}"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgView_custom_home"
-            app:layout_constraintTop_toBottomOf="@+id/tvCurrentWeatherString"
-            tools:text="26.4 C" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvFeelsLikeString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center"
-            android:text="@string/current_feels_like"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            android:text="@{weatherEntity.formattedFellsLikeTemperature+@string/celcius_string}"
+            android:textColor="@color/light_gray"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgView_custom_home"
-            app:layout_constraintTop_toBottomOf="@+id/tvFeelsLikeTemp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCurrentTemp"
+            tools:text="26.4 C" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvWeatherDescrip"
@@ -129,12 +104,12 @@
             android:text="@{@string/current_weather_condition+weatherEntity.formettedCurrentCondition}"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgView_custom_home"
             tools:text="Mevcut durum: Yağışlı" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

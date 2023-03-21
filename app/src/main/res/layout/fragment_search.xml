@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.search.SearchFragment"
+    android:background="@color/dark_blue_500"
+    >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchTextField"
@@ -20,12 +22,14 @@
         app:hintTextColor="@color/red"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
-        app:endIconDrawable="@drawable/ic_search"
-        app:startIconDrawable="@drawable/ic_search">
+        app:endIconDrawable="@drawable/ic_search_blue"
+        app:startIconDrawable="@drawable/ic_search_blue"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/dark_blue_transparent_300"
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:textSize="16sp" />

@@ -11,7 +11,7 @@
     <string name="permission_granted">Permission granted!</string>
     <string name="gps_or_network_disabled">GPS or Network connection disabled, please open and rerun the app!</string>
     <string name="gps_orNetwork_disabled">GPS or Network is disabled, please open and refresh..</string>
-    <string name="celcius_string">°C</string>
+    <string name="celcius_string">°</string>
     <string name="custom_toolbar_backimage">Custom toolbar back image</string>
     <string name="custom_toolbar_searchimage">Custom toolbar search image</string>
     <string name="current_weather">(Anlık)</string>
