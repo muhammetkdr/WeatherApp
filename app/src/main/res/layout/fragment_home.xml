@@ -48,9 +48,10 @@
 
             <include
                 android:id="@+id/containerCurrentWeather"
-                layout="@layout/custom_home_layout2"
+                layout="@layout/custom_home_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customToolBar" />
@@ -59,7 +60,7 @@
                 android:id="@+id/lineDivider"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/home_line_divider_background"
                 app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
                 app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather">
@@ -70,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="2dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,7 @@ import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.D
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -133,7 +134,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             try {
                 defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
                     viewModel.apply {
@@ -157,7 +158,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCurrentWeatherData() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.currentWeather.collect { Resource ->
                 when (Resource) {
                     is Resource.Success -> {
@@ -165,7 +166,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                             with(binding) {
                                 homeProgressbar.gone()
                                 containerCurrentWeather.weatherEntity = it
-//                          root.setBackgroundResource(it.getBackground())
                             }
                         }
                     }
@@ -182,7 +182,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeForecastWeatherData() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.forecastWeather.collect { Resource ->
                 when (Resource) {
                     is Resource.Success -> {

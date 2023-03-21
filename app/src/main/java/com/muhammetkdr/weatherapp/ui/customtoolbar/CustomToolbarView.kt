@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import com.muhammetkdr.weatherapp.R
-import com.muhammetkdr.weatherapp.databinding.ViewCustomToolbarBinding
+import com.muhammetkdr.weatherapp.databinding.CustomToolbarViewBinding
 
 
 class CustomToolbarView @JvmOverloads constructor(
@@ -17,7 +17,7 @@ class CustomToolbarView @JvmOverloads constructor(
     defStyle: Int = 0
 ) : FrameLayout(context, attributeSet, defStyle) {
 
-    private val binding = ViewCustomToolbarBinding
+    private val binding = CustomToolbarViewBinding
         .inflate(LayoutInflater.from(context), this, true)
 
     init {

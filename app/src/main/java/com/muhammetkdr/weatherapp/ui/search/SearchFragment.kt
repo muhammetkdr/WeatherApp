@@ -59,7 +59,7 @@ class SearchFragment :
     }
 
     private fun observeSearchResponse() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.cityList.collect { Resource ->
                 when (Resource) {
                     is Resource.Success -> {

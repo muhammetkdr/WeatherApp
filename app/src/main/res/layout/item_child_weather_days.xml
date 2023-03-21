@@ -30,11 +30,11 @@
             android:textSize="16sp"
             tools:text="03:00" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_chil_imgv_background"
-            >
+            android:layout_gravity="center"
+            android:background="@drawable/item_chil_imgv_background">
 
             <ImageView
                 android:id="@+id/imgWeatherCondition"
@@ -43,7 +43,6 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
-                android:layout_weight="1"
                 android:contentDescription="@string/img_item_child"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvItemWeatherTime"

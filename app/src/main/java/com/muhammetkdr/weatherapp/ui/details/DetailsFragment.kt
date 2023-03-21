@@ -34,11 +34,9 @@ class DetailsFragment :
     }
 
     private fun initRvAdapter() {
-        with(binding) {
             val list = args.datesAndTimes.childRvUiData
             detailsWeatherAdapter.submitList(list)
-            rvDetails.adapter = detailsWeatherAdapter
-        }
+            binding.rvDetails.adapter = detailsWeatherAdapter
     }
 
     private fun initViewModelNavArgs() = viewModel.getData(args.datesAndTimes)
@@ -61,7 +59,8 @@ class DetailsFragment :
 
     private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner) {
         val lineDataSet = LineDataSet(it, String.EMPTY)
-        binding.lineChartDetailsPage.setLineChart(lineDataSet, viewModel.hoursList)
+        val hoursList = viewModel.hoursList
+        binding.lineChartDetailsPage.setLineChart(lineDataSet, hoursList)
     }
 
     private fun itemClick(data: ChildRvUiData) {  }
