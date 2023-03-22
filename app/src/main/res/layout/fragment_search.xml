@@ -18,8 +18,8 @@
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
         android:textColorHint="@color/light_blue"
-        app:boxStrokeColor="@color/teal_700"
-        app:hintTextColor="@color/red"
+        app:boxStrokeColor="@color/light_blue"
+        app:hintTextColor="@color/teal_200"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
         app:endIconDrawable="@drawable/ic_search_blue"
@@ -32,6 +32,7 @@
             android:background="@color/dark_blue_transparent_300"
             android:imeOptions="actionDone"
             android:singleLine="true"
+            android:fontFamily="@font/merriweathersansmedium"
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>

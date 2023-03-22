@@ -18,8 +18,7 @@
         android:id="@+id/homeNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_blue"
-        >
+        android:background="@color/dark_blue">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/homeConstraint"
@@ -38,7 +37,6 @@
                 android:id="@+id/homeProgressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +45,7 @@
             </ProgressBar>
 
             <include
-                android:id="@+id/containerCurrentWeather"
+                android:id="@+id/custom_homeLayout_container"
                 layout="@layout/custom_home_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/home_line_divider_background"
                 app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
-                app:layout_constraintTop_toBottomOf="@+id/containerCurrentWeather">
+                app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container">
             </View>
 
             <androidx.recyclerview.widget.RecyclerView

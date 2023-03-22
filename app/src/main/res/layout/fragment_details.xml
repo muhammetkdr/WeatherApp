@@ -88,6 +88,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
+                                android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/humidity"
                                 android:textColor="@color/blue"
                                 android:textSize="11sp"
@@ -111,6 +112,7 @@
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="6dp"
                             android:gravity="end|center"
+                            android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{@string/percentage+detailViewModel.humidity}"
                             android:textColor="@color/blue"
                             android:textSize="14sp"
@@ -140,6 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
+                                android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/air_pressure"
                                 android:textColor="@color/blue"
                                 android:textSize="11sp"
@@ -163,6 +166,7 @@
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="6dp"
                             android:gravity="center"
+                            android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{detailViewModel.pressure+@string/pressure}"
                             android:textColor="@color/blue"
                             android:textSize="14sp"
@@ -192,6 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:gravity="center"
+                                android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/grnd_level"
                                 android:textColor="@color/blue"
                                 android:textSize="11sp"
@@ -215,11 +220,11 @@
                             android:layout_marginStart="6dp"
                             android:layout_marginEnd="6dp"
                             android:gravity="center"
+                            android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{detailViewModel.grndLevel+@string/distance}"
                             android:textColor="@color/blue"
                             android:textSize="14sp"
                             tools:text="755m" />
-
                     </LinearLayout>
 
 
