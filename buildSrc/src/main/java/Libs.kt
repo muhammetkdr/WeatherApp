@@ -47,12 +47,6 @@
             const val plugin = "com.google.dagger:hilt-android-gradle-plugin:" + Versions.hiltVersion
         }
 
-        object Room {
-            const val runtime = "androidx.room:room-runtime:" + Versions.roomVersion
-            const val compiler = "androidx.room:room-compiler:" + Versions.roomVersion
-            const val ktx = "androidx.room:room-ktx:" + Versions.roomVersion
-        }
-
         object Coroutines {
             const val coroutineCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:" + Versions.coroutinesVersion
             const val coroutineAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:" + Versions.coroutinesVersion
@@ -65,5 +59,13 @@
 
         object LottieAnimations{
             const val lottieLib = "com.airbnb.android:lottie:"+Versions.lottieVersion
+        }
+
+        object thirdPartyLib{
+            const val mpChartLib = "com.github.PhilJay:MPAndroidChart:"+ Versions.mpChartLibVersion
+
+            const val chuckerDebugLib = "com.github.chuckerteam.chucker:library:"+ Versions.chuckerReliaseVersion
+            const val chuckerReleaseLib = "com.github.chuckerteam.chucker:library-no-op:"+ Versions.chuckerDebugVersion
+
         }
     }
