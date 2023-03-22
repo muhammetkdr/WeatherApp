@@ -67,19 +67,11 @@ dependencies {
     implementation(Libs.AndroidX.legacySupportLib)
     implementation (Libs.AndroidX.liveData)
     implementation (Libs.AndroidX.vmLifeCycle)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
 
     //test
     testImplementation (Libs.TestLibs.junit)
     androidTestImplementation (Libs.TestLibs.junitExtTest)
     androidTestImplementation (Libs.TestLibs.espresso)
-
-    // Room
-    implementation (Libs.Room.runtime)
-    kapt (Libs.Room.compiler)
-    implementation (Libs.Room.ktx)
 
     // Coroutines
     implementation (Libs.Coroutines.coroutineCore)
@@ -116,10 +108,12 @@ dependencies {
 
     // Lottie anim.
     implementation (Libs.LottieAnimations.lottieLib)
-    // MP chart
-    implementation ("com.github.PhilJay:MPAndroidChart:3.1.0")
 
-    debugImplementation ("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+    // MP chart
+    implementation (Libs.thirdPartyLib.mpChartLib)
+
+    //chucker
+    debugImplementation (Libs.thirdPartyLib.chuckerDebugLib)
+    releaseImplementation (Libs.thirdPartyLib.chuckerReleaseLib)
 
 }
