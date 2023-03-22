@@ -9,7 +9,6 @@ import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.C
 import javax.inject.Inject
 
 class HomeChildForecastWeatherAdapter @Inject constructor(
-    private val onItemClickListener: ((ChildRvUiData) -> Unit)?
 ) : BaseListAdapter<ChildRvUiData>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }) {
@@ -20,8 +19,7 @@ class HomeChildForecastWeatherAdapter @Inject constructor(
     ): RecyclerView.ViewHolder {
         val binding = ItemChildWeatherDaysBinding.inflate(inflater, parent, false)
         return HomeChildForecastWeatherViewHolder(
-            binding,
-            onItemClickListener
+            binding
         )
     }
 

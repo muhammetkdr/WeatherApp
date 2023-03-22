@@ -2,7 +2,6 @@ package com.muhammetkdr.weatherapp.ui.home.nestedrv
 
 import com.muhammetkdr.weatherapp.base.BaseViewHolder
 import com.muhammetkdr.weatherapp.databinding.ItemParentForecastRvBinding
-import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.ChildRvUiData
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import javax.inject.Inject
 
@@ -13,17 +12,17 @@ class HomeParentForecastWeatherViewHolder @Inject constructor(
 
     override fun onBind(data: DatesAndTimes) {
         binding.datesAndTimes = data
-        itemView.setOnClickListener {
+
+        binding.rvParentCard.setOnClickListener {
             onItemClickListener?.invoke(data)
         }
 
-        val adapter = HomeChildForecastWeatherAdapter(::onChildItemClick)
+        val adapter = HomeChildForecastWeatherAdapter()
         binding.childRv.adapter = adapter
+
+        binding.childRv.suppressLayout(true)
+
         adapter.submitList(data.childRvUiData)
-
     }
 
-    fun onChildItemClick(data: ChildRvUiData){
-        binding.root.callOnClick()
-    }
 }

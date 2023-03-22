@@ -48,8 +48,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:enabled="false"
                 android:clickable="false"
-                android:focusable="false"
                 app:layout_constraintTop_toBottomOf="@+id/tvParentDate"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_child_weather_days">

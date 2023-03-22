@@ -16,8 +16,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_child_background"
         android:orientation="horizontal"
-        android:clickable="false"
-        android:focusable="false"
         >
 
         <com.google.android.material.textview.MaterialTextView
