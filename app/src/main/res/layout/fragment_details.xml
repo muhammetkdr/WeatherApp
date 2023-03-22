@@ -14,7 +14,8 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollDetails"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@drawable/detail_page_background">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -43,8 +44,18 @@
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChartDetailsPage"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="300dp"
                     android:layout_margin="2dp" />
+
+                <View
+                    android:id="@+id/lineDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/detail_page_divider_background"
+                    app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
+                    app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container">
+                </View>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvDetails"
@@ -90,7 +101,7 @@
                                 android:gravity="center"
                                 android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/humidity"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/white"
                                 android:textSize="11sp"
                                 tools:text="Nem" />
 
@@ -114,8 +125,8 @@
                             android:gravity="end|center"
                             android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{@string/percentage+detailViewModel.humidity}"
-                            android:textColor="@color/blue"
-                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="%56" />
 
                     </LinearLayout>
@@ -144,7 +155,7 @@
                                 android:gravity="center"
                                 android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/air_pressure"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/white"
                                 android:textSize="11sp"
                                 tools:text="Hava Basıncı" />
 
@@ -168,8 +179,8 @@
                             android:gravity="center"
                             android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{detailViewModel.pressure+@string/pressure}"
-                            android:textColor="@color/blue"
-                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="1005mb" />
 
                     </LinearLayout>
@@ -198,7 +209,7 @@
                                 android:gravity="center"
                                 android:fontFamily="@font/merriweathersansmedium"
                                 android:text="@string/grnd_level"
-                                android:textColor="@color/blue"
+                                android:textColor="@color/white"
                                 android:textSize="11sp"
                                 tools:text="Rakım" />
 
@@ -208,6 +219,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginTop="2dp"
                                 android:contentDescription="@string/img_details_altitude"
+                                android:elevation="10dp"
                                 android:src="@drawable/altitude" />
 
                         </LinearLayout>
@@ -222,8 +234,8 @@
                             android:gravity="center"
                             android:fontFamily="@font/merriweathersansmedium"
                             android:text="@{detailViewModel.grndLevel+@string/distance}"
-                            android:textColor="@color/blue"
-                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
                             tools:text="755m" />
                     </LinearLayout>
 

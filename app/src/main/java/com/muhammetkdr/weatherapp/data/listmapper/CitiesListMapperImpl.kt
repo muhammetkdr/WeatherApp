@@ -1,6 +1,5 @@
 package com.muhammetkdr.weatherapp.data.listmapper
 
-import com.muhammetkdr.weatherapp.common.extensions.nullToString
 import com.muhammetkdr.weatherapp.data.dto.city.CitiesResponse
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import javax.inject.Inject
@@ -11,7 +10,7 @@ class CitiesListMapperImpl @Inject constructor() : ListMapper<CitiesResponse,Cit
             CitiesEntity(
                 latitude = it.latitude.orEmpty(),
                 longitude = it.longitude.orEmpty(),
-                cityPlateCode = it.id?.toDouble().nullToString(),
+                cityPlateCode = it.id.toString(),
                 cityName = it.name.orEmpty()
             )
         } ?: emptyList()

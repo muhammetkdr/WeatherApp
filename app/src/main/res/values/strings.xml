@@ -20,6 +20,7 @@
     <string name="distance">m</string>
     <string name="percentage">%</string>
     <string name="pressure">mb</string>
+    <string name="plate_code">Plaka Kodu:</string>
     <string name="current_weather_condition">Mevcut Durum:\u00A0</string>
     <string name="current_feels_like">(Hissedilen)</string>
     <string name="space_string">\u00A0</string>
@@ -31,10 +32,8 @@
     <string name="permission_need">Permission needed!</string>
     <string name="give_permission">Give Permission</string>
     <string name="not_initialized">it is not initialized!</string>
-
     <string name="img_item_details">details weather item view</string>
     <string name="img_item_child">child weather item view</string>
-
     <string name="img_details_humidiy">humidity img view</string>
     <string name="img_details_pressure">pressure img view</string>
     <string name="img_details_altitude">altitude img view</string>

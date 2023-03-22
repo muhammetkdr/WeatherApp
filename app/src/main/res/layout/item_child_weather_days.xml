@@ -15,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_child_background"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:clickable="false"
+        android:focusable="false"
+        >
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvItemWeatherDegree"
@@ -25,6 +28,7 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/merriweathersansmedium"
             android:text="@{childUiData.hours}"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -60,6 +64,7 @@
             android:layout_margin="4dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/merriweathersansmedium"
             android:text="@{Double.toString(childUiData.getFormattedTemperature)+@string/celcius_string}"
             android:textColor="@color/white"
             android:textSize="16sp"
