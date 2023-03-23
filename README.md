@@ -9,11 +9,11 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
 ## Screenshots
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/71526845/227382242-d25e1f7f-e7fd-41ee-a727-bc57d3afb612.jpg" width="190">
-<img src="https://user-images.githubusercontent.com/71526845/227381174-055257ef-8d4b-4c09-a697-6f828e26b1da.jpeg" width="190">
-<img src="https://user-images.githubusercontent.com/71526845/227382331-e91638e2-d5d2-4d77-9488-25c63c3ac489.jpg" width="190">
-<img src="https://user-images.githubusercontent.com/71526845/227381293-78a61917-02a4-4ce0-b08e-bf72c55b7b4a.jpeg" width="190">
-<img src="https://user-images.githubusercontent.com/71526845/227381342-b8e4fc15-7d64-48d4-a57d-5cfef50017b4.jpeg" width="190">
+<img src="https://user-images.githubusercontent.com/71526845/227382242-d25e1f7f-e7fd-41ee-a727-bc57d3afb612.jpg" width="180">
+<img src="https://user-images.githubusercontent.com/71526845/227381174-055257ef-8d4b-4c09-a697-6f828e26b1da.jpeg" width="180">
+<img src="https://user-images.githubusercontent.com/71526845/227382331-e91638e2-d5d2-4d77-9488-25c63c3ac489.jpg" width="180">
+<img src="https://user-images.githubusercontent.com/71526845/227381293-78a61917-02a4-4ce0-b08e-bf72c55b7b4a.jpeg" width="180">
+<img src="https://user-images.githubusercontent.com/71526845/227381342-b8e4fc15-7d64-48d4-a57d-5cfef50017b4.jpeg" width="180">
 </p>
 
 ## Architecture
