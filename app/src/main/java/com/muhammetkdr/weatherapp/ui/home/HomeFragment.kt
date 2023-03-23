@@ -62,8 +62,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         initRvAdapter()
 
         handleCustomToolbarSearchPressed()
+        handleBackPressed()
     }
 
+    private fun handleBackPressed() {
+        addOnBackPressedDispatcher {
+            return@addOnBackPressedDispatcher
+        }
+    }
 
     private fun navigateHomeFragmentSelf() {
         val action = HomeFragmentDirections.actionHomeFragmentSelf()
@@ -244,7 +250,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun parentRvItemClick(data: DatesAndTimes) {
-        requireContext().toastBuilder("You clicked ${data.dayOfTheWeek}!")
+        requireContext().toastBuilder(data.dayOfTheWeek)
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)
     }
