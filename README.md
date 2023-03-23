@@ -30,7 +30,7 @@ This app uses MVVM (Model-View-ViewModel) architecture
 - <a href="https://developer.android.com/topic/libraries/architecture/navigation/">Navigation</a></li>
 - <a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a>
 - <a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a>
-- <a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a> sadasd
+- <a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a>
 - <a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a>
 - <a href="https://developer.android.com/kotlin/coroutines">Coroutines</a>
 - <a href="https://bumptech.github.io/glide">Glide</a>
