@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.D
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -60,14 +62,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         initRvAdapter()
 
         handleCustomToolbarSearchPressed()
-        handleBackPressed()
     }
 
-    private fun handleBackPressed() {
-        addOnBackPressedDispatcher {
-            navigateHomeFragmentSelf()
-        }
-    }
 
     private fun navigateHomeFragmentSelf() {
         val action = HomeFragmentDirections.actionHomeFragmentSelf()
@@ -159,21 +155,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun observeCurrentWeatherData() {
         lifecycleScope.launch {
-            viewModel.currentWeather.collect { Resource ->
+            viewModel.currentWeather.collectLatest { Resource ->
                 when (Resource) {
                     is Resource.Success -> {
-                        Resource.data.let {
+                        Resource.data.apply {
                             with(binding) {
-                                homeProgressbar.gone()
-                                containerCurrentWeather.weatherEntity = it
+                                setCurrentWeatherUiVisibility(true)
+                                customHomeLayoutContainer.weatherEntity = this@apply
                             }
                         }
                     }
                     is Resource.Loading -> {
-                        binding.homeProgressbar.visible()
+                        setCurrentWeatherUiVisibility(false)
                     }
                     is Resource.Error -> {
-                        binding.homeProgressbar.visible()
+                        setCurrentWeatherUiVisibility(false)
                         requireView().showSnackbar(Resource.error)
                     }
                 }
@@ -183,24 +179,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun observeForecastWeatherData() {
         lifecycleScope.launch {
-            viewModel.forecastWeather.collect { Resource ->
+            viewModel.forecastWeather.collectLatest { Resource ->
                 when (Resource) {
                     is Resource.Success -> {
                         Resource.data.let {
-                            binding.homeProgressbar.gone()
+                            setForecastWeatherUiVisibility(true)
                             val list = it.uiDataMapper()
                             parentAdapter.submitList(list)
                         }
                     }
                     is Resource.Error -> {
-                        binding.homeProgressbar.visible()
+                        setForecastWeatherUiVisibility(false)
                         requireView().showSnackbar(Resource.error)
                     }
                     is Resource.Loading -> {
-                        binding.homeProgressbar.visible()
+                        setForecastWeatherUiVisibility(false)
                     }
                 }
             }
+        }
+    }
+
+    private fun setCurrentWeatherUiVisibility(isVisible: Boolean) {
+        with(binding) {
+            customToolBar.isVisible = isVisible
+            lineDivider.isVisible = isVisible
+            customHomeLayoutContainer.root.isVisible = isVisible
+            homeCurrentWeatherProgressbar.isVisible = !isVisible
+        }
+    }
+
+    private fun setForecastWeatherUiVisibility(isVisible: Boolean) {
+        with(binding) {
+            rvWeatherHome.isVisible = isVisible
+            homeForecastWeatherProgressbar.isVisible = !isVisible
         }
     }
 
@@ -221,7 +233,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     private fun initDataBinding() {
         with(binding) {
             lifecycleOwner = viewLifecycleOwner
-            containerCurrentWeather.lifecycleOwner = viewLifecycleOwner
+            customHomeLayoutContainer.lifecycleOwner = viewLifecycleOwner
         }
     }
 

@@ -2,12 +2,14 @@ package com.muhammetkdr.weatherapp.ui.search
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
+import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
 import com.muhammetkdr.weatherapp.common.utils.Constants.SEARCH_DELAY
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
@@ -64,21 +66,30 @@ class SearchFragment :
                 when (Resource) {
                     is Resource.Success -> {
                         Resource.data.apply {
+                            setSearchUiState(true)
                             adapter.submitList(this)
                             viewModel.setCityListData(this)
                         }
                     }
                     is Resource.Error -> {
-
+                        setSearchUiState(false)
+                        requireView().showSnackbar(Resource.error)
                     }
                     is Resource.Loading -> {
-
+                        setSearchUiState(false)
                     }
                 }
             }
         }
     }
 
+    private fun setSearchUiState(isVisible: Boolean){
+        with(binding){
+            searchTextField.isVisible = isVisible
+            rvSearch.isVisible = isVisible
+            searchProgressbar.isVisible = !isVisible
+        }
+    }
     private fun itemClick(data: CitiesEntity) {
         val action = SearchFragmentDirections.actionSearchFragmentToHomeFragment(data)
         findNavController().navigate(action)

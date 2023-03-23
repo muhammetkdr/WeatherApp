@@ -7,12 +7,8 @@ import javax.inject.Inject
 
 class DetailsWeatherViewHolder@Inject constructor(
     private val binding: ItemWeatherDetailsBinding,
-    private val onItemClickListener: ((ChildRvUiData) -> Unit)?
 ) : BaseViewHolder<ChildRvUiData>(binding.root) {
     override fun onBind(data: ChildRvUiData) {
         binding.childData = data
-        itemView.setOnClickListener {
-            onItemClickListener?.invoke(data)
-        }
     }
 }
