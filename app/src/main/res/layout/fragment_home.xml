@@ -60,7 +60,7 @@
                 layout="@layout/custom_home_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_margin="@dimen/_4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customToolBar" />
@@ -68,8 +68,8 @@
             <View
                 android:id="@+id/lineDivider"
                 android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="8dp"
+                android:layout_height="@dimen/_6dp"
+                android:layout_marginTop="@dimen/_8dp"
                 android:background="@drawable/home_line_divider_background"
                 app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
                 app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container">
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="@dimen/_2dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

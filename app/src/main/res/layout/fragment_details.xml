@@ -25,14 +25,14 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChartDetailsPage"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="2dp" />
+            android:layout_height="@dimen/_300dp"
+            android:layout_margin="@dimen/_2dp" />
 
         <View
             android:id="@+id/lineDivider"
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/_8dp"
+            android:layout_marginTop="@dimen/_8dp"
             android:background="@drawable/detail_page_divider_background"
             app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
             app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container" />
@@ -41,7 +41,7 @@
             android:id="@+id/rvDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/_4dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="2"
@@ -52,7 +52,7 @@
             android:id="@+id/detailItemLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/_6dp"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="3">
@@ -68,11 +68,11 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_4dp"
                     android:orientation="vertical"
-                    android:padding="4dp">
+                    android:padding="@dimen/_4dp">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -82,14 +82,14 @@
                         android:gravity="center"
                         android:text="@string/humidity"
                         android:textColor="@color/white"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/_11sp"
                         tools:text="Nem" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/_30dp"
+                        android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/_2dp"
                         android:contentDescription="@string/img_details_humidiy"
                         android:src="@drawable/humidity" />
 
@@ -100,13 +100,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="@dimen/_6dp"
+                    android:layout_marginEnd="@dimen/_6dp"
                     android:fontFamily="@font/merriweathersansmedium"
                     android:gravity="end|center"
                     android:text="@{@string/percentage+detailViewModel.humidity}"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_12sp"
                     tools:text="%56" />
 
             </LinearLayout>
@@ -122,11 +122,11 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_4dp"
                     android:orientation="vertical"
-                    android:padding="4dp">
+                    android:padding="@dimen/_4dp">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -136,14 +136,14 @@
                         android:gravity="center"
                         android:text="@string/air_pressure"
                         android:textColor="@color/white"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/_11sp"
                         tools:text="Hava Basıncı" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/_30dp"
+                        android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/_2dp"
                         android:contentDescription="@string/img_details_pressure"
                         android:src="@drawable/air_pressure" />
 
@@ -154,13 +154,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="@dimen/_6dp"
+                    android:layout_marginEnd="@dimen/_6dp"
                     android:fontFamily="@font/merriweathersansmedium"
                     android:gravity="center"
                     android:text="@{detailViewModel.pressure+@string/pressure}"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_12sp"
                     tools:text="1005mb" />
 
             </LinearLayout>
@@ -176,11 +176,11 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="@dimen/_12dp"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_4dp"
                     android:orientation="vertical"
-                    android:padding="4dp">
+                    android:padding="@dimen/_4dp">
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
@@ -190,16 +190,15 @@
                         android:gravity="center"
                         android:text="@string/grnd_level"
                         android:textColor="@color/white"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/_11sp"
                         tools:text="Rakım" />
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/_30dp"
+                        android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/_2dp"
                         android:contentDescription="@string/img_details_altitude"
-                        android:elevation="10dp"
                         android:src="@drawable/altitude" />
 
                 </LinearLayout>
@@ -209,13 +208,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
+                    android:layout_marginStart="@dimen/_6dp"
+                    android:layout_marginEnd="@dimen/_6dp"
                     android:fontFamily="@font/merriweathersansmedium"
                     android:gravity="center"
                     android:text="@{detailViewModel.grndLevel+@string/distance}"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/_12sp"
                     tools:text="755m" />
             </LinearLayout>
         </LinearLayout>

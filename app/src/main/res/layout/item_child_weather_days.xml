@@ -20,16 +20,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvItemWeatherDegree"
-            android:layout_width="60dp"
+            android:layout_width="@dimen/_60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/_4dp"
             android:layout_weight="1"
             android:gravity="center"
             android:fontFamily="@font/merriweathersansmedium"
             android:text="@{childUiData.hours}"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16sp"
             tools:text="03:00" />
 
         <FrameLayout
@@ -41,10 +41,10 @@
             <ImageView
                 android:id="@+id/imgWeatherCondition"
                 setWeatherImage="@{childUiData.icons}"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
                 android:layout_gravity="center"
-                android:layout_margin="4dp"
+                android:layout_margin="@dimen/_4dp"
                 android:contentDescription="@string/img_item_child"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,16 +56,16 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvItemWeatherTime"
-            android:layout_width="60dp"
+            android:layout_width="@dimen/_60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/_4dp"
             android:layout_weight="1"
             android:gravity="center"
             android:fontFamily="@font/merriweathersansmedium"
             android:text="@{Double.toString(childUiData.getFormattedTemperature)+@string/celcius_string}"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16sp"
             tools:text="12.5" />
 
     </LinearLayout>

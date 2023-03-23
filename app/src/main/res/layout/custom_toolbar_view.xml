@@ -7,11 +7,11 @@
 
     <ImageView
         android:id="@+id/imgBackPress"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="@dimen/_42dp"
+        android:layout_height="@dimen/_42dp"
         android:layout_gravity="start"
         android:contentDescription="@string/custom_toolbar_backimage"
-        android:padding="8dp"
+        android:padding="@dimen/_8dp"
         android:src="@drawable/ic_arrow_back" />
 
     <TextView
@@ -22,16 +22,16 @@
         android:gravity="center"
         android:fontFamily="@font/merriweathersansmedium"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/_20sp"
         tools:text="21.06.1997" />
 
     <ImageView
         android:id="@+id/imgSearchPress"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="@dimen/_42dp"
+        android:layout_height="@dimen/_42dp"
         android:layout_gravity="end"
         android:contentDescription="@string/custom_toolbar_searchimage"
-        android:padding="8dp"
+        android:padding="@dimen/_8dp"
         android:src="@drawable/ic_search" />
 
 </FrameLayout>
