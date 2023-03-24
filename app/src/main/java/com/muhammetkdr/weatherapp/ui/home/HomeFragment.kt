@@ -188,9 +188,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             viewModel.forecastWeather.collectLatest { Resource ->
                 when (Resource) {
                     is Resource.Success -> {
-                        Resource.data.let {
+                        Resource.data.apply {
                             setForecastWeatherUiVisibility(true)
-                            val list = it.uiDataMapper()
+                            val list = this.uiDataMapper()
                             parentAdapter.submitList(list)
                         }
                     }
