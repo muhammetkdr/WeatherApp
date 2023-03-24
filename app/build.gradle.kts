@@ -119,10 +119,10 @@ dependencies {
     implementation (Libs.LottieAnimations.lottieLib)
 
     // MP chart
-    implementation (Libs.thirdPartyLib.mpChartLib)
+    implementation (Libs.ThirdPartyLib.mpChartLib)
 
     //chucker
-    debugImplementation (Libs.thirdPartyLib.chuckerDebugLib)
-    releaseImplementation (Libs.thirdPartyLib.chuckerReleaseLib)
+    debugImplementation (Libs.ThirdPartyLib.chuckerDebugLib)
+    releaseImplementation (Libs.ThirdPartyLib.chuckerReleaseLib)
 
 }

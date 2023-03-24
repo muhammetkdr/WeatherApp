@@ -1,7 +1,5 @@
 package com.muhammetkdr.weatherapp.common.extensions
 
-import android.view.View
-import androidx.core.widget.NestedScrollView
 import java.util.*
 
 //Destructuring declarations

@@ -8,11 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="light_blue100">#69C3F6</color>
     <color name="white">#FFFFFF</color>
-    <color name="blue">#243851</color>
+
     <color name="light_blue">#2978DF</color>
     <color name="light_blue300">#448AFF</color>
-    <color name="yellow">#DAA233</color>
-    <color name="red">#FF0000</color>
+
     <color name="dark_blue">#000918</color>
     <color name="dark_blue_500">#001331</color>
     <color name="dark_blue_transparent_300">#80002B6E</color>

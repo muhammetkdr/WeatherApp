@@ -3,7 +3,6 @@
     <string name="no_data_response">There is nothing as a response!</string>
     <string name="something_bad_happened">Something Bad happened..</string>
     <string name="search">Search a city..</string>
-    <string name="Test">Test text</string>
     <string name="binding_null">Binding is not initialized!</string>
     <string name="gps_disabled">GPS is disabled</string>
     <string name="permission_denied_rationale">You need to accept location permissions to be able to use this app!</string>
