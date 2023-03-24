@@ -32,11 +32,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            @Suppress("UnstableApiUsage")
+            isDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isJniDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isRenderscriptDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isMinifyEnabled = false
+        }
         release {
             @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
             proguardFiles(
-
                 @Suppress("UnstableApiUsage")
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
