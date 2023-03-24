@@ -15,7 +15,7 @@ data class ForecastWeatherEntity(
     val dtTxt: String
 ) :ForecastWeatherDataMapper{
 
-    override fun uiDataMapper(): MutableList<DatesAndTimes?> {
+    override fun uiDataMapper(): List<DatesAndTimes?> {
         val responseListMapper = mutableListOf<DatesAndTimes?>()
         val dates = mutableSetOf<String>()
 
