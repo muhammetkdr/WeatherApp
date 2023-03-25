@@ -1,10 +1,15 @@
 <h1 align="center">WeatherApp</h1></br>
+
 <p align="center">  
-This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey with Clean Architecture. 
+This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey
 </p>
 <p align="center">
   <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat"/></a>
 </p>
+
+## Prerequisite
+- API Key, to run the application, an API key from [OpenWeatherMap](https://openweathermap.org/api) should be supplied and added following variable to local environment:
+`` API_KEY = "Your API Key" `` or you can just download from [here](https://drive.google.com/file/d/1sHyGdWvIKh9uZiRJfrZ9RQXnvJ3Q74ee/view?usp=sharing)
 
 ## Screenshots
 
@@ -27,12 +32,16 @@ This app uses MVVM (Model-View-ViewModel) architecture
 - [Android Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency Injection Library
 - [Retrofit](https://square.github.io/retrofit/) A type-safe HTTP client for Android and Java
 - [OkHttp](https://square.github.io/okhttp/) An HTTP client that efficiently make network requests
-- <a href="https://developer.android.com/topic/libraries/architecture/navigation/">Navigation</a></li>
-- <a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a>
-- <a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a>
-- <a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a>
-- <a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a>
-- <a href="https://developer.android.com/kotlin/coroutines">Coroutines</a>
-- <a href="https://bumptech.github.io/glide">Glide</a>
-- <a href="https://material.io/develop/android/docs/getting-started/">Material Design</a></li>
+- <a href="https://developer.android.com/topic/libraries/architecture/navigation/">Navigation</a> to manage fragments
+- <a href="https://developer.android.com/topic/libraries/architecture/viewmodel">ViewModel</a> This is a kind of storage for UI related data which you can save from UI changes(like configuration change)
+- <a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a> An Architecture Components that is designed to observe changes in data and notify observers when the data changes.
+- <a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a> to connect views in your layout to data sources in your app's architecture.
+- <a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a> a generated binding class is created for each XML layout file in your app
+- <a href="https://bumptech.github.io/glide">Glide</a> Popular open-source library for loading and caching images in Android applications.
+- <a href="https://material.io/develop/android/docs/getting-started/">Material Design</a> for various UI components, such as buttons, cards, and text fields
   
+## Contact With Me  
+<p align="left">
+<a href="https://www.linkedin.com/in/muhammet-k%C3%BCd%C3%BCr/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="muhammetküdür" height="30" width="40" /></a>
+</p>
+
