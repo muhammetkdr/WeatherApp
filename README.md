@@ -32,7 +32,6 @@ This app uses MVVM (Model-View-ViewModel) architecture
 - <a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a>
 - <a href="https://developer.android.com/topic/libraries/data-binding">Data Binding</a>
 - <a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a>
-- <a href="https://developer.android.com/kotlin/coroutines">Coroutines</a>
 - <a href="https://bumptech.github.io/glide">Glide</a>
 - <a href="https://material.io/develop/android/docs/getting-started/">Material Design</a></li>
   
