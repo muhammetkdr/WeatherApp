@@ -1,6 +1,6 @@
 <h1 align="center">WeatherApp</h1></br>
 <p align="center">  
-This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey with Clean Architecture. 
+This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey
 </p>
 <p align="center">
   <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat"/></a>
