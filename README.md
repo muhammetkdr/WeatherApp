@@ -1,4 +1,5 @@
 <h1 align="center">WeatherApp</h1></br>
+
 <p align="center">  
 This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey
 </p>
@@ -8,7 +9,7 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
 
 ## Prerequisites
 - API Key, to run the application, an API key from [OpenWeatherMap](https://openweathermap.org/api) should be supplied and added following variable to local environment:
-`` API_KEY = Your API Key ``
+`` API_KEY = Your API Key `` or you can just download from [here](https://drive.google.com/file/d/1sHyGdWvIKh9uZiRJfrZ9RQXnvJ3Q74ee/view?usp=sharing)
 
 ## Screenshots
 
