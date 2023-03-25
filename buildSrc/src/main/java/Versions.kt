@@ -32,8 +32,6 @@ object Versions {
 
     const val encryptedSharedPref = "1.1.0-alpha03"
 
-    const val lottieVersion = "5.2.0"
-
     const val mpChartLibVersion = "3.1.0"
     const val chuckerReliaseVersion = "3.5.2"
     const val chuckerDebugVersion = "3.5.2"

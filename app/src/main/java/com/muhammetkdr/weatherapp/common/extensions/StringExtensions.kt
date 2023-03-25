@@ -3,13 +3,13 @@ package com.muhammetkdr.weatherapp.common.extensions
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.capitalizeWords(): String = split(" ").map { word ->
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { word ->
     word.replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(
             Locale.ROOT
         ) else it.toString()
     }
-}.joinToString(" ")
+}
 
 
 fun String.formatCalendar(): String {
@@ -41,11 +41,11 @@ fun String.zellerCongruence(): String {
         month = 14
         year--
     }
-    val MM = month
+    val mM = month
     val yy = year % 100
-    val YY = year / 100
+    val yY = year / 100
     // Calculating the day
-    var calculate = day + 13 * (MM + 1) / 5 + yy + yy / 4 + YY / 4 + 5 * YY
+    var calculate = day + 13 * (mM + 1) / 5 + yy + yy / 4 + yY / 4 + 5 * yY
     calculate %= 7 // Finding the day
     return when (calculate) {
         0 ->{

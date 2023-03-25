@@ -32,11 +32,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            @Suppress("UnstableApiUsage")
+            isDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isJniDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isRenderscriptDebuggable = true
+            @Suppress("UnstableApiUsage")
+            isMinifyEnabled = false
+        }
         release {
             @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
             proguardFiles(
-
                 @Suppress("UnstableApiUsage")
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -106,14 +115,11 @@ dependencies {
     // Google location service
     implementation (Libs.Google.googleLocationService)
 
-    // Lottie anim.
-    implementation (Libs.LottieAnimations.lottieLib)
-
     // MP chart
-    implementation (Libs.thirdPartyLib.mpChartLib)
+    implementation (Libs.ThirdPartyLib.mpChartLib)
 
     //chucker
-    debugImplementation (Libs.thirdPartyLib.chuckerDebugLib)
-    releaseImplementation (Libs.thirdPartyLib.chuckerReleaseLib)
+    debugImplementation (Libs.ThirdPartyLib.chuckerDebugLib)
+    releaseImplementation (Libs.ThirdPartyLib.chuckerReleaseLib)
 
 }
