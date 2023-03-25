@@ -115,9 +115,6 @@ dependencies {
     // Google location service
     implementation (Libs.Google.googleLocationService)
 
-    // Lottie anim.
-    implementation (Libs.LottieAnimations.lottieLib)
-
     // MP chart
     implementation (Libs.ThirdPartyLib.mpChartLib)
 
