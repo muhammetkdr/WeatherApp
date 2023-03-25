@@ -6,6 +6,10 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
   <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat"/></a>
 </p>
 
+## Prerequisites
+- API Key, to run the application, an API key from [OpenWeatherMap](https://openweathermap.org/api) should be supplied and added following variable to local environment:
+`` API_KEY = Your API Key ``
+
 ## Screenshots
 
 <p align="center">
