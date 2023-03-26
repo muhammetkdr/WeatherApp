@@ -39,6 +39,7 @@ This app uses MVVM (Model-View-ViewModel) architecture
 - <a href="https://developer.android.com/topic/libraries/view-binding">View Binding</a> a generated binding class is created for each XML layout file in your app
 - <a href="https://bumptech.github.io/glide">Glide</a> Popular open-source library for loading and caching images in Android applications.
 - <a href="https://material.io/develop/android/docs/getting-started/">Material Design</a> for various UI components, such as buttons, cards, and text fields
+- BuildSrc and Kotlin-dsl for gradle operations
   
 ## Contact With Me  
 <p align="left">
