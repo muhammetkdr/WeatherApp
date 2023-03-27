@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
@@ -110,18 +109,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
                     shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
             -> {
-                Snackbar.make(requireView(), R.string.permission_need, Snackbar.LENGTH_INDEFINITE)
-                    .apply {
-                        setAction(R.string.give_permission) {
-                            requestLocationPermissionLauncher.launch(
-                                arrayOf(
-                                    Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION
-                                )
-                            )
-                        }
-                        show()
-                    }
+                showSafeSnackbar(
+                    getString(R.string.permission_need),
+                    getString(R.string.give_permission)
+                ) {
+                    requestLocationPermissionLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        )
+                    )
+                }
             }
             else -> {
                 requestLocationPermissionLauncher.launch(
