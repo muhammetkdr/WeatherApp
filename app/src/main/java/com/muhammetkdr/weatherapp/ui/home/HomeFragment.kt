@@ -145,16 +145,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     }
                 }
             } catch (e: Exception) {
-                Snackbar.make(
-                    requireView(),
-                    e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
-                    Snackbar.LENGTH_INDEFINITE
-                ).apply {
-                    setAction(R.string.REFRESH) {
+                    showSafeSnackbar(
+                        e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
+                        getString(R.string.REFRESH)
+                    ) {
                         navigateHomeFragmentSelf()
                     }
-                    show()
-                }
             }
         }
     }
