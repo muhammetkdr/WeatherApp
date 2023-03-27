@@ -22,6 +22,8 @@ class CityRemoteDataSourceImpl @Inject constructor(
                 response.body()?.let {
                     emit(Resource.Success(it))
                 } ?: emit(Resource.Error(NO_DATA))
+            } else {
+                emit(Resource.Error(NO_DATA))
             }
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
