@@ -2,221 +2,230 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="detailViewModel"
             type="com.muhammetkdr.weatherapp.ui.details.DetailsViewModel" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/detailViewLinearLayout"
+    <ScrollView
+        android:id="@+id/detailScrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/detail_page_background"
-        android:orientation="vertical"
-        tools:context=".ui.details.DetailsFragment">
-
-        <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
-            android:id="@+id/detailToolbarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:ctv_showEndIcon="false" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChartDetailsPage"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_300dp"
-            android:layout_margin="@dimen/_2dp" />
-
-        <View
-            android:id="@+id/lineDivider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_8dp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:background="@drawable/detail_page_divider_background"
-            app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
-            app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="2"
-            tools:listitem="@layout/item_weather_details" />
-
+        >
 
         <LinearLayout
-            android:id="@+id/detailItemLinearLayout"
+            android:id="@+id/detailViewLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:orientation="vertical"
+            tools:context=".ui.details.DetailsFragment">
+
+            <com.muhammetkdr.weatherapp.ui.customtoolbar.CustomToolbarView
+                android:id="@+id/detailToolbarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ctv_showEndIcon="false" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChartDetailsPage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300dp"
+                android:layout_margin="@dimen/_2dp" />
+
+            <View
+                android:id="@+id/lineDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_8dp"
+                android:layout_marginTop="@dimen/_8dp"
+                android:background="@drawable/detail_page_divider_background"
+                app:layout_constraintBottom_toTopOf="@+id/rvWeatherHome"
+                app:layout_constraintTop_toBottomOf="@+id/custom_homeLayout_container" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_weather_details" />
+
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/detailItemLinearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_6dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12dp"
-                    android:layout_marginTop="@dimen/_4dp"
-                    android:layout_marginBottom="@dimen/_4dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4dp">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/merriweathersansmedium"
-                        android:gravity="center"
-                        android:text="@string/humidity"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_11sp"
-                        tools:text="Nem" />
-
-                    <ImageView
-                        android:layout_width="@dimen/_30dp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_2dp"
-                        android:contentDescription="@string/img_details_humidiy"
-                        android:src="@drawable/humidity" />
-
-                </LinearLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHumidity2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_6dp"
-                    android:layout_marginEnd="@dimen/_6dp"
-                    android:fontFamily="@font/merriweathersansmedium"
-                    android:gravity="end|center"
-                    android:text="@{@string/percentage+detailViewModel.humidity}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp"
-                    tools:text="%56" />
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginBottom="@dimen/_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_4dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/merriweathersansmedium"
+                            android:gravity="center"
+                            android:text="@string/humidity"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11sp"
+                            tools:text="Nem" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12dp"
-                    android:layout_marginTop="@dimen/_4dp"
-                    android:layout_marginBottom="@dimen/_4dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4dp">
+                        <ImageView
+                            android:layout_width="@dimen/_30dp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_2dp"
+                            android:contentDescription="@string/img_details_humidiy"
+                            android:src="@drawable/humidity" />
+
+                    </LinearLayout>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvHumidity2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_6dp"
+                        android:layout_marginEnd="@dimen/_6dp"
                         android:fontFamily="@font/merriweathersansmedium"
-                        android:gravity="center"
-                        android:text="@string/air_pressure"
+                        android:gravity="end|center"
+                        android:text="@{@string/percentage+detailViewModel.humidity}"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_11sp"
-                        tools:text="Hava Basıncı" />
-
-                    <ImageView
-                        android:layout_width="@dimen/_30dp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_2dp"
-                        android:contentDescription="@string/img_details_pressure"
-                        android:src="@drawable/air_pressure" />
+                        android:textSize="@dimen/_12sp"
+                        tools:text="%56" />
 
                 </LinearLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHumidity3"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_6dp"
-                    android:layout_marginEnd="@dimen/_6dp"
-                    android:fontFamily="@font/merriweathersansmedium"
-                    android:gravity="center"
-                    android:text="@{detailViewModel.pressure+@string/pressure}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp"
-                    tools:text="1005mb" />
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginBottom="@dimen/_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_4dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/merriweathersansmedium"
+                            android:gravity="center"
+                            android:text="@string/air_pressure"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11sp"
+                            tools:text="Hava Basıncı" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_30dp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_2dp"
+                            android:contentDescription="@string/img_details_pressure"
+                            android:src="@drawable/air_pressure" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvHumidity3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_6dp"
+                        android:layout_marginEnd="@dimen/_6dp"
+                        android:fontFamily="@font/merriweathersansmedium"
+                        android:gravity="center"
+                        android:text="@{detailViewModel.pressure+@string/pressure}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sp"
+                        tools:text="1005mb" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12dp"
-                    android:layout_marginTop="@dimen/_4dp"
-                    android:layout_marginBottom="@dimen/_4dp"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4dp">
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <com.google.android.material.textview.MaterialTextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/_12dp"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:layout_marginBottom="@dimen/_4dp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_4dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/merriweathersansmedium"
+                            android:gravity="center"
+                            android:text="@string/grnd_level"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11sp"
+                            tools:text="Rakım" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_30dp"
+                            android:layout_height="@dimen/_30dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_2dp"
+                            android:contentDescription="@string/img_details_altitude"
+                            android:src="@drawable/altitude" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginStart="@dimen/_6dp"
+                        android:layout_marginEnd="@dimen/_6dp"
                         android:fontFamily="@font/merriweathersansmedium"
                         android:gravity="center"
-                        android:text="@string/grnd_level"
+                        android:text="@{detailViewModel.grndLevel+@string/distance}"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_11sp"
-                        tools:text="Rakım" />
-
-                    <ImageView
-                        android:layout_width="@dimen/_30dp"
-                        android:layout_height="@dimen/_30dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_2dp"
-                        android:contentDescription="@string/img_details_altitude"
-                        android:src="@drawable/altitude" />
-
+                        android:textSize="@dimen/_12sp"
+                        tools:text="755m" />
                 </LinearLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvHumidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:layout_marginStart="@dimen/_6dp"
-                    android:layout_marginEnd="@dimen/_6dp"
-                    android:fontFamily="@font/merriweathersansmedium"
-                    android:gravity="center"
-                    android:text="@{detailViewModel.grndLevel+@string/distance}"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sp"
-                    tools:text="755m" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </layout>
