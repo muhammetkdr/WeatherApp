@@ -9,7 +9,7 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
 
 ## Prerequisite
 - API Key, to run the application, an API key from [OpenWeatherMap](https://openweathermap.org/api) should be supplied and added following variable to local environment:
-`` API_KEY = "Your API Key" `` or you can just download from [here](https://drive.google.com/file/d/1sHyGdWvIKh9uZiRJfrZ9RQXnvJ3Q74ee/view?usp=sharing)
+`` API_KEY = "Your API Key" `` or you can just download from [here](https://drive.google.com/file/d/1gNcTUzBEykyaqXIwpCceY0nstgRNUlG8/view?usp=share_link)
 
 ## Screenshots
 
