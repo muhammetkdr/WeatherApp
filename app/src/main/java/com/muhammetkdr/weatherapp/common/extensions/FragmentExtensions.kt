@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
 
-fun Fragment.addOnBackPressedDispatcher(onBackPressed: () -> Unit) {
+inline fun Fragment.addOnBackPressedDispatcher(crossinline onBackPressed: () -> Unit) {
     requireActivity().onBackPressedDispatcher.addCallback(
         viewLifecycleOwner,
         object :
@@ -17,7 +17,7 @@ fun Fragment.addOnBackPressedDispatcher(onBackPressed: () -> Unit) {
     )
 }
 
-fun Fragment.showSafeSnackbar(msg:String, actionMsg:String, handler: () -> Unit){
+inline fun Fragment.showSafeSnackbar(msg:String, actionMsg:String, crossinline handler: () -> Unit){
     try {
         Snackbar.make(requireView(),msg, Snackbar.LENGTH_INDEFINITE).apply {
             setAction(actionMsg){
