@@ -41,7 +41,7 @@ This app uses MVVM (Model-View-ViewModel) architecture
 - <a href="https://material.io/develop/android/docs/getting-started/">Material Design</a> for various UI components, such as buttons, cards, and text fields
 - <a href="https://github.com/google/gson">Gson</a> to serialize and deserialize JSON data when communicating with web services or when storing data locally
 
-- BuildSrc and Kotlin-dsl for gradle operations
+- BuildSrc and Kotlin-dsl for gradle operations.
   
 ## Contact With Me  
 <p align="left">
