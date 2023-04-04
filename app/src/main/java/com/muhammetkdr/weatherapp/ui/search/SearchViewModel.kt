@@ -1,5 +1,6 @@
 package com.muhammetkdr.weatherapp.ui.search
 
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,8 @@ import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CitiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -48,7 +50,7 @@ class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCa
         }
     }
 
-    fun filterCityQuery(query: String?) {
+    fun filterCityQuery(query: Editable?) {
         viewModelScope.launch(Dispatchers.IO) {
             if (query == null) return@launch
 
@@ -65,7 +67,7 @@ class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCa
             }
 
             _cities.value?.forEach {
-                if (it.cityName.contains(query, true)) {
+                if (it.cityName.contains(query.toString(), true)) {
                     queryList.add(it)
                 }
             }
