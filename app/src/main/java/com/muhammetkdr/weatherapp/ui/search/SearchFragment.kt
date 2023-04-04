@@ -54,7 +54,7 @@ class SearchFragment :
             job = lifecycleScope.launch {
                 delay(SEARCH_DELAY)
                 editable?.let {
-                    viewModel.filterCityQuery(it.toString())
+                    viewModel.filterCityQuery(it)
                 }
             }
         }
