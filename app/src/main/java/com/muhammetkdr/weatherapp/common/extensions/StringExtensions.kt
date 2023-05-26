@@ -79,4 +79,4 @@ fun String.getDateInAnotherFormat(inputFormat: String, outputFormat: String): St
     SimpleDateFormat(inputFormat, Locale.getDefault()).parse(this)
         ?.let { SimpleDateFormat(outputFormat, Locale.getDefault()).format(it) } ?: ""
 
-val String.Companion.EMPTY: String get() = ""
+val String.Companion.EMPTY: String by lazy { "" }

@@ -5,9 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.utils.Resource
+import com.muhammetkdr.weatherapp.data.listmapper.ListMapper
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CitiesUseCase
+import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,20 +19,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCase) :
+class SearchViewModel @Inject constructor(
+    private val citiesUseCase: CitiesUseCase,
+    private val searchListMapper: ListMapper<CitiesEntity, SearchUiData>
+) :
     ViewModel() {
 
-    private val _cityList: MutableStateFlow<Resource<List<CitiesEntity>>> =
-        MutableStateFlow(Resource.Loading)
-    val cityList: StateFlow<Resource<List<CitiesEntity>>>
+    private val _cityList: MutableStateFlow<UiState<List<SearchUiData>>> =
+        MutableStateFlow(UiState.Loading)
+    val cityList: StateFlow<UiState<List<SearchUiData>>>
         get() = _cityList
 
-    private val _cities: MutableLiveData<List<CitiesEntity>> = MutableLiveData(emptyList())
-    val cities: LiveData<List<CitiesEntity>>
+    private val _cities: MutableLiveData<List<SearchUiData>> = MutableLiveData(emptyList())
+    val cities: LiveData<List<SearchUiData>>
         get() = _cities
 
-    private val _citiesQueryList: MutableLiveData<List<CitiesEntity>> = MutableLiveData(emptyList())
-    val citiesQueryList: LiveData<List<CitiesEntity>>
+    private val _citiesQueryList: MutableLiveData<List<SearchUiData>> = MutableLiveData(emptyList())
+    val citiesQueryList: LiveData<List<SearchUiData>>
         get() = _citiesQueryList
 
     init {
@@ -39,12 +45,28 @@ class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCa
     private fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             citiesUseCase.invoke().collect {
-                _cityList.emit(it)
+                searchUiDataMapperHandler(it)
             }
         }
     }
 
-    fun setCityListData(list: List<CitiesEntity>) {
+    private fun searchUiDataMapperHandler(citiesEntityData: Resource<List<CitiesEntity>>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (citiesEntityData) {
+                is Resource.Error -> {
+                    _cityList.emit(UiState.Error(R.string.something_bad_happened))
+                }
+
+                is Resource.Loading -> _cityList.emit(UiState.Loading)
+                is Resource.Success -> {
+                    _cityList.emit(UiState.Success(searchListMapper.map(citiesEntityData.data)))
+                }
+            }
+        }
+    }
+
+
+    fun setCityListData(list: List<SearchUiData>) {
         viewModelScope.launch(Dispatchers.IO) {
             _cities.postValue(list)
         }
@@ -54,8 +76,8 @@ class SearchViewModel @Inject constructor(private val citiesUseCase: CitiesUseCa
         viewModelScope.launch(Dispatchers.IO) {
             if (query == null) return@launch
 
-            val queryList = mutableListOf<CitiesEntity>()
-            var citiesList = listOf<CitiesEntity>()
+            val queryList = mutableListOf<SearchUiData>()
+            var citiesList = listOf<SearchUiData>()
 
             _cities.value?.let {
                 citiesList = it

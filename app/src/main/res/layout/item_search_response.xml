@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="citiesEntity"
-            type="com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity" />
+            <variable
+                name="searchUiData"
+                type="com.muhammetkdr.weatherapp.ui.search.SearchUiData" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -26,7 +26,7 @@
                 android:layout_marginStart="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_6dp"
                 android:fontFamily="@font/merriweathersansmedium"
-                android:text="@{citiesEntity.cityName}"
+                android:text="@{searchUiData.cityName}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sp"
                 tools:text="DENİZLİ" />
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_2dp"
                     android:fontFamily="@font/merriweathersansmedium"
-                    android:text="@{citiesEntity.cityPlateCode}"
+                    android:text="@{searchUiData.cityPlateCode}"
                     android:textColor="@color/light_blue100"
                     android:textSize="@dimen/_12sp"
                     tools:text="20.1232" />

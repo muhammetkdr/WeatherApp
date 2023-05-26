@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="weatherEntity"
-            type="com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity" />
+            name="homeCurrentWeatherUiData"
+            type="com.muhammetkdr.weatherapp.ui.home.HomeCurrentWeatherUiData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/imgView_custom_home"
-            setWeatherImage="@{weatherEntity.weather.get(0).icon}"
+            setWeatherImage="@{homeCurrentWeatherUiData.icon}"
             android:layout_width="@dimen/_220dp"
             android:layout_height="@dimen/_140dp"
             android:layout_alignParentStart="true"
@@ -46,7 +46,7 @@
                 android:layout_weight="0.6"
                 android:gravity="end"
                 android:fontFamily="@font/merriweathersansmedium"
-                android:text="@{weatherEntity.name+@string/coma}"
+                android:text="@{homeCurrentWeatherUiData.name+@string/coma}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_24sp"
                 tools:text="Denizli," />
@@ -58,7 +58,7 @@
                 android:layout_weight="0.5"
                 android:gravity="start"
                 android:fontFamily="@font/merriweathersansmedium"
-                android:text="@{weatherEntity.sys.country}"
+                android:text="@{homeCurrentWeatherUiData.country}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_24sp"
                 tools:text="TR" />
@@ -71,7 +71,7 @@
             android:layout_marginTop="@dimen/_10dp"
             android:fontFamily="@font/merriweathersansmedium"
             android:gravity="center"
-            android:text="@{weatherEntity.formattedTemperature+@string/celcius_string}"
+            android:text="@{homeCurrentWeatherUiData.temperature+@string/celcius_string}"
             android:textColor="@color/white"
             android:textSize="@dimen/_42sp"
             app:layout_constraintBottom_toBottomOf="@+id/imgView_custom_home"
@@ -88,7 +88,7 @@
             android:layout_marginTop="@dimen/_2dp"
             android:gravity="center"
             android:fontFamily="@font/merriweathersansmedium"
-            android:text="@{weatherEntity.formattedFellsLikeTemperature+@string/celcius_string}"
+            android:text="@{homeCurrentWeatherUiData.feelsLikeTemp+@string/celcius_string}"
             android:textColor="@color/light_blue100"
             android:textSize="@dimen/_24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +104,7 @@
             android:layout_marginBottom="@dimen/_6dp"
             android:gravity="center"
             android:fontFamily="@font/merriweathersansmedium"
-            android:text="@{@string/current_weather_condition+weatherEntity.formettedCurrentCondition}"
+            android:text="@{@string/current_weather_condition+homeCurrentWeatherUiData.currentCondition}"
             android:textColor="@color/white"
             android:textSize="@dimen/_20sp"
             app:layout_constraintBottom_toBottomOf="parent"

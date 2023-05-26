@@ -9,10 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
 import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
-import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
-import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
 import com.muhammetkdr.weatherapp.ui.search.rv.CitiesRvAdapter
+import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -49,20 +48,18 @@ class SearchFragment :
 
     private fun observeSearchResponse() {
         lifecycleScope.launch {
-            viewModel.cityList.collect { Resource ->
-                when (Resource) {
-                    is Resource.Success -> {
-                        Resource.data.apply {
+            viewModel.cityList.collect {
+                when (it) {
+                    is UiState.Success -> {
                             setSearchUiState(true)
-                            adapter.submitList(this)
-                            viewModel.setCityListData(this)
-                        }
+                            adapter.submitList(it.data)
+                            viewModel.setCityListData(it.data)
                     }
-                    is Resource.Error -> {
+                    is UiState.Error -> {
                         setSearchUiState(false)
-                        requireView().showSnackbar(Resource.error)
+                        requireView().showSnackbar(getString(it.error))
                     }
-                    is Resource.Loading -> {
+                    is UiState.Loading -> {
                         setSearchUiState(false)
                     }
                 }
@@ -77,7 +74,8 @@ class SearchFragment :
             searchProgressbar.isVisible = !isVisible
         }
     }
-    private fun itemClick(data: CitiesEntity) {
+
+    private fun itemClick(data: SearchUiData) {
         val action = SearchFragmentDirections.actionSearchFragmentToHomeFragment(data)
         findNavController().navigate(action)
     }
