@@ -170,7 +170,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                         }
                         is UiState.Error -> {
                             setCurrentWeatherUiVisibility(false)
-                            requireView().showSnackbar(getString(it.error))
+                            requireView().showSnackbar(it.error)
                         }
                     }
                 }
@@ -193,7 +193,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
                         is UiState.Error -> {
                             setForecastWeatherUiVisibility(false)
-                            requireView().showSnackbar(getString(it.error))
+                            requireView().showSnackbar(it.error)
                         }
                     }
                 }

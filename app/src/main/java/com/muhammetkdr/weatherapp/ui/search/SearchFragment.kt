@@ -57,7 +57,7 @@ class SearchFragment :
                     }
                     is UiState.Error -> {
                         setSearchUiState(false)
-                        requireView().showSnackbar(getString(it.error))
+                        requireView().showSnackbar(it.error)
                     }
                     is UiState.Loading -> {
                         setSearchUiState(false)

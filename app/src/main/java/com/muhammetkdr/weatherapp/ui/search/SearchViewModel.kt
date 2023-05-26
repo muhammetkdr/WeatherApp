@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.listmapper.ListMapper
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
@@ -22,8 +21,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val citiesUseCase: CitiesUseCase,
     private val searchListMapper: ListMapper<CitiesEntity, SearchUiData>
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _cityList: MutableStateFlow<UiState<List<SearchUiData>>> =
         MutableStateFlow(UiState.Loading)
@@ -54,7 +52,7 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (citiesEntityData) {
                 is Resource.Error -> {
-                    _cityList.emit(UiState.Error(R.string.something_bad_happened))
+                    _cityList.emit(UiState.Error(citiesEntityData.error))
                 }
 
                 is Resource.Loading -> _cityList.emit(UiState.Loading)
@@ -64,7 +62,6 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-
 
     fun setCityListData(list: List<SearchUiData>) {
         viewModelScope.launch(Dispatchers.IO) {

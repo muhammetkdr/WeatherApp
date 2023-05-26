@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.extensions.component1
 import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
@@ -95,7 +94,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (currentWeatherData) {
                 is Resource.Error -> {
-                    _currentWeather.emit(UiState.Error(R.string.something_bad_happened))
+                    _currentWeather.emit(UiState.Error(currentWeatherData.error))
                 }
                 is Resource.Loading -> _currentWeather.emit(UiState.Loading)
                 is Resource.Success -> {
@@ -109,7 +108,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (forecastWeatherData) {
                 is Resource.Error -> {
-                    _forecastWeather.emit(UiState.Error(R.string.something_bad_happened))
+                    _forecastWeather.emit(UiState.Error(forecastWeatherData.error))
                 }
                 is Resource.Loading -> _forecastWeather.emit(UiState.Loading)
                 is Resource.Success -> {
