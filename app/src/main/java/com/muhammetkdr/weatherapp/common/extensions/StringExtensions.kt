@@ -1,7 +1,7 @@
 package com.muhammetkdr.weatherapp.common.extensions
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 fun String.capitalizeWords(): String = split(" ").joinToString(" ") { word ->
     word.replaceFirstChar {
@@ -75,8 +75,15 @@ fun String.zellerCongruence(): String {
     }
 }
 
-fun String.getDateInAnotherFormat(inputFormat: String, outputFormat: String): String =
-    SimpleDateFormat(inputFormat, Locale.getDefault()).parse(this)
-        ?.let { SimpleDateFormat(outputFormat, Locale.getDefault()).format(it) } ?: ""
+fun String.getDateInAnotherFormat(inputFormat: String, outputFormat: String): String {
+    return try {
+        val inputDate = SimpleDateFormat(inputFormat, Locale.getDefault()).parse(this)
+        inputDate?.let {
+            SimpleDateFormat(outputFormat, Locale.getDefault()).format(it)
+        } ?: ""
+    } catch (e: Exception) {
+        ""
+    }
+}
 
 val String.Companion.EMPTY: String by lazy { "" }
