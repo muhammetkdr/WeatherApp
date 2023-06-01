@@ -82,6 +82,25 @@ dependencies {
     androidTestImplementation (Libs.TestLibs.junitExtTest)
     androidTestImplementation (Libs.TestLibs.espresso)
 
+    // MockWeb Server
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+
+    // Mockito
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation ("org.mockito:mockito-inline:3.0.0")
+
+    // Truth
+    testImplementation ("com.google.truth:truth:1.1.3")
+
+    // Turbine
+    testImplementation ("app.cash.turbine:turbine:0.9.0")
+
+    // Coroutines-Test
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+
+    // Core-testing
+    implementation ("androidx.arch.core:core-testing:2.2.0")
+
     // Coroutines
     implementation (Libs.Coroutines.coroutineCore)
     implementation (Libs.Coroutines.coroutineAndroid)
