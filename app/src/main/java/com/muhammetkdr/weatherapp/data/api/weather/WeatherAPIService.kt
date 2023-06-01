@@ -20,9 +20,9 @@ interface WeatherAPIService {
 
     @GET("data/2.5/forecast")
     suspend fun getForecastWeather(
+        @Query("units") unit: String = METRIC,
         @Query("lat") latitude : String,
         @Query("lon") longitude : String,
-        @Query("units") unit: String = METRIC,
         @Query("lang") language : String = LANGUAGE
     ) : Response<ForecastResponse>
 
