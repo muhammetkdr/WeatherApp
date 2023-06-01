@@ -1,7 +1,7 @@
 <h1 align="center">WeatherApp</h1></br>
 
 <p align="center">  
-This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey
+This is a WeatherApp that you can see current and 5 days forecast weather at your location or cities around the Turkey with Clean Architecture
 </p>
 <p align="center">
   <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat"/></a>
@@ -20,6 +20,11 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
 <img src="https://user-images.githubusercontent.com/71526845/227381293-78a61917-02a4-4ce0-b08e-bf72c55b7b4a.jpeg" width="150">
 <img src="https://user-images.githubusercontent.com/71526845/227381342-b8e4fc15-7d64-48d4-a57d-5cfef50017b4.jpeg" width="150">
 </p>
+
+## Unit Testing
+Unit tests are type of automated test that focuses on testing a small unit of code in isolation. The purpose of a unit test is to verify the correctness of individual units of code, such as functions or methods, by testing them in isolation from the rest of the system.
+
+Unit tests have been added for domain, and data layer.
 
 ## Architecture
 This app uses MVVM (Model-View-ViewModel) architecture
