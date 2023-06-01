@@ -19,7 +19,11 @@ import org.mockito.MockitoAnnotations
 class DetailViewModelTest {
 
     @get:Rule
+<<<<<<< HEAD
     val instantTaskExecutorRule = InstantTaskExecutorRule()  // for using liveData test
+=======
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
+>>>>>>> origin/develop
 
     @Mock
     private lateinit var humidityObserver: Observer<String>
