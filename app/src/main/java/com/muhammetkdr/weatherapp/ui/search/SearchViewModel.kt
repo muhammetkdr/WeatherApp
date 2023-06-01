@@ -40,7 +40,7 @@ class SearchViewModel @Inject constructor(
         getData()
     }
 
-    private fun getData() {
+    fun getData() {
         viewModelScope.launch(Dispatchers.IO) {
             citiesUseCase.invoke().collect {
                 searchUiDataMapperHandler(it)
@@ -71,7 +71,7 @@ class SearchViewModel @Inject constructor(
 
     fun filterCityQuery(query: Editable?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (query == null) return@launch
+            if ( query.isNullOrBlank() || query.isEmpty()) return@launch
 
             val queryList = mutableListOf<SearchUiData>()
             var citiesList = listOf<SearchUiData>()
