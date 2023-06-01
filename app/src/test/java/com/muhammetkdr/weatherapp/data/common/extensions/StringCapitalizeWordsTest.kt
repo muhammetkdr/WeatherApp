@@ -35,8 +35,8 @@ class StringCapitalizeWordsTest {
     @Test
     fun `capitalizeWords capitalizes the first letter of each word and preserves the rest of the string`() {
         // Given
-        val input = "iNterNAtioNAl bUsiNeSs mAcHine"
-        val expectedOutput = "INterNAtioNAl BUsiNeSs MAcHine"
+        val input = "heLlo woRld"
+        val expectedOutput = "HeLlo WoRld"
 
         // When
         val result = input.capitalizeWords()
