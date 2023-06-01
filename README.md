@@ -21,6 +21,11 @@ This is a WeatherApp that you can see current and 5 days forecast weather at you
 <img src="https://user-images.githubusercontent.com/71526845/227381342-b8e4fc15-7d64-48d4-a57d-5cfef50017b4.jpeg" width="150">
 </p>
 
+## Unit Testing
+Unit tests are type of automated test that focuses on testing a small unit of code in isolation. The purpose of a unit test is to verify the correctness of individual units of code, such as functions or methods, by testing them in isolation from the rest of the system.
+
+Unit tests have been added for domain, and data layer.
+
 ## Architecture
 This app uses MVVM (Model-View-ViewModel) architecture
 
