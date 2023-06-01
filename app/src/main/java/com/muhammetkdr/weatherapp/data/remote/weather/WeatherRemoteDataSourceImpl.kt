@@ -6,10 +6,13 @@ import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class WeatherRemoteDataSourceImpl @Inject constructor(
     private val api: WeatherAPIService,
+    private val ioDispatcher : CoroutineContext
 ) : WeatherRemoteDataSource {
 
     override fun getCurrentWeather(lat: String, long: String): Flow<Resource<WeatherResponse>> = flow {
@@ -19,14 +22,14 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     emit(Resource.Success(it))
-                }
+                }  ?: emit(Resource.Error(NO_DATA))
             } else {
                 emit(Resource.Error(NO_DATA))
             }
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
         }
-    }
+    }.flowOn(ioDispatcher)
 
     override fun getForecastWeather(lat: String, long: String): Flow<Resource<ForecastResponse>> = flow {
         try {
@@ -35,14 +38,14 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
             if (response.isSuccessful) {
                 response.body()?.let {
                     emit(Resource.Success(it))
-                }
+                }  ?: emit(Resource.Error(NO_DATA))
             } else {
                 emit(Resource.Error(NO_DATA))
             }
         } catch (e: Exception) {
             emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
         }
-    }
+    }.flowOn(ioDispatcher)
 
     companion object {
         private const val NO_DATA = "No Data!"
