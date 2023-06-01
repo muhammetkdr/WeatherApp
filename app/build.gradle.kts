@@ -81,6 +81,7 @@ dependencies {
     testImplementation (Libs.TestLibs.junit)
     androidTestImplementation (Libs.TestLibs.junitExtTest)
     androidTestImplementation (Libs.TestLibs.espresso)
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
 
     // MockWeb Server
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
@@ -100,6 +101,7 @@ dependencies {
 
     // Core-testing
     implementation ("androidx.arch.core:core-testing:2.2.0")
+    implementation ("androidx.test:core-ktx:1.5.0")
 
     // Coroutines
     implementation (Libs.Coroutines.coroutineCore)
