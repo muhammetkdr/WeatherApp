@@ -1,7 +1,12 @@
 package com.muhammetkdr.weatherapp.ui.details
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
+import com.muhammetkdr.weatherapp.common.extensions.EMPTY
 import com.muhammetkdr.weatherapp.common.extensions.orZero
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,18 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor() : ViewModel() {
-
-    private val tempList: MutableList<Float> = mutableListOf()
-    private val hoursIndexList: MutableList<Float> = mutableListOf()
-    private val barEntryList: MutableList<Entry> = mutableListOf()
-
-    private var _hoursList: List<String> = mutableListOf()
-    val hoursList: List<String>
-        get() = _hoursList
-
-    private val _barEntry = MutableLiveData<List<Entry>>()
-    val barEntry: LiveData<List<Entry>>
-        get() = _barEntry
 
     private val _humidity: MutableLiveData<String> = MutableLiveData()
     val humidity: LiveData<String>
@@ -36,7 +29,14 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
     val grndLevel: LiveData<String>
         get() = _grndLevel
 
+    private val _barEntry: MutableLiveData<LineDataSet> = MutableLiveData()
+    val barEntry: LiveData<LineDataSet>
+        get() = _barEntry
+
     fun getData(data: DatesAndTimes) {
+        val tempList: MutableList<Float> = mutableListOf()
+        val hoursIndexList: MutableList<Float> = mutableListOf()
+        val barEntryList: MutableList<Entry> = mutableListOf()
         viewModelScope.launch(Dispatchers.IO) {
             data.childRvUiData.forEachIndexed { index, uiData ->
                 hoursIndexList.add(index.toFloat())
@@ -45,13 +45,12 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
             for (item in hoursIndexList) {
                 barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
             }
-            _hoursList = data.hours
-
-            _barEntry.postValue(barEntryList)
-
             _humidity.postValue(data.humidity)
             _pressure.postValue(data.pressure)
             _grndLevel.postValue(data.grndLevel)
+
+            val lineDataSet = LineDataSet(barEntryList, String.EMPTY)
+            _barEntry.postValue(lineDataSet)
         }
     }
 }

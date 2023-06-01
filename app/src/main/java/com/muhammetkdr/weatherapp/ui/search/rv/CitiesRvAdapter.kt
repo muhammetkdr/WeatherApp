@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.muhammetkdr.weatherapp.base.BaseListAdapter
 import com.muhammetkdr.weatherapp.databinding.ItemSearchResponseBinding
-import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
+import com.muhammetkdr.weatherapp.ui.search.SearchUiData
 import javax.inject.Inject
 
 class CitiesRvAdapter @Inject constructor(
-    private val onItemClickListener: ((CitiesEntity) -> Unit)?
-) : BaseListAdapter<CitiesEntity>(
+    private val onItemClickListener: ((SearchUiData) -> Unit)?
+) : BaseListAdapter<SearchUiData>(
     itemsSame = { old, new -> old == new },
     contentsSame = { old, new -> old == new }) {
     override fun onCreateViewHolder(

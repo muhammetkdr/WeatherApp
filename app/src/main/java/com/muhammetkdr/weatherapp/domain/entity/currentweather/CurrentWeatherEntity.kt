@@ -11,7 +11,6 @@ data class CurrentWeatherEntity (
     val main: Main,
     val weather: List<Weather>,
 ): CurrentWeatherDataFormatter{
-
     override fun getFormattedTemperature() : Double{
         val value = main.temp.toString()
         val hourValue = value.substringAfter('.')

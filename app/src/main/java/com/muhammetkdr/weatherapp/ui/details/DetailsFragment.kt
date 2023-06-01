@@ -5,9 +5,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.github.mikephil.charting.data.*
 import com.muhammetkdr.weatherapp.base.BaseFragment
-import com.muhammetkdr.weatherapp.common.extensions.*
+import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
+import com.muhammetkdr.weatherapp.common.extensions.setLineChart
 import com.muhammetkdr.weatherapp.databinding.FragmentDetailsBinding
 import com.muhammetkdr.weatherapp.ui.details.rv.DetailsWeatherAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,9 +56,7 @@ class DetailsFragment :
         }
     }
 
-    private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner) {
-        val lineDataSet = LineDataSet(it, String.EMPTY)
-        val hoursList = viewModel.hoursList
-        binding.lineChartDetailsPage.setLineChart(lineDataSet, hoursList)
+    private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner){
+        binding.lineChartDetailsPage.setLineChart(it, args.datesAndTimes.hours)
     }
 }

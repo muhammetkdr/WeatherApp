@@ -5,9 +5,9 @@ import com.muhammetkdr.weatherapp.data.remote.city.CityRemoteDataSourceImpl
 import com.muhammetkdr.weatherapp.data.remote.weather.WeatherRemoteDataSource
 import com.muhammetkdr.weatherapp.data.remote.weather.WeatherRemoteDataSourceImpl
 import com.muhammetkdr.weatherapp.domain.repository.city.CityRepository
-import com.muhammetkdr.weatherapp.domain.repository.city.CityRepositoryImpl
+import com.muhammetkdr.weatherapp.data.repository.city.CityRepositoryImpl
 import com.muhammetkdr.weatherapp.domain.repository.weather.WeatherRepository
-import com.muhammetkdr.weatherapp.domain.repository.weather.WeatherRepositoryImpl
+import com.muhammetkdr.weatherapp.data.repository.weather.WeatherRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

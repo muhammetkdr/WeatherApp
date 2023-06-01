@@ -1,0 +1,47 @@
+{
+  "coord": {
+    "lon": 29.1037,
+    "lat": 37.7552
+  },
+  "weather": [
+    {
+      "id": 501,
+      "main": "Rain",
+      "description": "orta şiddetli yağmur",
+      "icon": "10d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 24.37,
+    "feels_like": 24.12,
+    "temp_min": 24.37,
+    "temp_max": 24.37,
+    "pressure": 1013,
+    "humidity": 48,
+    "sea_level": 1013,
+    "grnd_level": 966
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 1.64,
+    "deg": 288,
+    "gust": 2.5
+  },
+  "rain": {
+    "1h": 1.78
+  },
+  "clouds": {
+    "all": 46
+  },
+  "dt": 1685538178,
+  "sys": {
+    "country": "TR",
+    "sunrise": 1685501052,
+    "sunset": 1685553513
+  },
+  "timezone": 10800,
+  "id": 317109,
+  "name": "Denizli",
+  "cod": 200
+}

@@ -8,18 +8,20 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
-import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
+import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -121,6 +123,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     )
                 }
             }
+
             else -> {
                 requestLocationPermissionLauncher.launch(
                     arrayOf(
@@ -143,34 +146,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     }
                 }
             } catch (e: Exception) {
-                    showSafeSnackbar(
-                        e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
-                        getString(R.string.REFRESH)
-                    ) {
-                        navigateHomeFragmentSelf()
-                    }
+                showSafeSnackbar(
+                    e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
+                    getString(R.string.REFRESH)
+                ) {
+                    navigateHomeFragmentSelf()
+                }
             }
         }
     }
 
     private fun observeCurrentWeatherData() {
         lifecycleScope.launch {
-            viewModel.currentWeather.collectLatest { Resource ->
-                when (Resource) {
-                    is Resource.Success -> {
-                        Resource.data.apply {
-                            with(binding) {
-                                setCurrentWeatherUiVisibility(true)
-                                customHomeLayoutContainer.weatherEntity = this@apply
-                            }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currentWeather.collectLatest {
+                    when (it) {
+                        is UiState.Success -> {
+                            setCurrentWeatherUiVisibility(true)
+                            binding.customHomeLayoutContainer.homeCurrentWeatherUiData = it.data
                         }
-                    }
-                    is Resource.Loading -> {
-                        setCurrentWeatherUiVisibility(false)
-                    }
-                    is Resource.Error -> {
-                        setCurrentWeatherUiVisibility(false)
-                        requireView().showSnackbar(Resource.error)
+                        is UiState.Loading -> {
+                            setCurrentWeatherUiVisibility(false)
+                        }
+                        is UiState.Error -> {
+                            setCurrentWeatherUiVisibility(false)
+                            requireView().showSnackbar(it.error)
+                        }
                     }
                 }
             }
@@ -179,21 +180,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private fun observeForecastWeatherData() {
         lifecycleScope.launch {
-            viewModel.forecastWeather.collectLatest { Resource ->
-                when (Resource) {
-                    is Resource.Success -> {
-                        Resource.data.apply {
-                            setForecastWeatherUiVisibility(true)
-                            val list = this.uiDataMapper()
-                            parentAdapter.submitList(list)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.forecastWeather.collectLatest {
+                    when (it) {
+                        is UiState.Success -> {
+                                setForecastWeatherUiVisibility(true)
+                                parentAdapter.submitList(it.data.forecastWeatherList)
                         }
-                    }
-                    is Resource.Error -> {
-                        setForecastWeatherUiVisibility(false)
-                        requireView().showSnackbar(Resource.error)
-                    }
-                    is Resource.Loading -> {
-                        setForecastWeatherUiVisibility(false)
+                        is UiState.Loading -> {
+                            setForecastWeatherUiVisibility(false)
+                        }
+
+                        is UiState.Error -> {
+                            setForecastWeatherUiVisibility(false)
+                            requireView().showSnackbar(it.error)
+                        }
                     }
                 }
             }
