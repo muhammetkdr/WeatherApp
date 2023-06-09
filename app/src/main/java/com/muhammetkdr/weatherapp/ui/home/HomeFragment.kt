@@ -8,9 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.muhammetkdr.weatherapp.R
@@ -23,7 +21,6 @@ import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -108,6 +105,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             requireContext().hasLocationPermission() -> {
                 getLocation()
             }
+
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
                     shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
             -> {
@@ -157,45 +155,38 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCurrentWeatherData() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.currentWeather.collectLatest {
-                    when (it) {
-                        is UiState.Success -> {
-                            setCurrentWeatherUiVisibility(true)
-                            binding.customHomeLayoutContainer.homeCurrentWeatherUiData = it.data
-                        }
-                        is UiState.Loading -> {
-                            setCurrentWeatherUiVisibility(false)
-                        }
-                        is UiState.Error -> {
-                            setCurrentWeatherUiVisibility(false)
-                            requireView().showSnackbar(it.error)
-                        }
-                    }
+        collectFlow(viewModel.currentWeather) {
+            when (it) {
+                is UiState.Success -> {
+                    setCurrentWeatherUiVisibility(true)
+                    binding.customHomeLayoutContainer.homeCurrentWeatherUiData = it.data
+                }
+
+                is UiState.Loading -> {
+                    setCurrentWeatherUiVisibility(false)
+                }
+
+                is UiState.Error -> {
+                    setCurrentWeatherUiVisibility(false)
+                    requireView().showSnackbar(it.error)
                 }
             }
         }
     }
 
     private fun observeForecastWeatherData() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.forecastWeather.collectLatest {
-                    when (it) {
-                        is UiState.Success -> {
-                                setForecastWeatherUiVisibility(true)
-                                parentAdapter.submitList(it.data.forecastWeatherList)
-                        }
-                        is UiState.Loading -> {
-                            setForecastWeatherUiVisibility(false)
-                        }
-
-                        is UiState.Error -> {
-                            setForecastWeatherUiVisibility(false)
-                            requireView().showSnackbar(it.error)
-                        }
-                    }
+        collectFlow(viewModel.forecastWeather) {
+            when (it) {
+                is UiState.Success -> {
+                    setForecastWeatherUiVisibility(true)
+                    parentAdapter.submitList(it.data.forecastWeatherList)
+                }
+                is UiState.Loading -> {
+                    setForecastWeatherUiVisibility(false)
+                }
+                is UiState.Error -> {
+                    setForecastWeatherUiVisibility(false)
+                    requireView().showSnackbar(it.error)
                 }
             }
         }
