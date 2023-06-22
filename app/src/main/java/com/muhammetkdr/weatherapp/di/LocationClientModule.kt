@@ -7,26 +7,26 @@ import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 
 
 @Module
-@InstallIn(FragmentComponent::class)
+@InstallIn(ViewModelComponent::class)
 object LocationClientModule {
 
     @Provides
-    @FragmentScoped
+    @ViewModelScoped
     fun provideDefaultClient(
         @ApplicationContext context: Context,
         client: FusedLocationProviderClient,
     ) = DefaultLocationClient(context, client)
 
     @Provides
-    @FragmentScoped
+    @ViewModelScoped
     fun provideFusedLocation(
         @ApplicationContext context: Context
-    ) = LocationServices.getFusedLocationProviderClient(context)
+    ) : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
 }
