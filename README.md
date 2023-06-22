@@ -27,7 +27,7 @@ Unit tests are type of automated test that focuses on testing a small unit of co
 Unit tests have been added for domain, and data layer.
 
 ## Architecture
-This app uses MVVM (Model-View-ViewModel) architecture
+This app uses MVVM (Model-View-ViewModel) Clean Architecture
 
 ![](https://user-images.githubusercontent.com/71526845/227383042-8799f8bb-3c4e-4756-bca0-c1972f5690fb.png)
 
