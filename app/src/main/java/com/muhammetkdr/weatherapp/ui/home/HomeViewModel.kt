@@ -8,12 +8,14 @@ import com.muhammetkdr.weatherapp.common.extensions.component1
 import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
 import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
+import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
 import com.muhammetkdr.weatherapp.domain.usecase.CurrentWeatherUseCase
 import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCase
+import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,7 +30,8 @@ class HomeViewModel @Inject constructor(
     private val currentWeatherUseCase: CurrentWeatherUseCase,
     private val forecastWeatherUseCase: ForecastWeatherUseCase,
     private val currentWeatherMapper: WeatherMapper<CurrentWeatherEntity, HomeCurrentWeatherUiData>,
-    private val forecastWeatherMapper: WeatherMapper<ForecastWeatherEntity, HomeForecastWeatherUiData>
+    private val forecastWeatherMapper: WeatherMapper<ForecastWeatherEntity, HomeForecastWeatherUiData>,
+    private val defaultLocationClient: DefaultLocationClient
 ) : ViewModel() {
 
     private val _currentWeather: MutableStateFlow<UiState<HomeCurrentWeatherUiData>> =
@@ -52,11 +55,25 @@ class HomeViewModel @Inject constructor(
         _date.value = "$dayFormatted.$monthFormatted.$year"
     }
 
+    fun getCurrentLocation() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
+                    val latitude = it.latitude
+                    val longitude = it.longitude
+                    getMappedCurrentWeather(latitude, longitude)
+                    getMappedForecastWeather(latitude, longitude)
+                }
+            } catch (e: Exception) {
+                println(e.localizedMessage ?: "gps is disabled")
+            }
+        }
+    }
+
     fun getMappedCurrentWeather(lat: Double, long: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             val latitude = lat.toString()
             val longitude = long.toString()
-
             currentWeatherUseCase.invoke(latitude, longitude).collect {
                 currentWeatherDataMapperHandler(it)
             }
@@ -96,6 +113,7 @@ class HomeViewModel @Inject constructor(
                 is Resource.Error -> {
                     _currentWeather.emit(UiState.Error(currentWeatherData.error))
                 }
+
                 is Resource.Loading -> _currentWeather.emit(UiState.Loading)
                 is Resource.Success -> {
                     _currentWeather.emit(UiState.Success(currentWeatherMapper.map(currentWeatherData.data)))
@@ -110,9 +128,16 @@ class HomeViewModel @Inject constructor(
                 is Resource.Error -> {
                     _forecastWeather.emit(UiState.Error(forecastWeatherData.error))
                 }
+
                 is Resource.Loading -> _forecastWeather.emit(UiState.Loading)
                 is Resource.Success -> {
-                    _forecastWeather.emit(UiState.Success(forecastWeatherMapper.map(forecastWeatherData.data)))
+                    _forecastWeather.emit(
+                        UiState.Success(
+                            forecastWeatherMapper.map(
+                                forecastWeatherData.data
+                            )
+                        )
+                    )
                 }
             }
         }

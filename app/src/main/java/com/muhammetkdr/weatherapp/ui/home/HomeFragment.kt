@@ -8,20 +8,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
-import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
-import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -41,9 +37,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     @Inject
     lateinit var calendar: Calendar
-
-    @Inject
-    lateinit var defaultLocationClient: DefaultLocationClient
 
     private val args: HomeFragmentArgs by navArgs()
 
@@ -135,14 +128,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-        lifecycleScope.launch {
             try {
-                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
-                    viewModel.apply {
-                        getMappedCurrentWeather(it.latitude, it.longitude)
-                        getMappedForecastWeather(it.latitude, it.longitude)
-                    }
-                }
+                viewModel.getCurrentLocation()
             } catch (e: Exception) {
                 showSafeSnackbar(
                     e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
@@ -151,7 +138,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     navigateHomeFragmentSelf()
                 }
             }
-        }
     }
 
     private fun observeCurrentWeatherData() {
@@ -240,4 +226,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)
     }
+
 }
