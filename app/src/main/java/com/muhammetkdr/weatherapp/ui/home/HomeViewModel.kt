@@ -1,7 +1,5 @@
 package com.muhammetkdr.weatherapp.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.common.extensions.component1
@@ -31,7 +29,8 @@ class HomeViewModel @Inject constructor(
     private val forecastWeatherUseCase: ForecastWeatherUseCase,
     private val currentWeatherMapper: WeatherMapper<CurrentWeatherEntity, HomeCurrentWeatherUiData>,
     private val forecastWeatherMapper: WeatherMapper<ForecastWeatherEntity, HomeForecastWeatherUiData>,
-    private val defaultLocationClient: DefaultLocationClient
+    private val defaultLocationClient: DefaultLocationClient,
+    private val calendar: Calendar
 ) : ViewModel() {
 
     private val _currentWeather: MutableStateFlow<UiState<HomeCurrentWeatherUiData>> =
@@ -44,15 +43,19 @@ class HomeViewModel @Inject constructor(
     val forecastWeather: StateFlow<UiState<HomeForecastWeatherUiData>>
         get() = _forecastWeather
 
-    private val _date: MutableLiveData<String> = MutableLiveData("")
-    val date: LiveData<String>
+    private val _date: MutableStateFlow<String> = MutableStateFlow("")
+    val date: StateFlow<String>
         get() = _date
 
-    fun getTodaysCalendar(calendar: Calendar) {
+    init {
+        getTodaysCalendar()
+    }
+
+    private fun getTodaysCalendar() = viewModelScope.launch(Dispatchers.IO){
         val (day, month, year) = calendar
         val dayFormatted = day.toString().formatCalendar()
         val monthFormatted = month.toString().formatCalendar()
-        _date.value = "$dayFormatted.$monthFormatted.$year"
+        _date.emit("$dayFormatted.$monthFormatted.$year")
     }
 
     fun getCurrentLocation() {
