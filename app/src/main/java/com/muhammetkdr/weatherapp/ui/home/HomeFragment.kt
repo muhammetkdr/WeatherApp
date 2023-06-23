@@ -19,7 +19,6 @@ import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdap
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
@@ -34,9 +33,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private lateinit var requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>>
-
-    @Inject
-    lateinit var calendar: Calendar
 
     private val args: HomeFragmentArgs by navArgs()
 
@@ -195,8 +191,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCalendar() {
-        viewModel.getTodaysCalendar(calendar)
-        viewModel.date.observeIfNotNull(viewLifecycleOwner) {
+        collectFlow(viewModel.date){
             binding.customToolBar.updateTitle(it)
         }
     }
