@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
+import com.muhammetkdr.weatherapp.common.extensions.collectFlow
 import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
 import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
 import com.muhammetkdr.weatherapp.ui.search.rv.CitiesRvAdapter
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment :
@@ -47,8 +46,7 @@ class SearchFragment :
     }
 
     private fun observeSearchResponse() {
-        lifecycleScope.launch {
-            viewModel.cityList.collect {
+        collectFlow(viewModel.cityList) {
                 when (it) {
                     is UiState.Success -> {
                             setSearchUiState(true)
@@ -63,7 +61,6 @@ class SearchFragment :
                         setSearchUiState(false)
                     }
                 }
-            }
         }
     }
 

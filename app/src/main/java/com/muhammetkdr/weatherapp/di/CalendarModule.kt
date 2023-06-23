@@ -3,16 +3,16 @@ package com.muhammetkdr.weatherapp.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import java.util.*
 
 @Module
-@InstallIn(FragmentComponent::class)
-object FragmentScopeModule {
+@InstallIn(ViewModelComponent::class)
+object CalendarModule {
 
     @Provides
-    @FragmentScoped
+    @ViewModelScoped
     fun provideCalender(): Calendar = Calendar.getInstance()
 
 }
