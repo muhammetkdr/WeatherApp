@@ -124,16 +124,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
-            try {
-                viewModel.getCurrentLocation()
-            } catch (e: Exception) {
+        viewModel.getCurrentLocation()
+        collectFlow(viewModel.gpsError) {
+            it?.let {
                 showSafeSnackbar(
-                    e.localizedMessage ?: getString(R.string.gps_orNetwork_disabled),
+                    getString(it),
                     getString(R.string.REFRESH)
                 ) {
                     navigateHomeFragmentSelf()
                 }
             }
+        }
     }
 
     private fun observeCurrentWeatherData() {
@@ -163,9 +164,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                     setForecastWeatherUiVisibility(true)
                     parentAdapter.submitList(it.data.forecastWeatherList)
                 }
+
                 is UiState.Loading -> {
                     setForecastWeatherUiVisibility(false)
                 }
+
                 is UiState.Error -> {
                     setForecastWeatherUiVisibility(false)
                     requireView().showSnackbar(it.error)
@@ -191,7 +194,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun observeCalendar() {
-        collectFlow(viewModel.date){
+        collectFlow(viewModel.date) {
             binding.customToolBar.updateTitle(it)
         }
     }
