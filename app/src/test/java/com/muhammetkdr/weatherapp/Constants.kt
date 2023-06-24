@@ -156,9 +156,9 @@ val cityEntityList = listOf(
 val testDatesAndTimesData = DatesAndTimes(
     date = "21.06.19976 Çarşamba",
     dayOfTheWeek = "Pazartesi",
-    grndLevel = String.EMPTY,
-    pressure = String.EMPTY,
-    humidity = String.EMPTY,
+    grndLevel = "1010",
+    pressure = "1013",
+    humidity = "60",
     hours = listOf("12.00","15.00","18.00"),
     childRvUiData = listOf(ChildRvUiData(
         hours = "15.00",
@@ -166,3 +166,4 @@ val testDatesAndTimesData = DatesAndTimes(
         icons = String.EMPTY
     ))
 )
+
