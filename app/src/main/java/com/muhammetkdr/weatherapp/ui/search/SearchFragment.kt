@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.collectFlow
-import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
 import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
 import com.muhammetkdr.weatherapp.databinding.FragmentSearchBinding
 import com.muhammetkdr.weatherapp.ui.search.rv.CitiesRvAdapter
@@ -36,7 +35,7 @@ class SearchFragment :
     }
 
     private fun observeQueryList() {
-        viewModel.citiesQueryList.observeIfNotNull(viewLifecycleOwner) {
+        collectFlow(viewModel.citiesQueryList){
             adapter.submitList(it)
         }
     }
