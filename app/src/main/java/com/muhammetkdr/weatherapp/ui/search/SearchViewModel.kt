@@ -1,8 +1,6 @@
 package com.muhammetkdr.weatherapp.ui.search
 
 import android.text.Editable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Resource
@@ -23,24 +21,21 @@ class SearchViewModel @Inject constructor(
     private val searchListMapper: ListMapper<CitiesEntity, SearchUiData>
 ) : ViewModel() {
 
-    private val _cityList: MutableStateFlow<UiState<List<SearchUiData>>> =
-        MutableStateFlow(UiState.Loading)
+    private val _cityList: MutableStateFlow<UiState<List<SearchUiData>>> = MutableStateFlow(UiState.Loading)
     val cityList: StateFlow<UiState<List<SearchUiData>>>
         get() = _cityList
 
-    private val _cities: MutableLiveData<List<SearchUiData>> = MutableLiveData(emptyList())
-    val cities: LiveData<List<SearchUiData>>
-        get() = _cities
+    private val _cities: MutableStateFlow<List<SearchUiData>> = MutableStateFlow(emptyList())
 
-    private val _citiesQueryList: MutableLiveData<List<SearchUiData>> = MutableLiveData(emptyList())
-    val citiesQueryList: LiveData<List<SearchUiData>>
+    private val _citiesQueryList: MutableStateFlow<List<SearchUiData>> = MutableStateFlow(emptyList())
+    val citiesQueryList: StateFlow<List<SearchUiData>>
         get() = _citiesQueryList
 
     init {
-        getData()
+        fetchCitiesData()
     }
 
-    fun getData() {
+    private fun fetchCitiesData(){
         viewModelScope.launch(Dispatchers.IO) {
             citiesUseCase.invoke().collect {
                 searchUiDataMapperHandler(it)
@@ -54,7 +49,6 @@ class SearchViewModel @Inject constructor(
                 is Resource.Error -> {
                     _cityList.emit(UiState.Error(citiesEntityData.error))
                 }
-
                 is Resource.Loading -> _cityList.emit(UiState.Loading)
                 is Resource.Success -> {
                     _cityList.emit(UiState.Success(searchListMapper.map(citiesEntityData.data)))
@@ -65,32 +59,25 @@ class SearchViewModel @Inject constructor(
 
     fun setCityListData(list: List<SearchUiData>) {
         viewModelScope.launch(Dispatchers.IO) {
-            _cities.postValue(list)
+            _cities.emit(list)
         }
     }
 
     fun filterCityQuery(query: Editable?) {
         viewModelScope.launch(Dispatchers.IO) {
-            if ( query.isNullOrBlank() || query.isEmpty()) return@launch
-
-            val queryList = mutableListOf<SearchUiData>()
-            var citiesList = listOf<SearchUiData>()
-
-            _cities.value?.let {
-                citiesList = it
-            }
-
-            if (query.isEmpty()) {
-                _citiesQueryList.postValue(citiesList)
+            if ( query.isNullOrBlank() || query.isEmpty()){
+                _citiesQueryList.emit(_cities.value)
                 return@launch
             }
+            val queryList = mutableListOf<SearchUiData>()
 
-            _cities.value?.forEach {
+            _cities.value.forEach {
                 if (it.cityName.contains(query.toString(), true)) {
                     queryList.add(it)
                 }
             }
-            _citiesQueryList.postValue(queryList)
+
+            _citiesQueryList.emit(queryList)
         }
     }
 
