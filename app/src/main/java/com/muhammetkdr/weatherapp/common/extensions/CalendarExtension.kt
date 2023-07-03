@@ -1,6 +1,6 @@
 package com.muhammetkdr.weatherapp.common.extensions
 
-import java.util.*
+import java.util.Calendar
 
 //Destructuring declarations
 operator fun Calendar.component1() = get(Calendar.DATE)

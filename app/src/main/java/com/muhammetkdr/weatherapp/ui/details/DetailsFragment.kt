@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.muhammetkdr.weatherapp.base.BaseFragment
-import com.muhammetkdr.weatherapp.common.extensions.observeIfNotNull
+import com.muhammetkdr.weatherapp.common.extensions.collectFlow
 import com.muhammetkdr.weatherapp.common.extensions.setLineChart
 import com.muhammetkdr.weatherapp.databinding.FragmentDetailsBinding
 import com.muhammetkdr.weatherapp.ui.details.rv.DetailsWeatherAdapter
@@ -33,9 +33,9 @@ class DetailsFragment :
     }
 
     private fun initRvAdapter() {
-            val list = args.datesAndTimes.childRvUiData
-            detailsWeatherAdapter.submitList(list)
-            binding.rvDetails.adapter = detailsWeatherAdapter
+        val list = args.datesAndTimes.childRvUiData
+        detailsWeatherAdapter.submitList(list)
+        binding.rvDetails.adapter = detailsWeatherAdapter
     }
 
     private fun initViewModelNavArgs() = viewModel.getData(args.datesAndTimes)
@@ -56,7 +56,13 @@ class DetailsFragment :
         }
     }
 
-    private fun initLineChart() = viewModel.barEntry.observeIfNotNull(viewLifecycleOwner){
-        binding.lineChartDetailsPage.setLineChart(it, args.datesAndTimes.hours)
+    private fun initLineChart() {
+        collectFlow(viewModel.barEntry) {
+            it?.let {
+                binding.lineChartDetailsPage.setLineChart(it, args.datesAndTimes.hours)
+            }
+        }
     }
+
 }
+

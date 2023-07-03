@@ -1,7 +1,5 @@
 package com.muhammetkdr.weatherapp.ui.details
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.Entry
@@ -11,26 +9,29 @@ import com.muhammetkdr.weatherapp.common.extensions.orZero
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor() : ViewModel() {
 
-    private val _humidity: MutableLiveData<String> = MutableLiveData()
-    val humidity: LiveData<String>
+    private val _humidity: MutableStateFlow<String> = MutableStateFlow("")
+    val humidity: StateFlow<String>
         get() = _humidity
 
-    private val _pressure: MutableLiveData<String> = MutableLiveData()
-    val pressure: LiveData<String>
+    private val _pressure: MutableStateFlow<String> = MutableStateFlow("")
+    val pressure: StateFlow<String>
         get() = _pressure
 
-    private val _grndLevel: MutableLiveData<String> = MutableLiveData()
-    val grndLevel: LiveData<String>
+    private val _grndLevel: MutableStateFlow<String> = MutableStateFlow("")
+    val grndLevel: StateFlow<String>
         get() = _grndLevel
 
-    private val _barEntry: MutableLiveData<LineDataSet> = MutableLiveData()
-    val barEntry: LiveData<LineDataSet>
+    private val _barEntry: MutableStateFlow<LineDataSet?> = MutableStateFlow(null)
+    val barEntry: StateFlow<LineDataSet?>
         get() = _barEntry
 
     fun getData(data: DatesAndTimes) {
@@ -45,12 +46,12 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
             for (item in hoursIndexList) {
                 barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
             }
-            _humidity.postValue(data.humidity)
-            _pressure.postValue(data.pressure)
-            _grndLevel.postValue(data.grndLevel)
+            _humidity.update { data.humidity }
+            _pressure.update{data.pressure}
+            _grndLevel.update{data.grndLevel}
 
             val lineDataSet = LineDataSet(barEntryList, String.EMPTY)
-            _barEntry.postValue(lineDataSet)
+            _barEntry.update{lineDataSet}
         }
     }
 }
