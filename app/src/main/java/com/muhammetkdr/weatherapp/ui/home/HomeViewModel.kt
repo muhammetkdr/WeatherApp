@@ -77,6 +77,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    //function overload
     fun getMappedCurrentWeather(lat: Double, long: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             currentWeatherUseCase.invoke(lat.toString(), long.toString()).collect {
@@ -93,6 +94,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    //function overload
     fun getMappedCurrentWeather(lat: String, long: String) {
         viewModelScope.launch(Dispatchers.IO) {
             currentWeatherUseCase.invoke(lat, long).collect {
