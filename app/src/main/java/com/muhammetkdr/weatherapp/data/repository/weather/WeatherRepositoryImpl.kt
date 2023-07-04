@@ -4,11 +4,12 @@ import com.muhammetkdr.weatherapp.common.extensions.mapResource
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
+import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
 import com.muhammetkdr.weatherapp.data.remote.weather.WeatherRemoteDataSource
+import com.muhammetkdr.weatherapp.di.Dispatcher
+import com.muhammetkdr.weatherapp.di.DispatcherType
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.ForecastWeatherEntity
-import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
-import com.muhammetkdr.weatherapp.di.IoDispatcher
 import com.muhammetkdr.weatherapp.domain.repository.weather.WeatherRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,7 +21,7 @@ class WeatherRepositoryImpl @Inject constructor(
     private val weatherRemoteDataSource: WeatherRemoteDataSource,
     private val currentWeatherMapper: WeatherMapper<WeatherResponse, CurrentWeatherEntity>,
     private val forecastWeatherMapper: WeatherMapper<ForecastResponse, ForecastWeatherEntity>,
-    @IoDispatcher private val ioDispatcher: CoroutineContext
+    @Dispatcher(DispatcherType.Io) private val ioDispatcher: CoroutineContext
 ) : WeatherRepository {
 
     override fun getCurrentWeather(lat: String, long: String): Flow<Resource<CurrentWeatherEntity>> =
