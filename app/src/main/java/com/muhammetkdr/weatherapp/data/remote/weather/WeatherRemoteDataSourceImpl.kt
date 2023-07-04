@@ -4,7 +4,8 @@ import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.api.weather.WeatherAPIService
 import com.muhammetkdr.weatherapp.data.dto.current.WeatherResponse
 import com.muhammetkdr.weatherapp.data.dto.forecast.ForecastResponse
-import com.muhammetkdr.weatherapp.di.IoDispatcher
+import com.muhammetkdr.weatherapp.di.Dispatcher
+import com.muhammetkdr.weatherapp.di.DispatcherType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -13,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 class WeatherRemoteDataSourceImpl @Inject constructor(
     private val api: WeatherAPIService,
-    @IoDispatcher private val ioDispatcher : CoroutineContext
+    @Dispatcher(DispatcherType.Io) private val ioDispatcher: CoroutineContext
 ) : WeatherRemoteDataSource {
 
     override fun getCurrentWeather(lat: String, long: String): Flow<Resource<WeatherResponse>> = flow {

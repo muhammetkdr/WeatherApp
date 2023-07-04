@@ -13,13 +13,38 @@ import kotlin.coroutines.CoroutineContext
 @Module
 @InstallIn(SingletonComponent::class)
 object CoroutineModule {
-    @IoDispatcher
+
+    @Dispatcher(DispatcherType.Io)
     @Provides
     @Singleton
-    fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
+    fun provideDispatcheIo(): CoroutineContext = Dispatchers.IO
+
+    @Dispatcher(DispatcherType.Unconfined)
+    @Provides
+    @Singleton
+    fun provideDispatcherUncf(): CoroutineContext = Dispatchers.Unconfined
+
+    @Dispatcher(DispatcherType.Default)
+    @Provides
+    @Singleton
+    fun provideDispatcherDefault(): CoroutineContext = Dispatchers.Default
+
+    @Dispatcher(DispatcherType.Main)
+    @Provides
+    @Singleton
+    fun provideDispatcherMain(): CoroutineContext = Dispatchers.Main
 
 }
 
 @Retention(AnnotationRetention.RUNTIME)
 @Qualifier
-annotation class IoDispatcher
+annotation class Dispatcher(val type: DispatcherType)
+
+enum class DispatcherType{
+    Main,
+    Io,
+    Default,
+    Unconfined
+}
+
+
