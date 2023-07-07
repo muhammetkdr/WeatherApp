@@ -4,6 +4,7 @@ import com.muhammetkdr.weatherapp.common.utils.Constants.CITY_BASE_URL
 import com.muhammetkdr.weatherapp.common.utils.Constants.WEATHER_BASE_URL
 import com.muhammetkdr.weatherapp.data.api.city.CityApi
 import com.muhammetkdr.weatherapp.data.api.weather.WeatherAPIService
+import com.muhammetkdr.weatherapp.utils.interceptors.NetworkStatusInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,10 +34,12 @@ object NetworkModule {
     @Provides
     fun provideHttpClint(
 //        @ApplicationContext context: Context,
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        networkStatusInterceptor: NetworkStatusInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
 //            .addInterceptor(ChuckerInterceptor.Builder(context).build())
+            .addInterceptor(networkStatusInterceptor)
             .addInterceptor{ chain ->
                 val url = chain
                     .request()
