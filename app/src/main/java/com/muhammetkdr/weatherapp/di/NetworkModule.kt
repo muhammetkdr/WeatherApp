@@ -4,6 +4,7 @@ import com.muhammetkdr.weatherapp.common.utils.Constants.CITY_BASE_URL
 import com.muhammetkdr.weatherapp.common.utils.Constants.WEATHER_BASE_URL
 import com.muhammetkdr.weatherapp.data.api.city.CityApi
 import com.muhammetkdr.weatherapp.data.api.weather.WeatherAPIService
+import com.muhammetkdr.weatherapp.utils.interceptors.ApiKeyInterceptor
 import com.muhammetkdr.weatherapp.utils.interceptors.NetworkStatusInterceptor
 import dagger.Module
 import dagger.Provides
@@ -40,15 +41,7 @@ object NetworkModule {
         return OkHttpClient.Builder().readTimeout(60, TimeUnit.SECONDS)
 //            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .addInterceptor(networkStatusInterceptor)
-            .addInterceptor{ chain ->
-                val url = chain
-                    .request()
-                    .url
-                    .newBuilder()
-                    .addQueryParameter("appid", com.muhammetkdr.weatherapp.BuildConfig.API_KEY)
-                    .build()
-                chain.proceed(chain.request().newBuilder().url(url).build())
-            }
+            .addInterceptor(ApiKeyInterceptor())
             .connectTimeout(60, TimeUnit.SECONDS).addInterceptor(httpLoggingInterceptor)
             .build()
     }
