@@ -112,7 +112,7 @@
                         android:layout_marginEnd="@dimen/_6dp"
                         android:fontFamily="@font/merriweathersansmedium"
                         android:gravity="end|center"
-                        android:text="@{@string/percentage+detailViewModel.humidity}"
+                        android:text="@{@string/percentage+detailViewModel.weatherConditionStates.humidity}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sp"
                         tools:text="%56" />
@@ -166,7 +166,7 @@
                         android:layout_marginEnd="@dimen/_6dp"
                         android:fontFamily="@font/merriweathersansmedium"
                         android:gravity="center"
-                        android:text="@{detailViewModel.pressure+@string/pressure}"
+                        android:text="@{detailViewModel.weatherConditionStates.pressure+@string/pressure}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sp"
                         tools:text="1005mb" />
@@ -220,7 +220,7 @@
                         android:layout_marginEnd="@dimen/_6dp"
                         android:fontFamily="@font/merriweathersansmedium"
                         android:gravity="center"
-                        android:text="@{detailViewModel.grndLevel+@string/distance}"
+                        android:text="@{detailViewModel.weatherConditionStates.grndLevel+@string/pressure}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sp"
                         tools:text="755m" />
