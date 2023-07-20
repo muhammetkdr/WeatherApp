@@ -15,20 +15,17 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+data class WeatherConditionState(
+    val humidity: String = String.EMPTY,
+    val pressure: String = String.EMPTY,
+    val grndLevel: String = String.EMPTY
+)
+
 @HiltViewModel
 class DetailsViewModel @Inject constructor() : ViewModel() {
 
-    private val _humidity: MutableStateFlow<String> = MutableStateFlow("")
-    val humidity: StateFlow<String>
-        get() = _humidity
-
-    private val _pressure: MutableStateFlow<String> = MutableStateFlow("")
-    val pressure: StateFlow<String>
-        get() = _pressure
-
-    private val _grndLevel: MutableStateFlow<String> = MutableStateFlow("")
-    val grndLevel: StateFlow<String>
-        get() = _grndLevel
+    private val _weatherConditionStates = MutableStateFlow(WeatherConditionState())
+    val weatherConditionStates: StateFlow<WeatherConditionState> get() = _weatherConditionStates
 
     private val _barEntry: MutableStateFlow<LineDataSet?> = MutableStateFlow(null)
     val barEntry: StateFlow<LineDataSet?>
@@ -46,12 +43,17 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
             for (item in hoursIndexList) {
                 barEntryList.add(Entry(hoursIndexList[item.toInt()], tempList[item.toInt()]))
             }
-            _humidity.update { data.humidity }
-            _pressure.update{data.pressure}
-            _grndLevel.update{data.grndLevel}
+
+            _weatherConditionStates.update {
+                it.copy(
+                    humidity = data.humidity,
+                    pressure = data.pressure,
+                    grndLevel = data.grndLevel
+                )
+            }
 
             val lineDataSet = LineDataSet(barEntryList, String.EMPTY)
-            _barEntry.update{lineDataSet}
+            _barEntry.update { lineDataSet }
         }
     }
 }
