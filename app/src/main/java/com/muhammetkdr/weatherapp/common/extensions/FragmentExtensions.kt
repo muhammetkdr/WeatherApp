@@ -2,9 +2,8 @@ package com.muhammetkdr.weatherapp.common.extensions
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -37,14 +36,11 @@ inline fun Fragment.showSafeSnackbar(msg:String, actionMsg:String, crossinline h
 
 fun <T> Fragment.collectFlow(
     flow: Flow<T>,
-    state: Lifecycle.State = Lifecycle.State.STARTED,
     action: suspend (T) -> Unit
 ) {
     viewLifecycleOwner.lifecycleScope.launch {
-        viewLifecycleOwner.repeatOnLifecycle(state) {
-            flow.collect {
+            flow.flowWithLifecycle(lifecycle).collect{
                 action(it)
             }
-        }
     }
 }

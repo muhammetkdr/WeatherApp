@@ -31,7 +31,7 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
     val barEntry: StateFlow<LineDataSet?>
         get() = _barEntry
 
-    fun getData(data: DatesAndTimes) {
+    fun getDatesAndTimesData(data: DatesAndTimes) {
         val tempList: MutableList<Float> = mutableListOf()
         val hoursIndexList: MutableList<Float> = mutableListOf()
         val barEntryList: MutableList<Entry> = mutableListOf()

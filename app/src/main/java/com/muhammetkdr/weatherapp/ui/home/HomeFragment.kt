@@ -50,6 +50,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         handleCustomToolbarSearchPressed()
         handleBackPressed()
+
+        viewModel.getTodaysCalendar()
     }
 
     private fun handleBackPressed() {

@@ -24,10 +24,12 @@ class SearchFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         observeSearchResponse()
         setupRv()
         observeQueryList()
         initDataBinding()
+        viewModel.fetchCitiesData()
     }
 
     private fun initDataBinding() {

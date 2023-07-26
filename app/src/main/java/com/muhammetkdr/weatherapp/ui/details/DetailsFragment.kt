@@ -28,7 +28,7 @@ class DetailsFragment :
         initLineChart()
         initToolbar()
         initDataBinding()
-        initViewModelNavArgs()
+        fetchDatesAndTimesData()
         initRvAdapter()
     }
 
@@ -38,7 +38,7 @@ class DetailsFragment :
         binding.rvDetails.adapter = detailsWeatherAdapter
     }
 
-    private fun initViewModelNavArgs() = viewModel.getData(args.datesAndTimes)
+    private fun fetchDatesAndTimesData() = viewModel.getDatesAndTimesData(args.datesAndTimes)
 
     private fun initDataBinding() {
         with(binding) {
