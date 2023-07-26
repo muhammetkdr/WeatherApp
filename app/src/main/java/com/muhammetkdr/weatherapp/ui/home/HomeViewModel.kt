@@ -53,11 +53,7 @@ class HomeViewModel @Inject constructor(
     val gpsError: StateFlow<Int?>
         get() = _gpsError
 
-    init {
-        getTodaysCalendar()
-    }
-
-    private fun getTodaysCalendar() = viewModelScope.launch(Dispatchers.IO) {
+    fun getTodaysCalendar() = viewModelScope.launch(Dispatchers.IO) {
         val (day, month, year) = calendar
         val dayFormatted = day.toString().formatCalendar()
         val monthFormatted = month.toString().formatCalendar()
