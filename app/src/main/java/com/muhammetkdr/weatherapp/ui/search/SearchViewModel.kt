@@ -31,11 +31,7 @@ class SearchViewModel @Inject constructor(
     val citiesQueryList: StateFlow<List<SearchUiData>>
         get() = _citiesQueryList
 
-    init {
-        fetchCitiesData()
-    }
-
-    private fun fetchCitiesData(){
+    fun fetchCitiesData(){
         viewModelScope.launch(Dispatchers.IO) {
             citiesUseCase.invoke().collect {
                 searchUiDataMapperHandler(it)
