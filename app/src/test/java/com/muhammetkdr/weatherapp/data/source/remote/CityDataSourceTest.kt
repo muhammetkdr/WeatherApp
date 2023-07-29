@@ -1,4 +1,4 @@
-package com.muhammetkdr.weatherapp.data.source
+package com.muhammetkdr.weatherapp.data.source.remote
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat

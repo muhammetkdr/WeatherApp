@@ -29,7 +29,7 @@ class CityRepositoryTest {
     fun setup(){
         MockitoAnnotations.openMocks(this)
         remoteDataSource = CityRemoteDataSourceImpl(cityApi,Dispatchers.Unconfined)
-        cityRepository = CityRepositoryImpl(remoteDataSource,CitiesListMapperImpl(),Dispatchers.Unconfined)
+        cityRepository = CityRepositoryImpl(remoteDataSource,CitiesListMapperImpl())
     }
 
 
