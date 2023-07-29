@@ -30,14 +30,13 @@ class WeatherRepositoryTest {
     private lateinit var weatherRepository: WeatherRepository
 
     @Before
-    fun setup(){
+    fun setup() {
         MockitoAnnotations.openMocks(this)
-        remoteDataSource = WeatherRemoteDataSourceImpl(weatherApi,Dispatchers.Unconfined)
+        remoteDataSource = WeatherRemoteDataSourceImpl(weatherApi, Dispatchers.Unconfined)
         weatherRepository = WeatherRepositoryImpl(
             weatherRemoteDataSource = remoteDataSource,
             currentWeatherMapper = CurrentWeatherMapperImpl(),
-            forecastWeatherMapper = ForecastWeatherMapperImpl(),
-            ioDispatcher = Dispatchers.Unconfined
+            forecastWeatherMapper = ForecastWeatherMapperImpl()
         )
     }
 
@@ -46,7 +45,7 @@ class WeatherRepositoryTest {
      * */
 
     @Test
-    fun`current weather response when api return success is response state success`(){
+    fun `current weather response when api return success is response state success`() {
         runBlocking {
             Mockito.`when`(weatherApi.getCurrentWeather(latitude = LAT, longitude = LON)).thenReturn(mockCurrentWeatherResponse)
             weatherRepository.getCurrentWeather(lat = LAT, long = LON).test {
@@ -58,9 +57,10 @@ class WeatherRepositoryTest {
     }
 
     @Test
-    fun`current weather response when api return error is response state error`(){
+    fun `current weather response when api return error is response state error`() {
         runBlocking {
-            Mockito.`when`(weatherApi.getCurrentWeather(latitude = LAT, longitude = LON)).thenReturn(null)
+            Mockito.`when`(weatherApi.getCurrentWeather(latitude = LAT, longitude = LON))
+                .thenReturn(null)
             weatherRepository.getCurrentWeather(lat = LAT, long = LON).test {
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Loading::class.java)
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Error::class.java)
@@ -74,9 +74,10 @@ class WeatherRepositoryTest {
      * */
 
     @Test
-    fun`forecast weather response when api return success is response state success`(){
+    fun `forecast weather response when api return success is response state success`() {
         runBlocking {
-            Mockito.`when`(weatherApi.getForecastWeather(latitude = LAT, longitude = LON)).thenReturn(mockForecastWeatherResponse)
+            Mockito.`when`(weatherApi.getForecastWeather(latitude = LAT, longitude = LON))
+                .thenReturn(mockForecastWeatherResponse)
             weatherRepository.getForecastWeather(lat = LAT, long = LON).test {
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Loading::class.java)
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Success::class.java)
@@ -86,9 +87,10 @@ class WeatherRepositoryTest {
     }
 
     @Test
-    fun`forecast weather response when api return error is response state error`(){
+    fun `forecast weather response when api return error is response state error`() {
         runBlocking {
-            Mockito.`when`(weatherApi.getForecastWeather(latitude = LAT, longitude = LON)).thenReturn(null)
+            Mockito.`when`(weatherApi.getForecastWeather(latitude = LAT, longitude = LON))
+                .thenReturn(null)
             weatherRepository.getForecastWeather(lat = LAT, long = LON).test {
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Loading::class.java)
                 Truth.assertThat(awaitItem()).isInstanceOf(Resource.Error::class.java)
