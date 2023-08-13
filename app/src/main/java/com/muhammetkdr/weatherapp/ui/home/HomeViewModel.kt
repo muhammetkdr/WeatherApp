@@ -8,6 +8,7 @@ import com.muhammetkdr.weatherapp.common.extensions.component1
 import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
 import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
+import com.muhammetkdr.weatherapp.common.extensions.collectInViewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
@@ -75,35 +76,27 @@ class HomeViewModel @Inject constructor(
 
     //function overload
     fun getMappedCurrentWeather(lat: Double, long: Double) {
-        viewModelScope.launch(Dispatchers.IO) {
-            currentWeatherUseCase.invoke(lat.toString(), long.toString()).collect {
+            collectInViewModelScope(currentWeatherUseCase.invoke(lat.toString(), long.toString())) {
                 currentWeatherDataMapperHandler(it)
             }
-        }
     }
 
     fun getMappedForecastWeather(lat: Double, long: Double) {
-        viewModelScope.launch(Dispatchers.IO) {
-            forecastWeatherUseCase.invoke(lat.toString(), long.toString()).collect {
+            collectInViewModelScope(forecastWeatherUseCase.invoke(lat.toString(), long.toString())) {
                 forecastWeatherDataMapperHandler(it)
             }
-        }
     }
 
     //function overload
     fun getMappedCurrentWeather(lat: String, long: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            currentWeatherUseCase.invoke(lat, long).collect {
+            collectInViewModelScope(currentWeatherUseCase.invoke(lat, long)){
                 currentWeatherDataMapperHandler(it)
             }
-        }
     }
 
     fun getMappedForecastWeather(lat: String, long: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            forecastWeatherUseCase.invoke(lat, long).collect {
-                forecastWeatherDataMapperHandler(it)
-            }
+        collectInViewModelScope(forecastWeatherUseCase.invoke(lat,long)){
+            forecastWeatherDataMapperHandler(it)
         }
     }
 
