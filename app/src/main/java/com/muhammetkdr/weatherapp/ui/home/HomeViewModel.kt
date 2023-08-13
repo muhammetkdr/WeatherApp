@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.extensions.EMPTY
+import com.muhammetkdr.weatherapp.common.extensions.collectInViewModelScope
 import com.muhammetkdr.weatherapp.common.extensions.component1
 import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
 import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
-import com.muhammetkdr.weatherapp.common.extensions.collectInViewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
@@ -64,10 +64,11 @@ class HomeViewModel @Inject constructor(
     fun getCurrentLocation() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION).collect {
-                    getMappedCurrentWeather(it.latitude, it.longitude)
-                    getMappedForecastWeather(it.latitude, it.longitude)
-                }
+                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION)
+                    .collect {
+                        getMappedCurrentWeather(it.latitude, it.longitude)
+                        getMappedForecastWeather(it.latitude, it.longitude)
+                    }
             } catch (e: Exception) {
                 _gpsError.emit(R.string.gps_orNetwork_disabled)
             }
@@ -76,26 +77,26 @@ class HomeViewModel @Inject constructor(
 
     //function overload
     fun getMappedCurrentWeather(lat: Double, long: Double) {
-            collectInViewModelScope(currentWeatherUseCase.invoke(lat.toString(), long.toString())) {
-                currentWeatherDataMapperHandler(it)
-            }
+        collectInViewModelScope(currentWeatherUseCase.invoke(lat.toString(), long.toString())) {
+            currentWeatherDataMapperHandler(it)
+        }
     }
 
     fun getMappedForecastWeather(lat: Double, long: Double) {
-            collectInViewModelScope(forecastWeatherUseCase.invoke(lat.toString(), long.toString())) {
-                forecastWeatherDataMapperHandler(it)
-            }
+        collectInViewModelScope(forecastWeatherUseCase.invoke(lat.toString(), long.toString())) {
+            forecastWeatherDataMapperHandler(it)
+        }
     }
 
     //function overload
     fun getMappedCurrentWeather(lat: String, long: String) {
-            collectInViewModelScope(currentWeatherUseCase.invoke(lat, long)){
-                currentWeatherDataMapperHandler(it)
-            }
+        collectInViewModelScope(currentWeatherUseCase.invoke(lat, long)) {
+            currentWeatherDataMapperHandler(it)
+        }
     }
 
     fun getMappedForecastWeather(lat: String, long: String) {
-        collectInViewModelScope(forecastWeatherUseCase.invoke(lat,long)){
+        collectInViewModelScope(forecastWeatherUseCase.invoke(lat, long)) {
             forecastWeatherDataMapperHandler(it)
         }
     }
