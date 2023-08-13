@@ -10,6 +10,8 @@ import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
 import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
+import com.muhammetkdr.weatherapp.common.utils.Constants.istanbulLatitude
+import com.muhammetkdr.weatherapp.common.utils.Constants.istanbulLongitude
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.mapper.WeatherMapper
 import com.muhammetkdr.weatherapp.domain.entity.currentweather.CurrentWeatherEntity
@@ -22,6 +24,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -63,15 +66,16 @@ class HomeViewModel @Inject constructor(
 
     fun getCurrentLocation() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION)
-                    .collect {
-                        getMappedCurrentWeather(it.latitude, it.longitude)
-                        getMappedForecastWeather(it.latitude, it.longitude)
-                    }
-            } catch (e: Exception) {
-                _gpsError.emit(R.string.gps_orNetwork_disabled)
-            }
+            defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION)
+                .catch {
+                    _gpsError.emit(R.string.gps_orNetwork_disabled)
+                    getMappedCurrentWeather(istanbulLatitude, istanbulLongitude)
+                    getMappedForecastWeather(istanbulLatitude, istanbulLongitude)
+                }
+                .collect {
+                    getMappedCurrentWeather(it.latitude, it.longitude)
+                    getMappedForecastWeather(it.latitude, it.longitude)
+                }
         }
     }
 
