@@ -22,8 +22,8 @@ class DefaultLocationClient @Inject constructor(
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(interval: Long): Flow<Location> {
         return callbackFlow {
-            if (!context.hasLocationPermission()) {
-                throw LocationClient.LocationException(context.applicationContext.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
+            if (context.hasLocationPermission().not()) {
+                throw LocationClient.LocationException(context.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
             }
 
             val locationManager =
