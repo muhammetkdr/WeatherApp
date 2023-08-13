@@ -22,7 +22,6 @@ android {
 
         testInstrumentationRunner = Config.testInstRunner
         vectorDrawables {
-            @Suppress("UnstableApiUsage")
             useSupportLibrary = true
         }
 
@@ -33,34 +32,27 @@ android {
 
     buildTypes {
         debug {
-            @Suppress("UnstableApiUsage")
             isDebuggable = true
-            @Suppress("UnstableApiUsage")
             isJniDebuggable = true
-            @Suppress("UnstableApiUsage")
             isRenderscriptDebuggable = true
-            @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
         }
         release {
-            @Suppress("UnstableApiUsage")
             isMinifyEnabled = false
             proguardFiles(
-                @Suppress("UnstableApiUsage")
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    @Suppress("UnstableApiUsage")
     buildFeatures{
         dataBinding = true
         viewBinding = true
@@ -94,10 +86,10 @@ dependencies {
     testImplementation ("com.google.truth:truth:1.1.3")
 
     // Turbine
-    testImplementation ("app.cash.turbine:turbine:0.9.0")
+    testImplementation ("app.cash.turbine:turbine:0.12.1")
 
     // Coroutines-Test
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
     // Core-testing
     implementation ("androidx.arch.core:core-testing:2.2.0")
