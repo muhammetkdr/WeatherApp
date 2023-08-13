@@ -34,6 +34,15 @@ inline fun Fragment.showSafeSnackbar(msg:String, actionMsg:String, crossinline h
     }
 }
 
+fun Fragment.showSafeSnackbar(msg:String){
+    try {
+        Snackbar.make(requireView(),msg, Snackbar.LENGTH_INDEFINITE)
+            .show()
+    } catch (e:Exception){
+        println(e.printStackTrace())
+    }
+}
+
 fun <T> Fragment.collectFlow(
     flow: Flow<T>,
     action: suspend (T) -> Unit
