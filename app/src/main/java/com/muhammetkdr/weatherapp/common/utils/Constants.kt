@@ -5,6 +5,9 @@ object Constants {
         const val LANGUAGE = "tr"
         const val LOCATION_REQUEST_DURATION = 600000L
 
+        const val istanbulLatitude = "41.0053"
+        const val istanbulLongitude= "28.9770"
+
         const val SEARCH_DELAY = 600L
         const val IMAGE_RESOLUTION_SIZE = "@4x.png"
 

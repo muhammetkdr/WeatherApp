@@ -60,11 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         }
     }
 
-    private fun navigateHomeFragmentSelf() {
-        val action = HomeFragmentDirections.actionHomeFragmentSelf()
-        findNavController().navigate(action)
-    }
-
     private fun locationDataDecider() {
         args.selectedCity?.let {
             viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
@@ -130,11 +125,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         collectFlow(viewModel.gpsError) {
             it?.let {
                 showSafeSnackbar(
-                    getString(it),
-                    getString(R.string.REFRESH)
-                ) {
-                    navigateHomeFragmentSelf()
-                }
+                    getString(it)
+                )
             }
         }
     }

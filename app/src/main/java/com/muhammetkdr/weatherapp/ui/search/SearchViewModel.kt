@@ -3,6 +3,7 @@ package com.muhammetkdr.weatherapp.ui.search
 import android.text.Editable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muhammetkdr.weatherapp.common.extensions.collectInViewModelScope
 import com.muhammetkdr.weatherapp.common.utils.Resource
 import com.muhammetkdr.weatherapp.data.listmapper.ListMapper
 import com.muhammetkdr.weatherapp.domain.entity.cities.CitiesEntity
@@ -32,11 +33,9 @@ class SearchViewModel @Inject constructor(
         get() = _citiesQueryList
 
     fun fetchCitiesData(){
-        viewModelScope.launch(Dispatchers.IO) {
-            citiesUseCase.invoke().collect {
+            collectInViewModelScope(citiesUseCase.invoke()) {
                 searchUiDataMapperHandler(it)
             }
-        }
     }
 
     private fun searchUiDataMapperHandler(citiesEntityData: Resource<List<CitiesEntity>>) {
