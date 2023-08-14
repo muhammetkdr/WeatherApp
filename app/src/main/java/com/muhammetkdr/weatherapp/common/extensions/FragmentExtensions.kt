@@ -36,7 +36,7 @@ inline fun Fragment.showSafeSnackbar(msg:String, actionMsg:String, crossinline h
 
 fun Fragment.showSafeSnackbar(msg:String){
     try {
-        Snackbar.make(requireView(),msg, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(requireView(),msg, Snackbar.LENGTH_LONG)
             .show()
     } catch (e:Exception){
         println(e.printStackTrace())
