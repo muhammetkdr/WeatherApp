@@ -122,10 +122,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         viewModel.getCurrentLocation()
-        collectFlow(viewModel.gpsError) {
+        collectFlow(viewModel.errorState) {
             it?.let {
                 showSafeSnackbar(
-                    getString(it)
+                    it
                 )
             }
         }
