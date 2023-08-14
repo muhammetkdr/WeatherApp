@@ -2,13 +2,13 @@ package com.muhammetkdr.weatherapp.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.common.extensions.EMPTY
 import com.muhammetkdr.weatherapp.common.extensions.collectInViewModelScope
 import com.muhammetkdr.weatherapp.common.extensions.component1
 import com.muhammetkdr.weatherapp.common.extensions.component2
 import com.muhammetkdr.weatherapp.common.extensions.component3
 import com.muhammetkdr.weatherapp.common.extensions.formatCalendar
+import com.muhammetkdr.weatherapp.common.utils.Constants.GPSorNETWORK_ERROR_MESSAGE
 import com.muhammetkdr.weatherapp.common.utils.Constants.LOCATION_REQUEST_DURATION
 import com.muhammetkdr.weatherapp.common.utils.Constants.istanbulLatitude
 import com.muhammetkdr.weatherapp.common.utils.Constants.istanbulLongitude
@@ -53,9 +53,9 @@ class HomeViewModel @Inject constructor(
     val date: StateFlow<String>
         get() = _date
 
-    private val _gpsError: MutableStateFlow<Int?> = MutableStateFlow(null)
-    val gpsError: StateFlow<Int?>
-        get() = _gpsError
+    private val _errorState: MutableStateFlow<String?> = MutableStateFlow(null)
+    val errorState: StateFlow<String?>
+        get() = _errorState
 
     fun getTodaysCalendar() = viewModelScope.launch(Dispatchers.IO) {
         val (day, month, year) = calendar
@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION)
                 .catch {
-                    _gpsError.emit(R.string.gps_orNetwork_disabled)
+                    _errorState.emit(it.message ?: GPSorNETWORK_ERROR_MESSAGE)
                     getMappedCurrentWeather(istanbulLatitude, istanbulLongitude)
                     getMappedForecastWeather(istanbulLatitude, istanbulLongitude)
                 }

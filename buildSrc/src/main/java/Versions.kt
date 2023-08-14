@@ -13,7 +13,7 @@ object Versions {
     const val junitExtTestVersion = "1.1.5"
     const val espressoVersion = "3.5.1"
 
-    const val coroutinesVersion = "1.6.4"
+    const val coroutinesVersion = "1.7.1"
 
     const val lifecycleVersion = "2.6.0"
     const val lifecycleExtensionsVersion = "2.2.0"

@@ -8,6 +8,8 @@ object Constants {
         const val istanbulLatitude = "41.0053"
         const val istanbulLongitude= "28.9770"
 
+        const val GPSorNETWORK_ERROR_MESSAGE = "Gps or Network Disable pls check your connection and retry"
+
         const val SEARCH_DELAY = 600L
         const val IMAGE_RESOLUTION_SIZE = "@4x.png"
 
