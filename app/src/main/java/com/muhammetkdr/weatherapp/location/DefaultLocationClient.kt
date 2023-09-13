@@ -20,10 +20,10 @@ class DefaultLocationClient @Inject constructor(
     private val client: FusedLocationProviderClient,
 ) : LocationClient {
     @SuppressLint("MissingPermission")
-    override fun getLocationUpdates(interval: Long): Flow<Location> {
+    override fun getLocationUpdates(interval: Long): Flow<Location?> {
         return callbackFlow {
             if (context.hasLocationPermission().not()) {
-                throw LocationClient.LocationException(context.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
+                throw LocationClient.LocationException(context.applicationContext.resources.getString(com.muhammetkdr.weatherapp.R.string.permission_missing))
             }
 
             val locationManager =
@@ -43,8 +43,8 @@ class DefaultLocationClient @Inject constructor(
                 override fun onLocationResult(result: LocationResult) {
                     super.onLocationResult(result)
                     result.locations.lastOrNull()?.let { location ->
-                        launch { send(location) }
-                    }
+                        trySend(location).isSuccess
+                    } ?: launch { send(null) }
                 }
             }
 
