@@ -73,8 +73,13 @@ class HomeViewModel @Inject constructor(
                     getMappedForecastWeather(istanbulLatitude, istanbulLongitude)
                 }
                 .collect {
-                    getMappedCurrentWeather(it.latitude, it.longitude)
-                    getMappedForecastWeather(it.latitude, it.longitude)
+                    if(it == null){
+                        getMappedCurrentWeather(istanbulLatitude, istanbulLongitude)
+                        getMappedForecastWeather(istanbulLatitude, istanbulLongitude)
+                    }else{
+                        getMappedCurrentWeather(it.latitude, it.longitude)
+                        getMappedForecastWeather(it.latitude, it.longitude)
+                    }
                 }
         }
     }
