@@ -4,68 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-            <variable
-                name="searchViewmodel"
-                type="com.muhammetkdr.weatherapp.ui.search.SearchViewModel" />
+
+        <variable
+            name="searchViewmodel"
+            type="com.muhammetkdr.weatherapp.ui.search.SearchViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/dark_blue_500">
 
         <ProgressBar
             android:id="@+id/searchProgressbar"
             android:layout_width="wrap_content"
-            android:visibility="visible"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="@dimen/_10dp" />
+            android:elevation="@dimen/_10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchTextField" />
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchTextField"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/dark_blue_500"
-            android:orientation="vertical"
-            tools:context=".ui.search.SearchFragment">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4dp"
+            android:hint="@string/search"
+            android:textColorHint="@color/light_blue"
+            app:boxCornerRadiusBottomEnd="@dimen/_16dp"
+            app:boxCornerRadiusBottomStart="@dimen/_16dp"
+            app:boxCornerRadiusTopEnd="@dimen/_16dp"
+            app:boxCornerRadiusTopStart="@dimen/_16dp"
+            app:boxStrokeColor="@color/light_blue"
+            app:endIconDrawable="@drawable/ic_search_blue"
+            app:hintTextColor="@color/teal_200"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_search_blue">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/searchTextField"
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4dp"
-                android:hint="@string/search"
-                android:textColorHint="@color/light_blue"
-                app:boxCornerRadiusBottomEnd="@dimen/_16dp"
-                app:boxCornerRadiusBottomStart="@dimen/_16dp"
-                app:boxCornerRadiusTopEnd="@dimen/_16dp"
-                app:boxCornerRadiusTopStart="@dimen/_16dp"
-                app:boxStrokeColor="@color/light_blue"
-                app:endIconDrawable="@drawable/ic_search_blue"
-                app:hintTextColor="@color/teal_200"
-                app:startIconDrawable="@drawable/ic_search_blue">
+                android:background="@color/dark_blue_transparent_300"
+                android:fontFamily="@font/merriweathersansmedium"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textColorHint="@color/light_blue300"
+                android:textSize="@dimen/_16sp"
+                app:addTextChangeListener="@{searchViewmodel}"
+                tools:ignore="VisualLintTextFieldSize" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/dark_blue_transparent_300"
-                    android:fontFamily="@font/merriweathersansmedium"
-                    android:imeOptions="actionDone"
-                    android:singleLine="true"
-                    app:addTextChangeListener="@{searchViewmodel}"
-                    android:textColorHint="@color/light_blue300"
-                    android:textSize="@dimen/_16sp"
-                    tools:ignore="VisualLintTextFieldSize" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSearch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_2dp"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchTextField" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSearch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_2dp"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </LinearLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
