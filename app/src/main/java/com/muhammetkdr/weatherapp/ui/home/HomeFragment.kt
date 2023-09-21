@@ -49,15 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         initRvAdapter()
 
         handleCustomToolbarSearchPressed()
-        handleBackPressed()
 
         viewModel.getTodaysCalendar()
-    }
-
-    private fun handleBackPressed() {
-        addOnBackPressedDispatcher {
-            return@addOnBackPressedDispatcher
-        }
     }
 
     private fun locationDataDecider() {
