@@ -7,6 +7,7 @@ import com.muhammetkdr.weatherapp.di.Dispatcher
 import com.muhammetkdr.weatherapp.di.DispatcherType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -17,20 +18,17 @@ class CityRemoteDataSourceImpl @Inject constructor(
 ) : CityRemoteDataSource {
 
     override fun getCityResponse(): Flow<Resource<List<CitiesResponse>>> = flow {
-            try {
-            emit(Resource.Loading)
-            val response = cityApi.getCityResponse()
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(it))
-                } ?: emit(Resource.Error(NO_DATA))
-            } else {
-                emit(Resource.Error(NO_DATA))
-            }
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: SOMETHING_BAD_HAPPENED))
+        emit(Resource.Loading)
+        val response = cityApi.getCityResponse()
+        if (response.isSuccessful) {
+            response.body()?.let {
+                emit(Resource.Success(it))
+            } ?: emit(Resource.Error(NO_DATA))
+        } else {
+            emit(Resource.Error(NO_DATA))
         }
-    }.flowOn(ioDispatcher)
+    }.catch { emit(Resource.Error(it.localizedMessage ?: SOMETHING_BAD_HAPPENED)) }
+        .flowOn(ioDispatcher)
 
     companion object {
         private const val NO_DATA = "No Data!"
