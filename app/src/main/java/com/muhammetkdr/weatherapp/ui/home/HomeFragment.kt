@@ -4,15 +4,13 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.muhammetkdr.weatherapp.R
 import com.muhammetkdr.weatherapp.base.BaseFragment
 import com.muhammetkdr.weatherapp.common.extensions.*
+import com.muhammetkdr.weatherapp.common.utils.PermissionManager
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
@@ -32,7 +30,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         )
     }
 
-    private lateinit var requestLocationPermissionLauncher: ActivityResultLauncher<Array<String>>
+    private val permissionsManager by lazy {
+        PermissionManager(
+            fragment = this,
+            permissions = arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.CAMERA
+            ),
+            onPermissionGranted = ::onPermissionGranted,
+            onPermissionDenied = ::onPermissionDenied
+        )
+    }
+
+    private fun onPermissionGranted() {
+        getLocation()
+    }
+
+    private fun onPermissionDenied() {
+        permissionsManager.requestPermissions()
+    }
 
     private val args: HomeFragmentArgs by navArgs()
 
@@ -58,57 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
             viewModel.getMappedForecastWeather(it.latitude, it.longitude)
         } ?: run {
-            initRequestLocationPermissionLauncher()
-            requestLocationPermission()
-        }
-    }
-
-    private fun initRequestLocationPermissionLauncher() {
-        requestLocationPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            val isFineLocationGranted =
-                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
-            val isCoarseLocationGranted =
-                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
-            if (isFineLocationGranted && isCoarseLocationGranted) {
-                getLocation()
-            } else {
-                requestLocationPermission()
-            }
-        }
-    }
-
-    private fun requestLocationPermission() {
-        when {
-            requireContext().hasLocationPermission() -> {
-                getLocation()
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
-                    shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)
-            -> {
-                showSafeSnackbar(
-                    getString(R.string.permission_need),
-                    getString(R.string.give_permission)
-                ) {
-                    requestLocationPermissionLauncher.launch(
-                        arrayOf(
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        )
-                    )
-                }
-            }
-
-            else -> {
-                requestLocationPermissionLauncher.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    )
-                )
-            }
+            permissionsManager.requestPermissions()
         }
     }
 
@@ -211,5 +178,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(data)
         findNavController().navigate(action)
     }
-
 }
