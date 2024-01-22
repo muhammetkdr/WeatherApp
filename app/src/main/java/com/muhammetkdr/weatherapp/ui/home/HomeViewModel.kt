@@ -21,7 +21,6 @@ import com.muhammetkdr.weatherapp.domain.usecase.ForecastWeatherUseCase
 import com.muhammetkdr.weatherapp.location.DefaultLocationClient
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -57,7 +56,7 @@ class HomeViewModel @Inject constructor(
     val errorState: StateFlow<String?>
         get() = _errorState
 
-    fun getTodaysCalendar() = viewModelScope.launch(Dispatchers.IO) {
+    fun getTodaysCalendar() = viewModelScope.launch{
         val (day, month, year) = calendar
         val dayFormatted = day.toString().formatCalendar()
         val monthFormatted = month.toString().formatCalendar()
@@ -65,7 +64,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getCurrentLocation() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             defaultLocationClient.getLocationUpdates(LOCATION_REQUEST_DURATION)
                 .catch {
                     _errorState.emit(it.message ?: GPSorNETWORK_ERROR_MESSAGE)
@@ -111,7 +110,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun currentWeatherDataMapperHandler(currentWeatherData: Resource<CurrentWeatherEntity>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (currentWeatherData) {
                 is Resource.Error -> _currentWeather.emit(UiState.Error(currentWeatherData.error))
                 is Resource.Loading -> _currentWeather.emit(UiState.Loading)
@@ -127,7 +126,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun forecastWeatherDataMapperHandler(forecastWeatherData: Resource<ForecastWeatherEntity>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             when (forecastWeatherData) {
                 is Resource.Error -> _forecastWeather.emit(UiState.Error(forecastWeatherData.error))
                 is Resource.Loading -> _forecastWeather.emit(UiState.Loading)

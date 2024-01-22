@@ -8,7 +8,6 @@ import com.muhammetkdr.weatherapp.common.extensions.EMPTY
 import com.muhammetkdr.weatherapp.common.extensions.orZero
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -35,7 +34,7 @@ class DetailsViewModel @Inject constructor() : ViewModel() {
         val tempList: MutableList<Float> = mutableListOf()
         val hoursIndexList: MutableList<Float> = mutableListOf()
         val barEntryList: MutableList<Entry> = mutableListOf()
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch{
             data.childRvUiData.forEachIndexed { index, uiData ->
                 hoursIndexList.add(index.toFloat())
                 tempList.add(uiData.temperature.toFloat().orZero())
