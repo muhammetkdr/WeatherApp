@@ -71,8 +71,6 @@ dependencies {
 
     //test
     testImplementation (Libs.TestLibs.junit)
-    androidTestImplementation (Libs.TestLibs.junitExtTest)
-    androidTestImplementation (Libs.TestLibs.espresso)
     implementation("androidx.test.ext:junit-ktx:1.1.5")
 
     // MockWeb Server
@@ -133,6 +131,4 @@ dependencies {
 
     //chucker
     debugImplementation (Libs.ThirdPartyLib.chuckerDebugLib)
-    releaseImplementation (Libs.ThirdPartyLib.chuckerReleaseLib)
-
 }
