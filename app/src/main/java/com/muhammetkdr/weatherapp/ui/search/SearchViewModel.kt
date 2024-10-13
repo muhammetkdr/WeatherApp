@@ -39,7 +39,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun searchUiDataMapperHandler(citiesEntityData: Resource<List<CitiesEntity>>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch{
             when (citiesEntityData) {
                 is Resource.Error -> {
                     _cityList.emit(UiState.Error(citiesEntityData.error))
@@ -59,7 +59,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun filterCityQuery(query: Editable?) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch{
             if ( query.isNullOrBlank() || query.isEmpty()){
                 _citiesQueryList.emit(_cities.value)
                 return@launch

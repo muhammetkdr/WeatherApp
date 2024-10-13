@@ -13,13 +13,13 @@ class HomeParentForecastWeatherAdapter @Inject constructor(
 ) : BaseListAdapter<DatesAndTimes>(
         itemsSame = { old, new -> old == new },
         contentsSame = { old, new -> old == new }) {
+
         override fun onCreateViewHolder(
         parent: ViewGroup,
         inflater: LayoutInflater,
         viewType: Int
     ): RecyclerView.ViewHolder {
         val binding = ItemParentForecastRvBinding.inflate(inflater, parent, false)
-
         return HomeParentForecastWeatherViewHolder(
             binding,
             onItemClickListener

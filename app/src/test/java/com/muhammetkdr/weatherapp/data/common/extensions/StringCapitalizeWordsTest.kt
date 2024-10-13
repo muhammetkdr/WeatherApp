@@ -12,11 +12,12 @@ class StringCapitalizeWordsTest {
         val input = "hello world"
         val expectedOutput = "Hello World"
 
+
         // When
         val result = input.capitalizeWords()
 
         // Then
-        assertEquals(expectedOutput, result)
+        assertEquals(result, expectedOutput)
     }
 
     @Test

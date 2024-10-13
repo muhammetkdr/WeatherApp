@@ -18,6 +18,8 @@ fun String.formatCalendar(): String {
     } else {
         this
     }
+
+
 }
 
 fun String.deleteIfThereIsZero():String{
