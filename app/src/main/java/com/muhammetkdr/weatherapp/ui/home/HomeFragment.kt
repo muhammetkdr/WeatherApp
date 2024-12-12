@@ -9,14 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.muhammetkdr.weatherapp.base.BaseFragment
-import com.muhammetkdr.weatherapp.common.extensions.*
+import com.muhammetkdr.weatherapp.common.extensions.collectFlow
+import com.muhammetkdr.weatherapp.common.extensions.showSafeSnackbar
+import com.muhammetkdr.weatherapp.common.extensions.showSnackbar
+import com.muhammetkdr.weatherapp.common.extensions.toastBuilder
 import com.muhammetkdr.weatherapp.common.utils.PermissionManager
 import com.muhammetkdr.weatherapp.databinding.FragmentHomeBinding
 import com.muhammetkdr.weatherapp.domain.entity.forecastweather.forecastuidata.DatesAndTimes
 import com.muhammetkdr.weatherapp.ui.home.nestedrv.HomeParentForecastWeatherAdapter
 import com.muhammetkdr.weatherapp.ui.uistate.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
@@ -32,11 +34,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     private val permissionsManager by lazy {
         PermissionManager(
-            activity = requireActivity(),
+            fragment = this,
             permissions = arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.CAMERA
             ),
             onPermissionGranted = ::onPermissionGranted,
             onPermissionDenied = ::onPermissionDenied
@@ -44,7 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     }
 
     private fun onPermissionGranted() {
-        getLocation()
+        locationDataDecider()
     }
 
     private fun onPermissionDenied() {
@@ -55,6 +56,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        permissionsManager.requestPermissions()
 
         observeForecastWeatherData()
         observeCurrentWeatherData()
@@ -75,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             viewModel.getMappedCurrentWeather(it.latitude, it.longitude)
             viewModel.getMappedForecastWeather(it.latitude, it.longitude)
         } ?: run {
-            permissionsManager.requestPermissions()
+            getLocation()
         }
     }
 
